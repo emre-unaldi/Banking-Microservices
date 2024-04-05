@@ -1,3 +1,21 @@
 
 D
 user-service/HELP.md,5\7\57e5a1870ed882f4362b1bdbc3b8707eb1415bb4
+t
+Duser-service/src/test/java/unaldi/userservice/mapper/MapperTest.java,9\2\929c90f42ada90f15732b6d35d5123e55181bd03
+
+Quser-service/src/main/java/unaldi/userservice/entity/request/UserSaveRequest.java,b\7\b7230c659c8fa1146db24e18b774bbb388930dd5
+v
+Fuser-service/src/main/java/unaldi/userservice/entity/enums/Gender.java,f\e\fefe284eacf03af289d2f741e392f1097b84b1dd
+u
+Euser-service/src/main/java/unaldi/userservice/entity/dto/UserDTO.java,2\7\276b55749823f8d08c02de9bd8012a2779c90ca7
+ƒ
+Suser-service/src/main/java/unaldi/userservice/entity/request/UserUpdateRequest.java,b\5\b58e6f3af428ba89d6844c8726428b72c2e2a39c
+n
+>user-service/src/main/java/unaldi/userservice/entity/User.java,8\1\812fa276f44146b3691644b540e80978843b0dc7
+†
+Vuser-service/src/main/java/unaldi/userservice/service/abstracts/mapper/UserMapper.java,1\d\1d00d5a6f579696c730401e0c80bf26251c46972
+D
+user-service/pom.xml,d\2\d2f5d1978e5f519100a679c4109f89296278badc
+€
+Puser-service/src/main/java/unaldi/userservice/service/abstracts/UserService.java,0\f\0f69a495a9464cc5f758275b1772f9b3f2f99c05
