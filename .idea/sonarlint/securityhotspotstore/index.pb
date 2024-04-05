@@ -49,3 +49,5 @@ Muser-service/src/main/java/unaldi/userservice/utils/result/SuccessResult.java,
 Yuser-service/src/main/java/unaldi/userservice/utils/exception/GlobalExceptionHandler.java,6\f\6f91dde16bd91ef012a44431ddbbc5dc58090f88
 |
 Luser-service/src/main/java/unaldi/userservice/controller/UserController.java,5\8\589a8af64a69b4ab908424b4db6847b922095ccf
+D
+bank-service/HELP.md,1\0\101a097d57d75df91daa4c6c35beb79f8688bcd3
