@@ -1,10 +1,5 @@
-package unaldi.userservice.utils.exception;
+package unaldi.creditcardservice.utils.exception;
 
-import unaldi.userservice.utils.constant.ExceptionMessages;
-import unaldi.userservice.utils.exception.customExceptions.UserNotFoundException;
-import unaldi.userservice.utils.exception.dto.ExceptionResponse;
-import unaldi.userservice.utils.result.DataResult;
-import unaldi.userservice.utils.result.ErrorDataResult;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,6 +8,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
+import unaldi.creditcardservice.utils.constant.ExceptionMessages;
+import unaldi.creditcardservice.utils.exception.customExceptions.BankNotFoundException;
+import unaldi.creditcardservice.utils.exception.customExceptions.CreditCardNotFoundException;
+import unaldi.creditcardservice.utils.exception.customExceptions.UserNotFoundException;
+import unaldi.creditcardservice.utils.exception.dto.ExceptionResponse;
+import unaldi.creditcardservice.utils.result.DataResult;
+import unaldi.creditcardservice.utils.result.ErrorDataResult;
 
 /**
  * Copyright (c) 2024
@@ -24,6 +26,18 @@ import org.springframework.web.context.request.WebRequest;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(CreditCardNotFoundException.class)
+    public ResponseEntity<DataResult<ExceptionResponse>> handleCreditCardNotFoundException(Exception exception, WebRequest request) {
+        log.error("CreditCardNotFoundException occurred : " + exception);
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorDataResult<>(
+                        prepareExceptionResponse(exception, HttpStatus.NOT_FOUND, request),
+                        ExceptionMessages.CREDIT_CARD_NOT_FOUND)
+                );
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<DataResult<ExceptionResponse>> handleUserNotFoundException(Exception exception, WebRequest request) {
         log.error("UserNotFoundException occurred : " + exception);
@@ -33,6 +47,18 @@ public class GlobalExceptionHandler {
                 .body(new ErrorDataResult<>(
                         prepareExceptionResponse(exception, HttpStatus.NOT_FOUND, request),
                         ExceptionMessages.USER_NOT_FOUND)
+                );
+    }
+
+    @ExceptionHandler(BankNotFoundException.class)
+    public ResponseEntity<DataResult<ExceptionResponse>> handleBankNotFoundException(Exception exception, WebRequest request) {
+        log.error("BankNotFoundException occurred : " + exception);
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorDataResult<>(
+                        prepareExceptionResponse(exception, HttpStatus.NOT_FOUND, request),
+                        ExceptionMessages.BANK_NOT_FOUND)
                 );
     }
 

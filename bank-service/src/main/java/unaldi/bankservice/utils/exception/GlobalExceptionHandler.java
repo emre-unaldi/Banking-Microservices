@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BankNotFoundException.class)
     public ResponseEntity<DataResult<ExceptionResponse>> handleUserNotFoundException(Exception exception, WebRequest request) {
-        log.error("Exception occurred : " + exception);
+        log.error("BankNotFoundException occurred : " + exception);
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
