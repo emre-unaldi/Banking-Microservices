@@ -91,3 +91,5 @@ Fbank-service/src/main/java/unaldi/bankservice/utils/result/Result.java,b\c\bc4
 Tbank-service/src/main/java/unaldi/bankservice/service/concretes/BankServiceImpl.java,9\d\9d93f484dd4f7864955efeb8c25ae4ee786e32f1
 |
 Lbank-service/src/main/java/unaldi/bankservice/controller/BankController.java,e\a\eaac94de4f56d2ae37026e97ad1b9310434f8942
+K
+credit-card-service/pom.xml,7\2\7270eba3a4115f71e082d5d00f557111123fc016
