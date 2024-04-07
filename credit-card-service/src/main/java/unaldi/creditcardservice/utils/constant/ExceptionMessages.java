@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExceptionMessages {
     public static final String CREDIT_CARD_NOT_FOUND = "Credit card not found in database";
-    public static final String USER_NOT_FOUND = "User not found in database";
-    public static final String BANK_NOT_FOUND = "Bank not found in database";
     public static final String BAD_REQUEST = "The request could not be fulfilled";
+    public static final String RESOURCE_NOT_FOUND = "The requested resource could not be found. This error occurred during a Feign client request";
 }

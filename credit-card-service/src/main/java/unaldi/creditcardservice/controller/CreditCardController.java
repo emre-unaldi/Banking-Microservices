@@ -8,6 +8,7 @@ import unaldi.creditcardservice.entity.dto.CreditCardDTO;
 import unaldi.creditcardservice.entity.request.CreditCardSaveRequest;
 import unaldi.creditcardservice.entity.request.CreditCardUpdateRequest;
 import unaldi.creditcardservice.service.abstracts.CreditCardService;
+import unaldi.creditcardservice.utils.client.response.UserResponse;
 import unaldi.creditcardservice.utils.result.DataResult;
 import unaldi.creditcardservice.utils.result.Result;
 
@@ -57,10 +58,17 @@ public class CreditCardController {
                 .body(this.creditCardService.findById(creditCardId));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<DataResult<List<CreditCardDTO>>> findAll() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.creditCardService.findAll());
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<DataResult<UserResponse>> findCreditCardUserByUserId(@PathVariable Long userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.creditCardService.findCreditCardUserByUserId(userId));
     }
 }

@@ -1,5 +1,6 @@
 package unaldi.creditcardservice.utils.exception;
 
+import feign.FeignException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -9,9 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import unaldi.creditcardservice.utils.constant.ExceptionMessages;
-import unaldi.creditcardservice.utils.exception.customExceptions.BankNotFoundException;
 import unaldi.creditcardservice.utils.exception.customExceptions.CreditCardNotFoundException;
-import unaldi.creditcardservice.utils.exception.customExceptions.UserNotFoundException;
 import unaldi.creditcardservice.utils.exception.dto.ExceptionResponse;
 import unaldi.creditcardservice.utils.result.DataResult;
 import unaldi.creditcardservice.utils.result.ErrorDataResult;
@@ -27,7 +26,7 @@ import unaldi.creditcardservice.utils.result.ErrorDataResult;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CreditCardNotFoundException.class)
-    public ResponseEntity<DataResult<ExceptionResponse>> handleCreditCardNotFoundException(Exception exception, WebRequest request) {
+    public ResponseEntity<DataResult<ExceptionResponse>> handleCreditCardNotFoundException(CreditCardNotFoundException exception, WebRequest request) {
         log.error("CreditCardNotFoundException occurred : " + exception);
 
         return ResponseEntity
@@ -38,27 +37,15 @@ public class GlobalExceptionHandler {
                 );
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<DataResult<ExceptionResponse>> handleUserNotFoundException(Exception exception, WebRequest request) {
-        log.error("UserNotFoundException occurred : " + exception);
+    @ExceptionHandler(FeignException.NotFound.class)
+    public ResponseEntity<DataResult<ExceptionResponse>> handleFeignNotFoundException(FeignException.NotFound exception, WebRequest request) {
+        log.error("Feign NotFoundException occurred : " + exception);
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorDataResult<>(
                         prepareExceptionResponse(exception, HttpStatus.NOT_FOUND, request),
-                        ExceptionMessages.USER_NOT_FOUND)
-                );
-    }
-
-    @ExceptionHandler(BankNotFoundException.class)
-    public ResponseEntity<DataResult<ExceptionResponse>> handleBankNotFoundException(Exception exception, WebRequest request) {
-        log.error("BankNotFoundException occurred : " + exception);
-
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(new ErrorDataResult<>(
-                        prepareExceptionResponse(exception, HttpStatus.NOT_FOUND, request),
-                        ExceptionMessages.BANK_NOT_FOUND)
+                        ExceptionMessages.RESOURCE_NOT_FOUND)
                 );
     }
 

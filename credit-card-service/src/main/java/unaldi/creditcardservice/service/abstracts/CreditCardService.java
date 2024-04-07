@@ -1,8 +1,10 @@
 package unaldi.creditcardservice.service.abstracts;
 
+
 import unaldi.creditcardservice.entity.dto.CreditCardDTO;
 import unaldi.creditcardservice.entity.request.CreditCardSaveRequest;
 import unaldi.creditcardservice.entity.request.CreditCardUpdateRequest;
+import unaldi.creditcardservice.utils.client.response.UserResponse;
 import unaldi.creditcardservice.utils.result.DataResult;
 import unaldi.creditcardservice.utils.result.Result;
 
@@ -20,4 +22,5 @@ public interface CreditCardService {
     Result deleteById(Long creditCardId);
     DataResult<CreditCardDTO> findById(Long creditCardId);
     DataResult<List<CreditCardDTO>> findAll();
+    DataResult<UserResponse> findCreditCardUserByUserId(Long userId);
 }
