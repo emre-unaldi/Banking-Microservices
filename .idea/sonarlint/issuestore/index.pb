@@ -171,3 +171,7 @@ bcredit-card-service/src/main/java/unaldi/creditcardservice/utils/client/respons
 \credit-card-service/src/main/java/unaldi/creditcardservice/utils/result/ErrorDataResult.java,4\4\44786acefd36fd708109171258f0091305222394
 ±
 €credit-card-service/src/main/java/unaldi/creditcardservice/utils/exception/customExceptions/CreditCardBankNotFoundException.java,d\3\d340ed6cedb244a9fa0122908f661186c5d8cba4
+’
+bcredit-card-service/src/main/java/unaldi/creditcardservice/utils/client/response/BankResponse.java,b\0\b03df5eb87517b9de87bdefc199698f9e3334ba1
+Ž
+^credit-card-service/src/main/java/unaldi/creditcardservice/utils/client/BankServiceClient.java,d\b\dbd139aa244ab135a4131e4fcba281b9d7c0bf8b

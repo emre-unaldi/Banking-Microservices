@@ -17,4 +17,5 @@ public class Messages {
     public static final String CREDIT_CARD_FOUND = "Credit card found in database";
     public static final String CREDIT_CARDS_LISTED = "Credit cards in the database are listed";
     public static final String CREDIT_CARD_USER_FOUND = "Credit card user found by user id";
+    public static final String CREDIT_CARD_BANK_FOUND = "Credit card bank found by bank id";
 }
