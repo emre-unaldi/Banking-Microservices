@@ -177,3 +177,7 @@ raccount-service/src/main/java/unaldi/accountservice/utils/exception/customExcep
 _account-service/src/main/java/unaldi/accountservice/utils/exception/GlobalExceptionHandler.java,9\0\9070948e44dd1546d3c375f4e79588449fd31b21
 Ä
 Paccount-service/src/main/java/unaldi/accountservice/utils/result/DataResult.java,7\4\7465fa1135c7cd997cd62450946ffafe28a7ffa3
+Ö
+Uaccount-service/src/main/java/unaldi/accountservice/repository/AccountRepository.java,5\c\5c6d9d58caca3bdaa91b708ec858d049c48ae426
+ç
+]account-service/src/main/java/unaldi/accountservice/service/concretes/AccountServiceImpl.java,7\6\76a9df82142cfe4182c9338da99d523c3f54c48f
