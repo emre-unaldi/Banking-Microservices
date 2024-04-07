@@ -181,3 +181,5 @@ Paccount-service/src/main/java/unaldi/accountservice/utils/result/DataResult.jav
 Uaccount-service/src/main/java/unaldi/accountservice/repository/AccountRepository.java,5\c\5c6d9d58caca3bdaa91b708ec858d049c48ae426
 ç
 ]account-service/src/main/java/unaldi/accountservice/service/concretes/AccountServiceImpl.java,7\6\76a9df82142cfe4182c9338da99d523c3f54c48f
+Ö
+Uaccount-service/src/main/java/unaldi/accountservice/controller/AccountController.java,1\0\10c62e0f6b9b587d2131db714c94111399d81ec8
