@@ -8,8 +8,8 @@ import unaldi.creditcardservice.entity.dto.CreditCardDTO;
 import unaldi.creditcardservice.entity.request.CreditCardSaveRequest;
 import unaldi.creditcardservice.entity.request.CreditCardUpdateRequest;
 import unaldi.creditcardservice.service.abstracts.CreditCardService;
-import unaldi.creditcardservice.utils.client.response.BankResponse;
-import unaldi.creditcardservice.utils.client.response.UserResponse;
+import unaldi.creditcardservice.utils.client.dto.BankResponse;
+import unaldi.creditcardservice.utils.client.dto.UserResponse;
 import unaldi.creditcardservice.utils.result.DataResult;
 import unaldi.creditcardservice.utils.result.Result;
 

@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import unaldi.creditcardservice.utils.client.response.RestResponse;
-import unaldi.creditcardservice.utils.client.response.UserResponse;
+import unaldi.creditcardservice.utils.client.dto.RestResponse;
+import unaldi.creditcardservice.utils.client.dto.UserResponse;
 
 /**
  * Copyright (c) 2024

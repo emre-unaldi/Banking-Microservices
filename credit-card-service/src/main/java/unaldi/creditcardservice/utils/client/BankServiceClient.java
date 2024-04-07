@@ -4,8 +4,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import unaldi.creditcardservice.utils.client.response.BankResponse;
-import unaldi.creditcardservice.utils.client.response.RestResponse;
+import unaldi.creditcardservice.utils.client.dto.BankResponse;
+import unaldi.creditcardservice.utils.client.dto.RestResponse;
 
 /**
  * Copyright (c) 2024
