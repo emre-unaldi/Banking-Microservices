@@ -3,6 +3,8 @@ package unaldi.accountservice.service.abstracts;
 import unaldi.accountservice.entity.dto.AccountDTO;
 import unaldi.accountservice.entity.request.AccountSaveRequest;
 import unaldi.accountservice.entity.request.AccountUpdateRequest;
+import unaldi.accountservice.utils.client.dto.BankResponse;
+import unaldi.accountservice.utils.client.dto.UserResponse;
 import unaldi.accountservice.utils.result.DataResult;
 import unaldi.accountservice.utils.result.Result;
 
@@ -20,4 +22,6 @@ public interface AccountService {
     Result deleteById(Long accountId);
     DataResult<AccountDTO> findById(Long accountId);
     DataResult<List<AccountDTO>> findAll();
+    DataResult<UserResponse> findAccountUserByUserId(Long userId);
+    DataResult<BankResponse> findAccountBankByUserId(Long bankId);
 }

@@ -1,5 +1,6 @@
 package unaldi.accountservice.utils.exception;
 
+import feign.FeignException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,18 @@ public class GlobalExceptionHandler {
                 .body(new ErrorDataResult<>(
                         prepareExceptionResponse(exception, HttpStatus.NOT_FOUND, request),
                         ExceptionMessages.ACCOUNT_NOT_FOUND)
+                );
+    }
+
+    @ExceptionHandler(FeignException.NotFound.class)
+    public ResponseEntity<DataResult<ExceptionResponse>> handleFeignNotFoundException(FeignException.NotFound exception, WebRequest request) {
+        log.error("Feign NotFoundException occurred : " + exception);
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorDataResult<>(
+                        prepareExceptionResponse(exception, HttpStatus.NOT_FOUND, request),
+                        ExceptionMessages.RESOURCE_NOT_FOUND)
                 );
     }
 

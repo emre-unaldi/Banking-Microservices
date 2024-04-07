@@ -8,6 +8,8 @@ import unaldi.accountservice.entity.dto.AccountDTO;
 import unaldi.accountservice.entity.request.AccountSaveRequest;
 import unaldi.accountservice.entity.request.AccountUpdateRequest;
 import unaldi.accountservice.service.abstracts.AccountService;
+import unaldi.accountservice.utils.client.dto.BankResponse;
+import unaldi.accountservice.utils.client.dto.UserResponse;
 import unaldi.accountservice.utils.result.DataResult;
 import unaldi.accountservice.utils.result.Result;
 
@@ -62,5 +64,19 @@ public class AccountController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.accountService.findAll());
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<DataResult<UserResponse>> findAccountUserByUserId(@PathVariable Long userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.accountService.findAccountUserByUserId(userId));
+    }
+
+    @GetMapping("/banks/{bankId}")
+    public ResponseEntity<DataResult<BankResponse>> findAccountBankByUserId(@PathVariable Long bankId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.accountService.findAccountBankByUserId(bankId));
     }
 }

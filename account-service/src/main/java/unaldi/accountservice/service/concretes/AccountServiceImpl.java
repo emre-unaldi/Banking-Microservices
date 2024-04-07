@@ -1,6 +1,7 @@
 package unaldi.accountservice.service.concretes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import unaldi.accountservice.entity.Account;
 import unaldi.accountservice.entity.dto.AccountDTO;
@@ -9,6 +10,11 @@ import unaldi.accountservice.entity.request.AccountUpdateRequest;
 import unaldi.accountservice.repository.AccountRepository;
 import unaldi.accountservice.service.abstracts.AccountService;
 import unaldi.accountservice.service.abstracts.mapper.AccountMapper;
+import unaldi.accountservice.utils.client.BankServiceClient;
+import unaldi.accountservice.utils.client.UserServiceClient;
+import unaldi.accountservice.utils.client.dto.BankResponse;
+import unaldi.accountservice.utils.client.dto.RestResponse;
+import unaldi.accountservice.utils.client.dto.UserResponse;
 import unaldi.accountservice.utils.constant.ExceptionMessages;
 import unaldi.accountservice.utils.constant.Messages;
 import unaldi.accountservice.utils.exception.customExceptions.AccountNotFoundException;
@@ -18,6 +24,7 @@ import unaldi.accountservice.utils.result.SuccessDataResult;
 import unaldi.accountservice.utils.result.SuccessResult;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Copyright (c) 2024
@@ -28,10 +35,14 @@ import java.util.List;
 @Service
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
+    private final UserServiceClient userServiceClient;
+    private final BankServiceClient bankServiceClient;
 
     @Autowired
-    public AccountServiceImpl(AccountRepository accountRepository) {
+    public AccountServiceImpl(AccountRepository accountRepository, UserServiceClient userServiceClient, BankServiceClient bankServiceClient) {
         this.accountRepository = accountRepository;
+        this.userServiceClient = userServiceClient;
+        this.bankServiceClient = bankServiceClient;
     }
 
     @Override
@@ -79,7 +90,7 @@ public class AccountServiceImpl implements AccountService {
 
         return new SuccessDataResult<>(
                 accountDTO,
-                Messages.ACCOUNTS_LISTED
+                Messages.ACCOUNT_FOUND
         );
     }
 
@@ -90,6 +101,30 @@ public class AccountServiceImpl implements AccountService {
         return new SuccessDataResult<>(
                 AccountMapper.INSTANCE.convertAccountDTOs(accountList),
                 Messages.ACCOUNTS_LISTED
+        );
+    }
+
+    @Override
+    public DataResult<UserResponse> findAccountUserByUserId(Long userId) {
+        ResponseEntity<RestResponse<UserResponse>> response = userServiceClient.findById(userId);
+
+        UserResponse userResponse = Objects.requireNonNull(response.getBody()).getData();
+
+        return new SuccessDataResult<>(
+                userResponse,
+                Messages.ACCOUNT_USER_FOUND
+        );
+    }
+
+    @Override
+    public DataResult<BankResponse> findAccountBankByUserId(Long bankId) {
+        ResponseEntity<RestResponse<BankResponse>> response = bankServiceClient.findById(bankId);
+
+        BankResponse bankResponse = Objects.requireNonNull(response.getBody()).getData();
+
+        return new SuccessDataResult<>(
+                bankResponse,
+                Messages.ACCOUNT_BANK_FOUND
         );
     }
 }

@@ -183,3 +183,17 @@ Uaccount-service/src/main/java/unaldi/accountservice/repository/AccountRepositor
 ]account-service/src/main/java/unaldi/accountservice/service/concretes/AccountServiceImpl.java,7\6\76a9df82142cfe4182c9338da99d523c3f54c48f
 …
 Uaccount-service/src/main/java/unaldi/accountservice/controller/AccountController.java,1\0\10c62e0f6b9b587d2131db714c94111399d81ec8
+†
+Vaccount-service/src/main/java/unaldi/accountservice/utils/client/dto/BankResponse.java,b\2\b2db7b6c065ce7b11de77e8255dc66faf43387fe
+†
+Vaccount-service/src/main/java/unaldi/accountservice/utils/client/dto/RestResponse.java,7\7\77ff46768da7f32e0becf7bef5f6da74dadb927f
+†
+Vaccount-service/src/main/java/unaldi/accountservice/utils/client/dto/UserResponse.java,9\f\9fa103602b71df4a1a96dc562269f17593c378c6
+‚
+Raccount-service/src/main/java/unaldi/accountservice/utils/client/enums/Gender.java,6\5\656f61e4fd33ad178740191d227cb961b7c433db
+‡
+Waccount-service/src/main/java/unaldi/accountservice/utils/client/BankServiceClient.java,c\1\c1bcc1573c4f664155a032db1a12f4dfae0395f8
+‡
+Waccount-service/src/main/java/unaldi/accountservice/utils/client/UserServiceClient.java,b\9\b9b6f54cad7d90282bd732b6b7a76b35be75086b
+‚
+Raccount-service/src/main/java/unaldi/accountservice/AccountServiceApplication.java,6\4\64c04aa0f00f342992bb402724d9c994a8428907
