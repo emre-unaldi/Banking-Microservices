@@ -23,5 +23,5 @@ public interface AccountService {
     DataResult<AccountDTO> findById(Long accountId);
     DataResult<List<AccountDTO>> findAll();
     DataResult<UserResponse> findAccountUserByUserId(Long userId);
-    DataResult<BankResponse> findAccountBankByUserId(Long bankId);
+    DataResult<BankResponse> findAccountBankByBankId(Long bankId);
 }

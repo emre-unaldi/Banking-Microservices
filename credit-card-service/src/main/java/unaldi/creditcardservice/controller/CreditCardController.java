@@ -74,9 +74,9 @@ public class CreditCardController {
     }
 
     @GetMapping("/banks/{bankId}")
-    public ResponseEntity<DataResult<BankResponse>> findCreditCardBankByUserId(@PathVariable Long bankId) {
+    public ResponseEntity<DataResult<BankResponse>> findCreditCardBankByBankId(@PathVariable Long bankId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(this.creditCardService.findCreditCardBankByUserId(bankId));
+                .body(this.creditCardService.findCreditCardBankByBankId(bankId));
     }
 }

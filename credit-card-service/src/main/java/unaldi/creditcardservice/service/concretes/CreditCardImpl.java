@@ -118,7 +118,7 @@ public class CreditCardImpl implements CreditCardService {
     }
 
     @Override
-    public DataResult<BankResponse> findCreditCardBankByUserId(Long bankId) {
+    public DataResult<BankResponse> findCreditCardBankByBankId(Long bankId) {
         ResponseEntity<RestResponse<BankResponse>> response = bankServiceClient.findById(bankId);
 
         BankResponse bankResponse = Objects.requireNonNull(response.getBody()).getData();

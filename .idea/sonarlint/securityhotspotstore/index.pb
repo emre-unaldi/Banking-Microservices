@@ -231,3 +231,11 @@ _invoice-service/src/main/java/unaldi/invoiceservice/utils/exception/GlobalExcep
 ]invoice-service/src/main/java/unaldi/invoiceservice/service/concretes/InvoiceServiceImpl.java,0\1\01a021cd49863dd7a36b0a01592daba3b8614b05
 …
 Uinvoice-service/src/main/java/unaldi/invoiceservice/controller/InvoiceController.java,6\2\62c763633b4e3936bae19f4a17c046bad6044398
+‚
+Rinvoice-service/src/main/java/unaldi/invoiceservice/InvoiceServiceApplication.java,b\3\b3d36e4854bd4b76d838797557744942bf54e084
+‡
+Winvoice-service/src/main/java/unaldi/invoiceservice/utils/client/UserServiceClient.java,4\f\4f2f24ad129c5dd89eb610b2e01b2ee7a2ebcdb5
+†
+Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/RestResponse.java,c\7\c7794ef96e5ec8b31fab5f33a348a64fa432172f
+†
+Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/UserResponse.java,c\8\c8b16aa9d1810c7716121e8ec61db957e3992d34

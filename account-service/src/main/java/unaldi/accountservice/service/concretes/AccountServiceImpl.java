@@ -47,6 +47,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public DataResult<AccountDTO> save(AccountSaveRequest accountSaveRequest) {
+        userServiceClient.findById(accountSaveRequest.userId());
+        bankServiceClient.findById(accountSaveRequest.bankId());
+
         Account account = AccountMapper.INSTANCE.convertToSaveAccount(accountSaveRequest);
         this.accountRepository.save(account);
 
@@ -60,6 +63,9 @@ public class AccountServiceImpl implements AccountService {
     public DataResult<AccountDTO> update(AccountUpdateRequest accountUpdateRequest) {
         if(!this.accountRepository.existsById(accountUpdateRequest.id()))
             throw new AccountNotFoundException(ExceptionMessages.ACCOUNT_NOT_FOUND);
+
+        userServiceClient.findById(accountUpdateRequest.userId());
+        bankServiceClient.findById(accountUpdateRequest.bankId());
 
         Account account = AccountMapper.INSTANCE.convertToUpdateAccount(accountUpdateRequest);
         this.accountRepository.save(account);
@@ -117,7 +123,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public DataResult<BankResponse> findAccountBankByUserId(Long bankId) {
+    public DataResult<BankResponse> findAccountBankByBankId(Long bankId) {
         ResponseEntity<RestResponse<BankResponse>> response = bankServiceClient.findById(bankId);
 
         BankResponse bankResponse = Objects.requireNonNull(response.getBody()).getData();

@@ -74,9 +74,9 @@ public class AccountController {
     }
 
     @GetMapping("/banks/{bankId}")
-    public ResponseEntity<DataResult<BankResponse>> findAccountBankByUserId(@PathVariable Long bankId) {
+    public ResponseEntity<DataResult<BankResponse>> findAccountBankByBankId(@PathVariable Long bankId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(this.accountService.findAccountBankByUserId(bankId));
+                .body(this.accountService.findAccountBankByBankId(bankId));
     }
 }

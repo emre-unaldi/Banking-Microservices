@@ -1,6 +1,7 @@
 package unaldi.invoiceservice.service.concretes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import unaldi.invoiceservice.entity.Invoice;
 import unaldi.invoiceservice.entity.dto.InvoiceDTO;
@@ -9,6 +10,9 @@ import unaldi.invoiceservice.entity.request.InvoiceUpdateRequest;
 import unaldi.invoiceservice.repository.InvoiceRepository;
 import unaldi.invoiceservice.service.abstracts.InvoiceService;
 import unaldi.invoiceservice.service.abstracts.mapper.InvoiceMapper;
+import unaldi.invoiceservice.utils.client.UserServiceClient;
+import unaldi.invoiceservice.utils.client.dto.RestResponse;
+import unaldi.invoiceservice.utils.client.dto.UserResponse;
 import unaldi.invoiceservice.utils.constant.ExceptionMessages;
 import unaldi.invoiceservice.utils.constant.Messages;
 import unaldi.invoiceservice.utils.exception.customExceptions.InvoiceNotFoundException;
@@ -18,6 +22,7 @@ import unaldi.invoiceservice.utils.result.SuccessDataResult;
 import unaldi.invoiceservice.utils.result.SuccessResult;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Copyright (c) 2024
@@ -28,14 +33,18 @@ import java.util.List;
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
     private final InvoiceRepository invoiceRepository;
+    private final UserServiceClient userServiceClient;
 
     @Autowired
-    public InvoiceServiceImpl(InvoiceRepository invoiceRepository) {
+    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, UserServiceClient userServiceClient) {
         this.invoiceRepository = invoiceRepository;
+        this.userServiceClient = userServiceClient;
     }
 
     @Override
     public DataResult<InvoiceDTO> save(InvoiceSaveRequest invoiceSaveRequest) {
+        userServiceClient.findById(invoiceSaveRequest.userId());
+
         Invoice invoice = InvoiceMapper.INSTANCE.convertToSaveInvoice(invoiceSaveRequest);
         this.invoiceRepository.save(invoice);
 
@@ -47,6 +56,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public DataResult<InvoiceDTO> update(InvoiceUpdateRequest invoiceUpdateRequest) {
+        userServiceClient.findById(invoiceUpdateRequest.userId());
+
         if(!this.invoiceRepository.existsById(invoiceUpdateRequest.id()))
             throw new InvoiceNotFoundException(ExceptionMessages.INVOICE_NOT_FOUND);
 
@@ -90,6 +101,18 @@ public class InvoiceServiceImpl implements InvoiceService {
         return new SuccessDataResult<>(
                 InvoiceMapper.INSTANCE.convertInvoiceDTOs(invoiceList),
                 Messages.INVOICES_LISTED
+        );
+    }
+
+    @Override
+    public DataResult<UserResponse> findInvoiceUserByUserId(Long userId) {
+        ResponseEntity<RestResponse<UserResponse>> response = userServiceClient.findById(userId);
+
+        UserResponse userResponse = Objects.requireNonNull(response.getBody()).getData();
+
+        return new SuccessDataResult<>(
+                userResponse,
+                Messages.INVOICE_USER_FOUND
         );
     }
 }

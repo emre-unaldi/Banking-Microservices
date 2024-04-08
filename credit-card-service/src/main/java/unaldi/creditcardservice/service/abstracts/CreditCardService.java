@@ -24,5 +24,5 @@ public interface CreditCardService {
     DataResult<CreditCardDTO> findById(Long creditCardId);
     DataResult<List<CreditCardDTO>> findAll();
     DataResult<UserResponse> findCreditCardUserByUserId(Long userId);
-    DataResult<BankResponse> findCreditCardBankByUserId(Long bankId);
+    DataResult<BankResponse> findCreditCardBankByBankId(Long bankId);
 }

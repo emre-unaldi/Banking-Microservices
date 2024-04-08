@@ -3,6 +3,7 @@ package unaldi.invoiceservice.service.abstracts;
 import unaldi.invoiceservice.entity.dto.InvoiceDTO;
 import unaldi.invoiceservice.entity.request.InvoiceSaveRequest;
 import unaldi.invoiceservice.entity.request.InvoiceUpdateRequest;
+import unaldi.invoiceservice.utils.client.dto.UserResponse;
 import unaldi.invoiceservice.utils.result.DataResult;
 import unaldi.invoiceservice.utils.result.Result;
 
@@ -20,4 +21,5 @@ public interface InvoiceService {
     Result deleteById(Long invoiceId);
     DataResult<InvoiceDTO> findById(Long invoiceId);
     DataResult<List<InvoiceDTO>> findAll();
+    DataResult<UserResponse> findInvoiceUserByUserId(Long userId);
 }

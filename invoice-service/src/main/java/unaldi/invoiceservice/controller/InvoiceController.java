@@ -8,6 +8,7 @@ import unaldi.invoiceservice.entity.dto.InvoiceDTO;
 import unaldi.invoiceservice.entity.request.InvoiceSaveRequest;
 import unaldi.invoiceservice.entity.request.InvoiceUpdateRequest;
 import unaldi.invoiceservice.service.abstracts.InvoiceService;
+import unaldi.invoiceservice.utils.client.dto.UserResponse;
 import unaldi.invoiceservice.utils.result.DataResult;
 import unaldi.invoiceservice.utils.result.Result;
 
@@ -62,5 +63,12 @@ public class InvoiceController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.invoiceService.findAll());
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<DataResult<UserResponse>> findInvoiceUserByUserId(@PathVariable Long userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.invoiceService.findInvoiceUserByUserId(userId));
     }
 }

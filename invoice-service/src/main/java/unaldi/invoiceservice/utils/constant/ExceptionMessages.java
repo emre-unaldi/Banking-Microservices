@@ -13,4 +13,6 @@ import lombok.NoArgsConstructor;
 public class ExceptionMessages {
     public static final String INVOICE_NOT_FOUND = "Invoice not found in database";
     public static final String BAD_REQUEST = "The request could not be fulfilled";
+    public static final String RESOURCE_NOT_FOUND = "The requested resource could not be found. This error occurred during a Feign client request";
+
 }
