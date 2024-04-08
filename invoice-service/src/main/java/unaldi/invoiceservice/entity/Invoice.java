@@ -1,6 +1,7 @@
 package unaldi.invoiceservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
@@ -45,7 +46,7 @@ public class Invoice {
     @NotBlank
     private LocalDate invoiceDate;
 
-    @Past
+    @Future
     @Column(name = "due_date", nullable = false)
     @NotBlank
     private LocalDate dueDate;
