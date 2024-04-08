@@ -7,4 +7,5 @@ package unaldi.invoiceservice.service.abstracts;
  * @author Emre Ünaldı
  */
 public interface InvoiceService {
+
 }
