@@ -203,8 +203,6 @@ Ninvoice-service/src/main/java/unaldi/invoiceservice/entity/dto/InvoiceDTO.java
 Zinvoice-service/src/main/java/unaldi/invoiceservice/entity/request/InvoiceSaveRequest.java,9\5\954d7907dc40cc00a8171d9711a6d0f7838f0096
 å
 \invoice-service/src/main/java/unaldi/invoiceservice/entity/request/InvoiceUpdateRequest.java,d\b\db38b97d6cfaa9151333253457a1608f4d313cfb
-t
-Dinvoice-service/src/main/java/unaldi/invoiceservice/service/test.txt,d\e\de5d0e07097040be2155e1314ecd9876305bc2cb
 â
 Yinvoice-service/src/main/java/unaldi/invoiceservice/service/abstracts/InvoiceService.java,3\5\35d8f658064bdb0be2e5ff414e4ae957f3a2bb47
 è
@@ -219,8 +217,6 @@ Uinvoice-service/src/main/java/unaldi/invoiceservice/repository/InvoiceRepositor
 Yinvoice-service/src/main/java/unaldi/invoiceservice/utils/constant/ExceptionMessages.java,0\6\064ab805da1b845d8741166920541b3bfa45c878
 Ä
 Pinvoice-service/src/main/java/unaldi/invoiceservice/utils/constant/Messages.java,a\d\adb10e191ce38a8a9a9f6c911738deb2c5ac3228
-ü
-oinvoice-service/src/main/java/unaldi/invoiceservice/utils/exception/customExceptions/UserNotFoundException.java,0\8\08b341bad5f41d0ccdbfa00e74e4ab12a8a8038b
 ¢
 rinvoice-service/src/main/java/unaldi/invoiceservice/utils/exception/customExceptions/InvoiceNotFoundException.java,1\2\12b83e15cf99ec6c9c6ce59b3db4851c39ecaf50
 é
@@ -239,3 +235,5 @@ Winvoice-service/src/main/java/unaldi/invoiceservice/utils/client/UserServiceCli
 Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/RestResponse.java,c\7\c7794ef96e5ec8b31fab5f33a348a64fa432172f
 Ü
 Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/UserResponse.java,c\8\c8b16aa9d1810c7716121e8ec61db957e3992d34
+C
+log-service/pom.xml,2\b\2bb4245bd07d90b460ae33b013b85547feed06f5
