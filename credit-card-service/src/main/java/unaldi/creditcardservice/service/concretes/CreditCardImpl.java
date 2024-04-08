@@ -78,7 +78,7 @@ public class CreditCardImpl implements CreditCardService {
     public Result deleteById(Long creditCardId) {
         CreditCard creditCard = this.creditCardRepository
                 .findById(creditCardId)
-                .orElseThrow(() -> new CreditCardNotFoundException((ExceptionMessages.CREDIT_CARD_NOT_FOUND)));
+                .orElseThrow(() -> new CreditCardNotFoundException(ExceptionMessages.CREDIT_CARD_NOT_FOUND));
 
         this.creditCardRepository.deleteById(creditCard.getId());
 
@@ -90,7 +90,7 @@ public class CreditCardImpl implements CreditCardService {
         CreditCardDTO creditCardDTO = this.creditCardRepository
                 .findById(creditCardId)
                 .map(CreditCardMapper.INSTANCE::convertToCreditCardDTO)
-                .orElseThrow(() -> new CreditCardNotFoundException((ExceptionMessages.CREDIT_CARD_NOT_FOUND)));
+                .orElseThrow(() -> new CreditCardNotFoundException(ExceptionMessages.CREDIT_CARD_NOT_FOUND));
 
         return new SuccessDataResult<>(creditCardDTO, Messages.CREDIT_CARD_FOUND);
     }
