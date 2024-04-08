@@ -11,6 +11,7 @@
         <module name="account-service" />
         <module name="bank-service" />
         <module name="credit-card-service" />
+        <module name="invoice-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
       <module name="account-service" options="-parameters" />
       <module name="bank-service" options="-parameters" />
       <module name="credit-card-service" options="-parameters" />
+      <module name="invoice-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
