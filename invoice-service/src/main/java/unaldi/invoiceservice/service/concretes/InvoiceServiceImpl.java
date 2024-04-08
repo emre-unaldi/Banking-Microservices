@@ -15,6 +15,7 @@ import unaldi.invoiceservice.utils.exception.customExceptions.InvoiceNotFoundExc
 import unaldi.invoiceservice.utils.result.DataResult;
 import unaldi.invoiceservice.utils.result.Result;
 import unaldi.invoiceservice.utils.result.SuccessDataResult;
+import unaldi.invoiceservice.utils.result.SuccessResult;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         this.invoiceRepository.deleteById(invoice.getId());
 
-        return new SuccessDataResult<>(Messages.INVOICE_DELETED);
+        return new SuccessResult(Messages.INVOICE_DELETED);
     }
 
     @Override

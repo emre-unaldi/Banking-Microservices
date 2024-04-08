@@ -229,3 +229,5 @@ rinvoice-service/src/main/java/unaldi/invoiceservice/utils/exception/customExcep
 _invoice-service/src/main/java/unaldi/invoiceservice/utils/exception/GlobalExceptionHandler.java,3\1\31e90ece625fc0bd036af7c64080dc8702c20ebe
 ç
 ]invoice-service/src/main/java/unaldi/invoiceservice/service/concretes/InvoiceServiceImpl.java,0\1\01a021cd49863dd7a36b0a01592daba3b8614b05
+Ö
+Uinvoice-service/src/main/java/unaldi/invoiceservice/controller/InvoiceController.java,6\2\62c763633b4e3936bae19f4a17c046bad6044398
