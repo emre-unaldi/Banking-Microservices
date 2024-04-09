@@ -255,3 +255,9 @@ q
 Alog-service/src/main/java/unaldi/logservice/model/dto/LogDTO.java,a\8\a8ac3becd8f7014bbca68b5dc5cbf94e969ece47
 }
 Mlog-service/src/main/java/unaldi/logservice/model/request/LogSaveRequest.java,0\a\0aedaf58a9d843eb66243ab78ae282ab87642ca6
+l
+<log-service/src/main/java/unaldi/logservice/service/test.txt,1\7\17e6fc5879742b6f31735a388fac4c0fd9a160b3
+}
+Mlog-service/src/main/java/unaldi/logservice/service/abstracts/LogService.java,2\f\2f234a328a54ca869abbc75e5331bc722afdeeda
+ƒ
+Slog-service/src/main/java/unaldi/logservice/service/abstracts/mapper/LogMapper.java,a\9\a9d2e91299976ec75dd70071ef4c7468d2f6b46b
