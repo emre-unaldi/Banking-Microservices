@@ -261,3 +261,15 @@ l
 Mlog-service/src/main/java/unaldi/logservice/service/abstracts/LogService.java,2\f\2f234a328a54ca869abbc75e5331bc722afdeeda
 É
 Slog-service/src/main/java/unaldi/logservice/service/abstracts/mapper/LogMapper.java,a\9\a9d2e91299976ec75dd70071ef4c7468d2f6b46b
+Å
+Qlog-service/src/main/java/unaldi/logservice/utils/constant/ExceptionMessages.java,f\3\f3464a83285cea04219ddebfcfb28668c95b1261
+x
+Hlog-service/src/main/java/unaldi/logservice/utils/constant/Messages.java,5\9\59d126938a96a1c1c2c9749def05269b241e5ab4
+ó
+glog-service/src/main/java/unaldi/logservice/utils/exception/customExceptions/UserNotFoundException.java,f\e\fe7ba179233f7f068d6a13ebe7e476ae785e4661
+ñ
+flog-service/src/main/java/unaldi/logservice/utils/exception/customExceptions/LogNotFoundException.java,a\9\a9b1b1cd9eb688b6d94e37ef8073a45ad0d9468f
+Ü
+Vlog-service/src/main/java/unaldi/logservice/utils/exception/dto/ExceptionResponse.java,3\5\35551e6947235505b6d3045c5e5a8abe7e9ef858
+á
+Wlog-service/src/main/java/unaldi/logservice/utils/exception/GlobalExceptionHandler.java,8\9\89939cf22cae17da47283df0004843f903c07f74
