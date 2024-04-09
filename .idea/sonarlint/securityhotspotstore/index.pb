@@ -245,3 +245,13 @@ Zlog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQConfigu
 clog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQPublisherConfiguration.java,e\9\e9d32ad668419e645b1e4258c2124d5b96bee0fe
 ”
 dlog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQSubscriberConfiguration.java,d\7\d7a189b2fc9925e1bb6791dc2226387229542a4f
+j
+:log-service/src/main/java/unaldi/logservice/model/Log.java,2\0\20b96827b96ca98bca40759bfeed91c898ee72c9
+z
+Jlog-service/src/main/java/unaldi/logservice/model/enums/OperationType.java,9\6\9663a1dafcb2d43ddd9f7c8f58b60594f49db601
+t
+Dlog-service/src/main/java/unaldi/logservice/model/enums/LogType.java,4\9\49eda0a4028b4e8b44763fd9c01e9814d70c7709
+q
+Alog-service/src/main/java/unaldi/logservice/model/dto/LogDTO.java,a\8\a8ac3becd8f7014bbca68b5dc5cbf94e969ece47
+}
+Mlog-service/src/main/java/unaldi/logservice/model/request/LogSaveRequest.java,0\a\0aedaf58a9d843eb66243ab78ae282ab87642ca6
