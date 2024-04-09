@@ -20,4 +20,10 @@ public record LogDTO(
         LocalDateTime timestamp,
         String exception
 ) {
+    @Override
+    public String toString() {
+        return String.format(
+                "LogDTO{id='%s', serviceName='%s', operationType='%s', logType='%s', message='%s', timestamp='%s', exception='%s'}",
+                id, serviceName, operationType, logType, message, timestamp, exception);
+    }
 }

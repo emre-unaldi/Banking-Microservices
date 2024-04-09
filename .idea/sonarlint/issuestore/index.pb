@@ -273,3 +273,13 @@ flog-service/src/main/java/unaldi/logservice/utils/exception/customExceptions/Lo
 Vlog-service/src/main/java/unaldi/logservice/utils/exception/dto/ExceptionResponse.java,3\5\35551e6947235505b6d3045c5e5a8abe7e9ef858
 á
 Wlog-service/src/main/java/unaldi/logservice/utils/exception/GlobalExceptionHandler.java,8\9\89939cf22cae17da47283df0004843f903c07f74
+Å
+Qlog-service/src/main/java/unaldi/logservice/service/concretes/LogServiceImpl.java,1\5\15d04d0aa3254f4ccf673518700ec170f3d0f199
+s
+Clog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/test.txt,c\9\c94510399a13ffd4b813198a0178b26f7ac545b7
+Ü
+Vlog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/publisher/LogPublisher.java,f\d\fdb4567fb04a719df200657f503e91aebfbcdbb7
+à
+Xlog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/subscriber/LogSubscriber.java,f\a\faa03b6a6877912c77b8dabda6ee154def2347d3
+y
+Ilog-service/src/main/java/unaldi/logservice/repository/LogRepository.java,3\a\3ac7f4bf5c65a310189b3d8e36e7431c6a6b069c
