@@ -237,3 +237,11 @@ Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/RestRespon
 Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/UserResponse.java,c\8\c8b16aa9d1810c7716121e8ec61db957e3992d34
 C
 log-service/pom.xml,2\b\2bb4245bd07d90b460ae33b013b85547feed06f5
+j
+:log-service/src/main/java/unaldi/logservice/utils/test.txt,2\2\229afeb5ad3c5cf91da38d495b0aeb4685a05ac3
+Š
+Zlog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQConfiguration.java,a\8\a8edf5a0136af751fb1dc97a20b72e6621226dce
+“
+clog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQPublisherConfiguration.java,e\9\e9d32ad668419e645b1e4258c2124d5b96bee0fe
+”
+dlog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQSubscriberConfiguration.java,d\7\d7a189b2fc9925e1bb6791dc2226387229542a4f
