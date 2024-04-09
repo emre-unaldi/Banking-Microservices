@@ -1,5 +1,7 @@
 package unaldi.logservice.model;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import unaldi.logservice.model.enums.LogType;
+import unaldi.logservice.model.enums.OperationType;
 
 import java.time.LocalDateTime;
 
@@ -28,14 +32,19 @@ public class Log {
     @Field(name = "service_name")
     private String serviceName;
 
+    @Enumerated(EnumType.STRING)
     @Field("operation_type")
-    private String operationType;
+    private OperationType operationType;
 
+    @Enumerated(EnumType.STRING)
     @Field("log_type")
-    private String logType;
+    private LogType logType;
 
     @Field(name = "message")
     private String message;
+
+    @Field(name = "request_path")
+    private String requestPath;
 
     @Field(name = "timestamp")
     private LocalDateTime timestamp;

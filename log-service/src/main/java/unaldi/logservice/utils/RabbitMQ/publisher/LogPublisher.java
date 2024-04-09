@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import unaldi.logservice.model.Log;
 import unaldi.logservice.model.dto.LogDTO;
 import unaldi.logservice.utils.configuration.RabbitMQPublisherConfiguration;
+import unaldi.logservice.utils.constant.Messages;
 
 /**
  * Copyright (c) 2024
@@ -27,7 +28,7 @@ public class LogPublisher {
     }
 
     public void sendToLog(LogDTO logDTO) {
-        log.info("Log record written to queue : " + logDTO);
+        log.info(Messages.LOG_WRITE_QUEUE + " : " + logDTO);
 
         amqpTemplate.convertSendAndReceive(
                 rabbitMQPublisherConfiguration.getExchange(),

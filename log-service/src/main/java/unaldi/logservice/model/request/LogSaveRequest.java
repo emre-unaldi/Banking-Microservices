@@ -1,7 +1,7 @@
 package unaldi.logservice.model.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import unaldi.logservice.model.enums.LogType;
+import unaldi.logservice.model.enums.OperationType;
 
 import java.time.LocalDateTime;
 
@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
  *
  * @author Emre Ünaldı
  */
-@Getter
-@Setter
-public class LogSaveRequest{
-    private String serviceName;
-    private String operationType;
-    private String logType;
-    private String message;
-    private LocalDateTime timestamp;
-    private String exception;
+public record LogSaveRequest (
+         String serviceName,
+         OperationType operationType,
+         LogType logType,
+         String message,
+         String requestPath,
+         LocalDateTime timestamp,
+         String exception
+){
 }

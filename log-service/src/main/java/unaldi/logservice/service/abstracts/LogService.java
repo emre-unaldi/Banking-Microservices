@@ -14,7 +14,7 @@ import java.util.List;
  * @author Emre Ünaldı
  */
 public interface LogService {
-    DataResult<LogDTO> save(LogSaveRequest logSaveRequest);
+    Result save(LogSaveRequest logSaveRequest);
     Result deleteById(String logId);
     DataResult<LogDTO> findById(String logId);
     DataResult<List<LogDTO>> findAll();

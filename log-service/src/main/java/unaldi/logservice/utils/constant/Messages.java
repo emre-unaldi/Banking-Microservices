@@ -15,4 +15,6 @@ public class Messages {
     public static final String LOG_FOUND = "Log record found in database";
     public static final String LOGS_LISTED = "Log records in the database are listed";
     public static final String LOG_DELETED = "Log record deleted from database";
+    public static final String LOG_WRITE_QUEUE = "Log record written to queue";
+    public static final String LOG_READ_QUEUE = "Log record read from queue";
 }

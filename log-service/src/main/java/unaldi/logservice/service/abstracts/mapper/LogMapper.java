@@ -22,5 +22,6 @@ public interface LogMapper {
 
     Log convertToSaveLog(LogSaveRequest logSaveRequest);
     LogDTO convertToLogDTO(Log log);
+    Log convertToLog(LogDTO logDTO);
     List<LogDTO> convertLogDTOs(List<Log> logList);
 }

@@ -29,7 +29,7 @@ public class LogController {
     }
 
     @PostMapping
-    public ResponseEntity<DataResult<LogDTO>> save(@RequestBody LogSaveRequest logSaveRequest) {
+    public ResponseEntity<Result> save(@RequestBody LogSaveRequest logSaveRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(this.logService.save(logSaveRequest));

@@ -35,13 +35,12 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public DataResult<LogDTO> save(LogSaveRequest logSaveRequest) {
+    public Result save(LogSaveRequest logSaveRequest) {
         Log log = LogMapper.INSTANCE.convertToSaveLog(logSaveRequest);
 
-        this.logRepository.save(log);
+        logPublisher.sendToLog(LogMapper.INSTANCE.convertToLogDTO(log));
 
-        return new SuccessDataResult<>(
-                LogMapper.INSTANCE.convertToLogDTO(log),
+        return new SuccessResult(
                 Messages.LOG_CREATED
         );
     }
