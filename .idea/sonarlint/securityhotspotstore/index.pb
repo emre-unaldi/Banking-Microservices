@@ -237,10 +237,6 @@ Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/RestRespon
 Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/UserResponse.java,c\8\c8b16aa9d1810c7716121e8ec61db957e3992d34
 C
 log-service/pom.xml,2\b\2bb4245bd07d90b460ae33b013b85547feed06f5
-j
-:log-service/src/main/java/unaldi/logservice/utils/test.txt,2\2\229afeb5ad3c5cf91da38d495b0aeb4685a05ac3
-Š
-Zlog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQConfiguration.java,a\8\a8edf5a0136af751fb1dc97a20b72e6621226dce
 “
 clog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQPublisherConfiguration.java,e\9\e9d32ad668419e645b1e4258c2124d5b96bee0fe
 ”
@@ -255,8 +251,6 @@ q
 Alog-service/src/main/java/unaldi/logservice/model/dto/LogDTO.java,a\8\a8ac3becd8f7014bbca68b5dc5cbf94e969ece47
 }
 Mlog-service/src/main/java/unaldi/logservice/model/request/LogSaveRequest.java,0\a\0aedaf58a9d843eb66243ab78ae282ab87642ca6
-l
-<log-service/src/main/java/unaldi/logservice/service/test.txt,1\7\17e6fc5879742b6f31735a388fac4c0fd9a160b3
 }
 Mlog-service/src/main/java/unaldi/logservice/service/abstracts/LogService.java,2\f\2f234a328a54ca869abbc75e5331bc722afdeeda
 ƒ
@@ -265,8 +259,6 @@ Slog-service/src/main/java/unaldi/logservice/service/abstracts/mapper/LogMapper.
 Qlog-service/src/main/java/unaldi/logservice/utils/constant/ExceptionMessages.java,f\3\f3464a83285cea04219ddebfcfb28668c95b1261
 x
 Hlog-service/src/main/java/unaldi/logservice/utils/constant/Messages.java,5\9\59d126938a96a1c1c2c9749def05269b241e5ab4
-—
-glog-service/src/main/java/unaldi/logservice/utils/exception/customExceptions/UserNotFoundException.java,f\e\fe7ba179233f7f068d6a13ebe7e476ae785e4661
 –
 flog-service/src/main/java/unaldi/logservice/utils/exception/customExceptions/LogNotFoundException.java,a\9\a9b1b1cd9eb688b6d94e37ef8073a45ad0d9468f
 †
@@ -275,11 +267,11 @@ Vlog-service/src/main/java/unaldi/logservice/utils/exception/dto/ExceptionRespon
 Wlog-service/src/main/java/unaldi/logservice/utils/exception/GlobalExceptionHandler.java,8\9\89939cf22cae17da47283df0004843f903c07f74
 
 Qlog-service/src/main/java/unaldi/logservice/service/concretes/LogServiceImpl.java,1\5\15d04d0aa3254f4ccf673518700ec170f3d0f199
-s
-Clog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/test.txt,c\9\c94510399a13ffd4b813198a0178b26f7ac545b7
 †
 Vlog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/publisher/LogPublisher.java,f\d\fdb4567fb04a719df200657f503e91aebfbcdbb7
 ˆ
 Xlog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/subscriber/LogSubscriber.java,f\a\faa03b6a6877912c77b8dabda6ee154def2347d3
 y
 Ilog-service/src/main/java/unaldi/logservice/repository/LogRepository.java,3\a\3ac7f4bf5c65a310189b3d8e36e7431c6a6b069c
+y
+Ilog-service/src/main/java/unaldi/logservice/controller/LogController.java,3\e\3e75ded9d78ad4245ce88303754340cfae6511d4

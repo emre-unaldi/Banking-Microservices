@@ -14,6 +14,7 @@ import unaldi.logservice.utils.exception.customExceptions.LogNotFoundException;
 import unaldi.logservice.utils.result.DataResult;
 import unaldi.logservice.utils.result.Result;
 import unaldi.logservice.utils.result.SuccessDataResult;
+import unaldi.logservice.utils.result.SuccessResult;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class LogServiceImpl implements LogService {
 
         this.logRepository.deleteById(log.getId());
 
-        return new SuccessDataResult<>(Messages.LOG_DELETED);
+        return new SuccessResult(Messages.LOG_DELETED);
     }
 
     @Override

@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import unaldi.logservice.model.enums.LogType;
-import unaldi.logservice.model.enums.OperationType;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
  *
  * @author Emre Ünaldı
  */
-@Document(collation = "logs")
+@Document(collection = "logs")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,10 +24,22 @@ import java.time.LocalDateTime;
 public class Log {
     @Id
     private String id;
+
+    @Field(name = "service_name")
     private String serviceName;
-    private OperationType operationType;
-    private LogType logType;
+
+    @Field("operation_type")
+    private String operationType;
+
+    @Field("log_type")
+    private String logType;
+
+    @Field(name = "message")
     private String message;
+
+    @Field(name = "timestamp")
     private LocalDateTime timestamp;
+
+    @Field(name = "exception")
     private String exception;
 }
