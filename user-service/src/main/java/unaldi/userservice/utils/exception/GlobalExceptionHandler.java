@@ -1,5 +1,10 @@
 package unaldi.userservice.utils.exception;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import unaldi.userservice.utils.client.LogServiceClient;
+import unaldi.userservice.utils.client.dto.LogRequest;
+import unaldi.userservice.utils.client.enums.LogType;
+import unaldi.userservice.utils.client.enums.OperationType;
 import unaldi.userservice.utils.constant.ExceptionMessages;
 import unaldi.userservice.utils.exception.customExceptions.UserNotFoundException;
 import unaldi.userservice.utils.exception.dto.ExceptionResponse;
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
+
 /**
  * Copyright (c) 2024
  * All rights reserved.
@@ -23,6 +30,12 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    private final LogServiceClient logServiceClient;
+
+    @Autowired
+    public GlobalExceptionHandler(LogServiceClient logServiceClient) {
+        this.logServiceClient = logServiceClient;
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<DataResult<ExceptionResponse>> handleUserNotFoundException(Exception exception, WebRequest request) {
@@ -54,6 +67,9 @@ public class GlobalExceptionHandler {
 
         String httpMethod = servletRequest != null ? servletRequest.getMethod() : "Unknown";
         String requestPath = servletRequest != null ? servletRequest.getRequestURI() : "Unknown";
+        String exceptionMessage = httpStatus + " - " + exception.getClass().getSimpleName();
+
+        logServiceClient.sendToLog(prepareLogRequest(OperationType.valueOf(httpMethod), exception.getMessage(), exceptionMessage));
 
         return ExceptionResponse.builder()
                 .message(exception.getMessage())
@@ -62,6 +78,23 @@ public class GlobalExceptionHandler {
                 .httpMethod(httpMethod)
                 .errorType(exception.getClass().getSimpleName())
                 .requestPath(requestPath)
+                .build();
+    }
+
+    private LogRequest prepareLogRequest(
+            OperationType operationType,
+            String message,
+            String exception
+    )
+    {
+        return LogRequest
+                .builder()
+                .serviceName("user-service")
+                .operationType(operationType)
+                .logType(LogType.ERROR)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .exception(exception)
                 .build();
     }
 }

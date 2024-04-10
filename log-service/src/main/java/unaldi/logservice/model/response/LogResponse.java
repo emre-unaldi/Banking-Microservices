@@ -1,4 +1,4 @@
-package unaldi.logservice.model.dto;
+package unaldi.logservice.model.response;
 
 import unaldi.logservice.model.enums.LogType;
 import unaldi.logservice.model.enums.OperationType;
@@ -11,13 +11,12 @@ import java.time.LocalDateTime;
  *
  * @author Emre Ünaldı
  */
-public record LogDTO (
-        String id,
+public record LogResponse(
         String serviceName,
         OperationType operationType,
         LogType logType,
         String message,
         LocalDateTime timestamp,
         String exception
-){
+) {
 }

@@ -11,12 +11,11 @@ import java.time.LocalDateTime;
  *
  * @author Emre Ünaldı
  */
-public record LogSaveRequest (
+public record LogRequest(
          String serviceName,
          OperationType operationType,
          LogType logType,
          String message,
-         String requestPath,
          LocalDateTime timestamp,
          String exception
 ){

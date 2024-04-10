@@ -27,7 +27,7 @@ public class LogPublisher {
         this.amqpTemplate = amqpTemplate;
     }
 
-    public void sendToLog(LogDTO logDTO) {
+    public void sendLog(LogDTO logDTO) {
         log.info(Messages.LOG_WRITE_QUEUE + " : " + logDTO);
 
         amqpTemplate.convertSendAndReceive(

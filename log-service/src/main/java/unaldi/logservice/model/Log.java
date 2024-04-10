@@ -43,9 +43,6 @@ public class Log {
     @Field(name = "message")
     private String message;
 
-    @Field(name = "request_path")
-    private String requestPath;
-
     @Field(name = "timestamp")
     private LocalDateTime timestamp;
 
