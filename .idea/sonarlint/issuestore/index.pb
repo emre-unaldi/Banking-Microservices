@@ -250,8 +250,6 @@ Dlog-service/src/main/java/unaldi/logservice/model/enums/LogType.java,4\9\49eda
 q
 Alog-service/src/main/java/unaldi/logservice/model/dto/LogDTO.java,a\8\a8ac3becd8f7014bbca68b5dc5cbf94e969ece47
 }
-Mlog-service/src/main/java/unaldi/logservice/model/request/LogSaveRequest.java,0\a\0aedaf58a9d843eb66243ab78ae282ab87642ca6
-}
 Mlog-service/src/main/java/unaldi/logservice/service/abstracts/LogService.java,2\f\2f234a328a54ca869abbc75e5331bc722afdeeda
 É
 Slog-service/src/main/java/unaldi/logservice/service/abstracts/mapper/LogMapper.java,a\9\a9d2e91299976ec75dd70071ef4c7468d2f6b46b
@@ -279,10 +277,6 @@ y
 Iuser-service/src/main/java/unaldi/userservice/UserServiceApplication.java,1\5\1566691f16fd2ec484f75d9ec9d8b20f6973ec0e
 Ä
 Puser-service/src/main/java/unaldi/userservice/utils/client/LogServiceClient.java,a\2\a2671ec005c14fa39899e0aa0154a156e8cae7e1
-{
-Kuser-service/src/main/java/unaldi/userservice/utils/client/dto/LogType.java,9\9\995ef673e412836df2b4d74c241422f8d4ba10d7
-Å
-Quser-service/src/main/java/unaldi/userservice/utils/client/dto/OperationType.java,3\1\3141394acf989da952eb93dca135c40bf0c08ec3
 É
 Suser-service/src/main/java/unaldi/userservice/utils/client/enums/OperationType.java,b\4\b47d00a2bdbe08dd07215a9386ea952f7da7f63e
 }
@@ -299,3 +293,5 @@ Puser-service/src/main/java/unaldi/userservice/utils/client/dto/RestResponse.jav
 Ouser-service/src/main/java/unaldi/userservice/utils/client/dto/LogResponse.java,f\2\f2ce74d0b35f2369c9e64a24c8a40503424017df
 {
 Klog-service/src/main/java/unaldi/logservice/model/response/LogResponse.java,e\0\e022bd7ee27ce636f109a9c8404dda5595396993
+K
+api-gateway-service/pom.xml,f\c\fc007dbff0017f61a5a8a98fa32da3104c8723c5
