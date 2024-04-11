@@ -295,3 +295,5 @@ Ouser-service/src/main/java/unaldi/userservice/utils/client/dto/LogResponse.java
 Klog-service/src/main/java/unaldi/logservice/model/response/LogResponse.java,e\0\e022bd7ee27ce636f109a9c8404dda5595396993
 K
 api-gateway-service/pom.xml,f\c\fc007dbff0017f61a5a8a98fa32da3104c8723c5
+P
+ discovery-client-service/pom.xml,2\b\2b7a2a42678628ec1dd2dc59b104693122b36bc6

@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="user-service" />
         <module name="account-service" />
+        <module name="api-gateway-service" />
         <module name="bank-service" />
         <module name="credit-card-service" />
         <module name="invoice-service" />
@@ -30,6 +31,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
+      <module name="api-gateway-service" options="-parameters" />
       <module name="bank-service" options="-parameters" />
       <module name="credit-card-service" options="-parameters" />
       <module name="invoice-service" options="-parameters" />
