@@ -297,3 +297,7 @@ K
 api-gateway-service/pom.xml,f\c\fc007dbff0017f61a5a8a98fa32da3104c8723c5
 P
  discovery-client-service/pom.xml,2\b\2b7a2a42678628ec1dd2dc59b104693122b36bc6
+Œ
+\api-gateway-service/src/main/java/unaldi/apigatewayservice/ApiGatewayServiceApplication.java,9\5\95706d9c2024f52a3c39ae6b1d6c80deb7d7af45
+›
+kdiscovery-client-service/src/main/java/unaldi/discoveryclientservice/DiscoveryClientServiceApplication.java,9\7\9729a51ec31b0a3b841d65642f648171dd9ad8eb

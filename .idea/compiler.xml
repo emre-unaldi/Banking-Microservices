@@ -7,12 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api-gateway-service" />
+        <module name="discovery-client-service" />
+        <module name="invoice-service" />
         <module name="user-service" />
         <module name="account-service" />
-        <module name="api-gateway-service" />
         <module name="bank-service" />
         <module name="credit-card-service" />
-        <module name="invoice-service" />
       </profile>
       <profile name="Annotation profile for log-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -34,6 +35,7 @@
       <module name="api-gateway-service" options="-parameters" />
       <module name="bank-service" options="-parameters" />
       <module name="credit-card-service" options="-parameters" />
+      <module name="discovery-client-service" options="-parameters" />
       <module name="invoice-service" options="-parameters" />
       <module name="log-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
