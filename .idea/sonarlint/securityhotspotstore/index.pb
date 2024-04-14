@@ -347,3 +347,13 @@ Uaccount-service/src/main/java/unaldi/accountservice/utils/RabbitMQ/enums/LogTyp
 \account-service/src/main/java/unaldi/accountservice/utils/RabbitMQ/producer/LogProducer.java,5\5\5591765c650f9a2c6fe4edf636905312ec5fa2fe
 Š
 Zaccount-service/src/main/java/unaldi/accountservice/utils/RabbitMQ/request/LogRequest.java,b\d\bdc6c4c3e22e257db1d8ac4eb41fecd5a6d75d1d
+Š
+Zinvoice-service/src/main/java/unaldi/invoiceservice/utils/RabbitMQ/request/LogRequest.java,f\8\f8274610e88e67774774df3a9e72adc1a1bd05f7
+Œ
+\invoice-service/src/main/java/unaldi/invoiceservice/utils/RabbitMQ/producer/LogProducer.java,f\7\f71a99230c5932793d650d2a94dcc5f225cab540
+‹
+[invoice-service/src/main/java/unaldi/invoiceservice/utils/RabbitMQ/enums/OperationType.java,7\c\7c10321fefa7c2f12e87816fd5eed933e4990fc9
+…
+Uinvoice-service/src/main/java/unaldi/invoiceservice/utils/RabbitMQ/enums/LogType.java,f\6\f697c1b8cd796913aeb814dac1b305745a3f04b4
+š
+jinvoice-service/src/main/java/unaldi/invoiceservice/utils/configuration/RabbitMQProducerConfiguration.java,e\7\e7c8761b7366293364ac79c55e2297d007f67530
