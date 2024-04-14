@@ -20,6 +20,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * Copyright (c) 2024
@@ -62,16 +63,6 @@ public class GlobalExceptionHandler {
     }
 
     private ExceptionResponse prepareExceptionResponse(Exception exception, HttpStatus httpStatus, WebRequest request) {
-        NativeWebRequest nativeRequest = (NativeWebRequest) request;
-        HttpServletRequest servletRequest = nativeRequest.getNativeRequest(HttpServletRequest.class);
-
-        String httpMethod = servletRequest != null ? servletRequest.getMethod() : "Unknown";
-        String requestPath = servletRequest != null ? servletRequest.getRequestURI() : "Unknown";
-        String exceptionMessage = httpStatus + " - " + exception.getClass().getSimpleName();
-
-        logProducer.sendToLog(prepareLogRequest(OperationType.valueOf(httpMethod), exception.getMessage(), exceptionMessage));
-        /*
-
         HttpServletRequest servletRequest = ((NativeWebRequest) request).getNativeRequest(HttpServletRequest.class);
 
         String httpMethod = Optional.ofNullable(servletRequest).map(HttpServletRequest::getMethod).orElse("Unknown");
@@ -79,7 +70,7 @@ public class GlobalExceptionHandler {
         String exceptionMessage = httpStatus + " - " + exception.getClass().getSimpleName();
 
         logProducer.sendToLog(prepareLogRequest(OperationType.valueOf(httpMethod), exception.getMessage(), exceptionMessage));
-        */
+
         return ExceptionResponse.builder()
                 .message(exception.getMessage())
                 .httpStatus(httpStatus)
