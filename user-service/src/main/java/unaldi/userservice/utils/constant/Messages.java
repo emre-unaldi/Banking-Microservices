@@ -16,4 +16,5 @@ public class Messages {
     public static final String USER_UPDATED = "User updated in database";
     public static final String USER_FOUND = "User found in database";
     public static final String USERS_LISTED = "Users in the database are listed";
+    public static final String LOG_WRITE_QUEUE = "Log record written to queue";
 }

@@ -5,8 +5,8 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import unaldi.logservice.model.Log;
 import unaldi.logservice.model.dto.LogDTO;
-import unaldi.logservice.model.request.LogRequest;
-import unaldi.logservice.model.response.LogResponse;
+import unaldi.logservice.model.request.LogSaveRequest;
+import unaldi.logservice.utils.RabbitMQ.response.LogResponse;
 
 import java.util.List;
 
@@ -20,9 +20,8 @@ import java.util.List;
 public interface LogMapper {
     LogMapper INSTANCE = Mappers.getMapper(LogMapper.class);
 
-    LogResponse convertToLogResponse(LogRequest logRequest);
-    LogDTO convertToLogDTO(LogResponse logResponse);
+    Log convertToSaveLog(LogSaveRequest logSaveRequest);
     LogDTO convertToLogDTO(Log log);
-    Log convertToLog(LogDTO logDTO);
+    Log convertToLog(LogResponse logResponse);
     List<LogDTO> convertLogDTOs(List<Log> logList);
 }

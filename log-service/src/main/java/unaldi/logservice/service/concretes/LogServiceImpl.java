@@ -1,14 +1,13 @@
 package unaldi.logservice.service.concretes;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unaldi.logservice.model.Log;
 import unaldi.logservice.model.dto.LogDTO;
-import unaldi.logservice.model.request.LogRequest;
-import unaldi.logservice.model.response.LogResponse;
+import unaldi.logservice.model.request.LogSaveRequest;
 import unaldi.logservice.repository.LogRepository;
 import unaldi.logservice.service.abstracts.LogService;
 import unaldi.logservice.service.abstracts.mapper.LogMapper;
-import unaldi.logservice.utils.RabbitMQ.publisher.LogPublisher;
 import unaldi.logservice.utils.constant.ExceptionMessages;
 import unaldi.logservice.utils.constant.Messages;
 import unaldi.logservice.utils.exception.customExceptions.LogNotFoundException;
@@ -28,20 +27,20 @@ import java.util.List;
 @Service
 public class LogServiceImpl implements LogService {
     private final LogRepository logRepository;
-    private final LogPublisher logPublisher;
 
-    public LogServiceImpl(LogRepository logRepository, LogPublisher logPublisher) {
+    @Autowired
+    public LogServiceImpl(LogRepository logRepository) {
         this.logRepository = logRepository;
-        this.logPublisher = logPublisher;
     }
 
     @Override
-    public DataResult<LogResponse> sendToLog(LogRequest logRequest) {
-        LogResponse logResponse = LogMapper.INSTANCE.convertToLogResponse(logRequest);
-        logPublisher.sendLog(LogMapper.INSTANCE.convertToLogDTO(logResponse));
+    public DataResult<LogDTO> save(LogSaveRequest logSaveRequest) {
+        Log log = LogMapper.INSTANCE.convertToSaveLog(logSaveRequest);
+
+        this.logRepository.save(log);
 
         return new SuccessDataResult<>(
-                logResponse,
+                LogMapper.INSTANCE.convertToLogDTO(log),
                 Messages.LOG_CREATED
         );
     }

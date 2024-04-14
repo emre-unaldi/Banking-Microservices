@@ -5,8 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unaldi.logservice.model.dto.LogDTO;
-import unaldi.logservice.model.request.LogRequest;
-import unaldi.logservice.model.response.LogResponse;
+import unaldi.logservice.model.request.LogSaveRequest;
 import unaldi.logservice.service.abstracts.LogService;
 import unaldi.logservice.utils.result.DataResult;
 import unaldi.logservice.utils.result.Result;
@@ -30,10 +29,10 @@ public class LogController {
     }
 
     @PostMapping
-    public ResponseEntity<DataResult<LogResponse>> sendToLog(@RequestBody LogRequest logRequest) {
+    public ResponseEntity<DataResult<LogDTO>> save(@RequestBody LogSaveRequest logSaveRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(this.logService.sendToLog(logRequest));
+                .body(this.logService.save(logSaveRequest));
     }
 
     @DeleteMapping("/{logId}")

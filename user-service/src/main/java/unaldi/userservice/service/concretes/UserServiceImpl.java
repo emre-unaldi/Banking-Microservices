@@ -1,7 +1,6 @@
 package unaldi.userservice.service.concretes;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import unaldi.userservice.entity.User;
 import unaldi.userservice.entity.dto.UserDTO;
 import unaldi.userservice.entity.request.UserSaveRequest;
@@ -9,10 +8,10 @@ import unaldi.userservice.entity.request.UserUpdateRequest;
 import unaldi.userservice.repository.UserRepository;
 import unaldi.userservice.service.abstracts.UserService;
 import unaldi.userservice.service.abstracts.mapper.UserMapper;
-import unaldi.userservice.utils.client.LogServiceClient;
-import unaldi.userservice.utils.client.dto.LogRequest;
-import unaldi.userservice.utils.client.enums.LogType;
-import unaldi.userservice.utils.client.enums.OperationType;
+import unaldi.userservice.utils.RabbitMQ.request.LogRequest;
+import unaldi.userservice.utils.RabbitMQ.enums.LogType;
+import unaldi.userservice.utils.RabbitMQ.enums.OperationType;
+import unaldi.userservice.utils.RabbitMQ.producer.LogProducer;
 import unaldi.userservice.utils.constant.ExceptionMessages;
 import unaldi.userservice.utils.constant.Messages;
 import unaldi.userservice.utils.exception.customExceptions.UserNotFoundException;
@@ -33,15 +32,14 @@ import java.util.List;
  * @author Emre Ünaldı
  */
 @Service
-@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final LogServiceClient logServiceClient;
+    private final LogProducer logProducer;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, LogServiceClient logServiceClient) {
+    public UserServiceImpl(UserRepository userRepository, LogProducer logProducer) {
         this.userRepository = userRepository;
-        this.logServiceClient = logServiceClient;
+        this.logProducer = logProducer;
     }
 
     @Override
@@ -49,7 +47,7 @@ public class UserServiceImpl implements UserService {
         User user = UserMapper.INSTANCE.convertToSaveUser(userSaveRequest);
         this.userRepository.save(user);
 
-        logServiceClient.sendToLog(prepareLogRequest(OperationType.POST,Messages.USER_CREATED));
+        logProducer.sendToLog(prepareLogRequest(OperationType.POST,Messages.USER_CREATED));
 
         return new SuccessDataResult<>(
                 UserMapper.INSTANCE.convertToUserDTO(user),
@@ -66,7 +64,7 @@ public class UserServiceImpl implements UserService {
         User user = UserMapper.INSTANCE.convertToUpdateUser(userUpdateRequest);
         this.userRepository.save(user);
 
-        logServiceClient.sendToLog(prepareLogRequest(OperationType.PUT,Messages.USER_UPDATED));
+        logProducer.sendToLog(prepareLogRequest(OperationType.PUT,Messages.USER_UPDATED));
 
         return new SuccessDataResult<>(
                 UserMapper.INSTANCE.convertToUserDTO(user),
@@ -82,7 +80,7 @@ public class UserServiceImpl implements UserService {
 
         this.userRepository.deleteById(user.getId());
 
-        logServiceClient.sendToLog(prepareLogRequest(OperationType.DELETE,Messages.USER_DELETED));
+        logProducer.sendToLog(prepareLogRequest(OperationType.DELETE,Messages.USER_DELETED));
 
         return new SuccessResult(Messages.USER_DELETED);
     }
@@ -94,7 +92,7 @@ public class UserServiceImpl implements UserService {
                 .map(UserMapper.INSTANCE::convertToUserDTO)
                 .orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND));
 
-        logServiceClient.sendToLog(prepareLogRequest(OperationType.GET,Messages.USER_FOUND));
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.USER_FOUND));
 
         return new SuccessDataResult<>(userDTO, Messages.USER_FOUND);
     }
@@ -103,7 +101,7 @@ public class UserServiceImpl implements UserService {
     public DataResult<List<UserDTO>> findAll() {
         List<User> userList = this.userRepository.findAll();
 
-        logServiceClient.sendToLog(prepareLogRequest(OperationType.GET,Messages.USERS_LISTED));
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.USERS_LISTED));
 
         return new SuccessDataResult<>(
                 UserMapper.INSTANCE.convertUserDTOs(userList),

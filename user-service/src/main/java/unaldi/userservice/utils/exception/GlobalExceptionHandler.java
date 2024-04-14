@@ -1,10 +1,10 @@
 package unaldi.userservice.utils.exception;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import unaldi.userservice.utils.client.LogServiceClient;
-import unaldi.userservice.utils.client.dto.LogRequest;
-import unaldi.userservice.utils.client.enums.LogType;
-import unaldi.userservice.utils.client.enums.OperationType;
+import unaldi.userservice.utils.RabbitMQ.request.LogRequest;
+import unaldi.userservice.utils.RabbitMQ.enums.LogType;
+import unaldi.userservice.utils.RabbitMQ.enums.OperationType;
+import unaldi.userservice.utils.RabbitMQ.producer.LogProducer;
 import unaldi.userservice.utils.constant.ExceptionMessages;
 import unaldi.userservice.utils.exception.customExceptions.UserNotFoundException;
 import unaldi.userservice.utils.exception.dto.ExceptionResponse;
@@ -30,16 +30,16 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-    private final LogServiceClient logServiceClient;
+    private final LogProducer logProducer;
 
     @Autowired
-    public GlobalExceptionHandler(LogServiceClient logServiceClient) {
-        this.logServiceClient = logServiceClient;
+    public GlobalExceptionHandler(LogProducer logProducer) {
+        this.logProducer = logProducer;
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<DataResult<ExceptionResponse>> handleUserNotFoundException(Exception exception, WebRequest request) {
-        log.error("UserNotFoundException occurred : " + exception);
+        log.error("UserNotFoundException occurred : {0}", exception);
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<DataResult<ExceptionResponse>> handleAllException(Exception exception, WebRequest request) {
-        log.error("Exception occurred : " + exception);
+        log.error("Exception occurred : {0}", exception);
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
         String requestPath = servletRequest != null ? servletRequest.getRequestURI() : "Unknown";
         String exceptionMessage = httpStatus + " - " + exception.getClass().getSimpleName();
 
-        logServiceClient.sendToLog(prepareLogRequest(OperationType.valueOf(httpMethod), exception.getMessage(), exceptionMessage));
+        logProducer.sendToLog(prepareLogRequest(OperationType.valueOf(httpMethod), exception.getMessage(), exceptionMessage));
 
         return ExceptionResponse.builder()
                 .message(exception.getMessage())
