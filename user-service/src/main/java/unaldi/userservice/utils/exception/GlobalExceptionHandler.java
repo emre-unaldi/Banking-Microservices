@@ -70,7 +70,16 @@ public class GlobalExceptionHandler {
         String exceptionMessage = httpStatus + " - " + exception.getClass().getSimpleName();
 
         logProducer.sendToLog(prepareLogRequest(OperationType.valueOf(httpMethod), exception.getMessage(), exceptionMessage));
+        /*
 
+        HttpServletRequest servletRequest = ((NativeWebRequest) request).getNativeRequest(HttpServletRequest.class);
+
+        String httpMethod = Optional.ofNullable(servletRequest).map(HttpServletRequest::getMethod).orElse("Unknown");
+        String requestPath = Optional.ofNullable(servletRequest).map(HttpServletRequest::getRequestURI).orElse("Unknown");
+        String exceptionMessage = httpStatus + " - " + exception.getClass().getSimpleName();
+
+        logProducer.sendToLog(prepareLogRequest(OperationType.valueOf(httpMethod), exception.getMessage(), exceptionMessage));
+        */
         return ExceptionResponse.builder()
                 .message(exception.getMessage())
                 .httpStatus(httpStatus)

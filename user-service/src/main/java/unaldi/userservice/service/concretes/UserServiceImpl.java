@@ -1,6 +1,5 @@
 package unaldi.userservice.service.concretes;
 
-import lombok.extern.slf4j.Slf4j;
 import unaldi.userservice.entity.User;
 import unaldi.userservice.entity.dto.UserDTO;
 import unaldi.userservice.entity.request.UserSaveRequest;

@@ -317,3 +317,13 @@ Luser-service/src/main/java/unaldi/userservice/utils/RabbitMQ/dto/LogDTO.java,8
 Qlog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/dto/LogRequestDTO.java,7\5\75ae56366de3ea0110d3905d5c163121c3ee24b9
 „
 Tlog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/response/LogResponse.java,c\8\c871ddf7c37c58d0a7550e06c514cc2d4c73fb65
+”
+dbank-service/src/main/java/unaldi/bankservice/utils/configuration/RabbitMQProducerConfiguration.java,3\1\31ee54984d542736156ab4f2e3147d464de40965
+
+Obank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/enums/LogType.java,e\a\ea4319533b9fb50e4f05b4f3ec088ec0b47d84e6
+…
+Ubank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/enums/OperationType.java,0\f\0f314e2eea9807013c25ab300857d7e760ee7034
+†
+Vbank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/producer/LogProducer.java,4\c\4c74f07d69c3b5e77f4e9e547959e0737698be5c
+„
+Tbank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/request/LogRequest.java,8\1\81c17de77213f4d66edd5e578fe2b56fe5a14893

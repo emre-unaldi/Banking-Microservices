@@ -16,4 +16,5 @@ public class Messages {
     public static final String BANK_UPDATED = "Bank updated in database";
     public static final String BANK_FOUND = "Bank found in database";
     public static final String BANKS_LISTED = "Banks in the database are listed";
+    public static final String LOG_WRITE_QUEUE = "Log record written to queue";
 }
