@@ -10,6 +10,10 @@ import unaldi.accountservice.entity.request.AccountUpdateRequest;
 import unaldi.accountservice.repository.AccountRepository;
 import unaldi.accountservice.service.abstracts.AccountService;
 import unaldi.accountservice.service.abstracts.mapper.AccountMapper;
+import unaldi.accountservice.utils.RabbitMQ.enums.LogType;
+import unaldi.accountservice.utils.RabbitMQ.enums.OperationType;
+import unaldi.accountservice.utils.RabbitMQ.producer.LogProducer;
+import unaldi.accountservice.utils.RabbitMQ.request.LogRequest;
 import unaldi.accountservice.utils.client.BankServiceClient;
 import unaldi.accountservice.utils.client.UserServiceClient;
 import unaldi.accountservice.utils.client.dto.BankResponse;
@@ -23,6 +27,7 @@ import unaldi.accountservice.utils.result.Result;
 import unaldi.accountservice.utils.result.SuccessDataResult;
 import unaldi.accountservice.utils.result.SuccessResult;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,12 +42,14 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final UserServiceClient userServiceClient;
     private final BankServiceClient bankServiceClient;
+    private final LogProducer logProducer;
 
     @Autowired
-    public AccountServiceImpl(AccountRepository accountRepository, UserServiceClient userServiceClient, BankServiceClient bankServiceClient) {
+    public AccountServiceImpl(AccountRepository accountRepository, UserServiceClient userServiceClient, BankServiceClient bankServiceClient, LogProducer logProducer) {
         this.accountRepository = accountRepository;
         this.userServiceClient = userServiceClient;
         this.bankServiceClient = bankServiceClient;
+        this.logProducer = logProducer;
     }
 
     @Override
@@ -52,6 +59,8 @@ public class AccountServiceImpl implements AccountService {
 
         Account account = AccountMapper.INSTANCE.convertToSaveAccount(accountSaveRequest);
         this.accountRepository.save(account);
+
+        logProducer.sendToLog(prepareLogRequest(OperationType.POST,Messages.ACCOUNT_CREATED));
 
         return new SuccessDataResult<>(
                 AccountMapper.INSTANCE.convertToAccountDTO(account),
@@ -70,6 +79,8 @@ public class AccountServiceImpl implements AccountService {
         Account account = AccountMapper.INSTANCE.convertToUpdateAccount(accountUpdateRequest);
         this.accountRepository.save(account);
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.PUT,Messages.ACCOUNT_UPDATED));
+
         return new SuccessDataResult<>(
                 AccountMapper.INSTANCE.convertToAccountDTO(account),
                 Messages.ACCOUNT_UPDATED
@@ -84,6 +95,8 @@ public class AccountServiceImpl implements AccountService {
 
         this.accountRepository.deleteById(account.getId());
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.DELETE,Messages.ACCOUNT_DELETED));
+
         return new SuccessResult(Messages.ACCOUNT_DELETED);
     }
 
@@ -94,6 +107,8 @@ public class AccountServiceImpl implements AccountService {
                 .map(AccountMapper.INSTANCE::convertToAccountDTO)
                 .orElseThrow(() -> new AccountNotFoundException(ExceptionMessages.ACCOUNT_NOT_FOUND));
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.ACCOUNT_FOUND));
+
         return new SuccessDataResult<>(
                 accountDTO,
                 Messages.ACCOUNT_FOUND
@@ -103,6 +118,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public DataResult<List<AccountDTO>> findAll() {
         List<Account> accountList = this.accountRepository.findAll();
+
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.ACCOUNTS_LISTED));
 
         return new SuccessDataResult<>(
                 AccountMapper.INSTANCE.convertAccountDTOs(accountList),
@@ -116,6 +133,8 @@ public class AccountServiceImpl implements AccountService {
 
         UserResponse userResponse = Objects.requireNonNull(response.getBody()).getData();
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.ACCOUNT_USER_FOUND));
+
         return new SuccessDataResult<>(
                 userResponse,
                 Messages.ACCOUNT_USER_FOUND
@@ -128,9 +147,27 @@ public class AccountServiceImpl implements AccountService {
 
         BankResponse bankResponse = Objects.requireNonNull(response.getBody()).getData();
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.ACCOUNT_BANK_FOUND));
+
         return new SuccessDataResult<>(
                 bankResponse,
                 Messages.ACCOUNT_BANK_FOUND
         );
+    }
+
+    private LogRequest prepareLogRequest(
+            OperationType operationType,
+            String message
+    )
+    {
+        return LogRequest
+                .builder()
+                .serviceName("account-service")
+                .operationType(operationType)
+                .logType(LogType.INFO)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .exception(null)
+                .build();
     }
 }

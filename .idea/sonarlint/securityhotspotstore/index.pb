@@ -337,3 +337,13 @@ bcredit-card-service/src/main/java/unaldi/creditcardservice/utils/RabbitMQ/enums
 ccredit-card-service/src/main/java/unaldi/creditcardservice/utils/RabbitMQ/producer/LogProducer.java,5\2\5276542531629e7672650e0088343017eeb41d61
 ‘
 acredit-card-service/src/main/java/unaldi/creditcardservice/utils/RabbitMQ/request/LogRequest.java,2\7\2768fcd037b19b8e90fc59e5ee9262554a3c5649
+š
+jaccount-service/src/main/java/unaldi/accountservice/utils/configuration/RabbitMQProducerConfiguration.java,c\c\cc4706e7a1da31dd399758bfa7ce36946e47174c
+…
+Uaccount-service/src/main/java/unaldi/accountservice/utils/RabbitMQ/enums/LogType.java,0\d\0d1450d58fdf81a4c95392cd22ef4de6a24e099d
+‹
+[account-service/src/main/java/unaldi/accountservice/utils/RabbitMQ/enums/OperationType.java,4\3\4347c5cb698ca47aa95c4a142ec2d8d1d6217005
+Œ
+\account-service/src/main/java/unaldi/accountservice/utils/RabbitMQ/producer/LogProducer.java,5\5\5591765c650f9a2c6fe4edf636905312ec5fa2fe
+Š
+Zaccount-service/src/main/java/unaldi/accountservice/utils/RabbitMQ/request/LogRequest.java,b\d\bdc6c4c3e22e257db1d8ac4eb41fecd5a6d75d1d

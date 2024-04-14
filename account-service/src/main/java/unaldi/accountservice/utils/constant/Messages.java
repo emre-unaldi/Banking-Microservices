@@ -18,4 +18,5 @@ public class Messages {
     public static final String ACCOUNTS_LISTED = "Accounts in the database are listed";
     public static final String ACCOUNT_USER_FOUND = "Account user found by user id";
     public static final String ACCOUNT_BANK_FOUND = "Account bank found by bank id";
+    public static final String LOG_WRITE_QUEUE = "Log record written to queue";
 }
