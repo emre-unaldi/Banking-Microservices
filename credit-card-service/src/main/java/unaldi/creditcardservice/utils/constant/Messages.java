@@ -18,4 +18,5 @@ public class Messages {
     public static final String CREDIT_CARDS_LISTED = "Credit cards in the database are listed";
     public static final String CREDIT_CARD_USER_FOUND = "Credit card user found by user id";
     public static final String CREDIT_CARD_BANK_FOUND = "Credit card bank found by bank id";
+    public static final String LOG_WRITE_QUEUE = "Log record written to queue";
 }

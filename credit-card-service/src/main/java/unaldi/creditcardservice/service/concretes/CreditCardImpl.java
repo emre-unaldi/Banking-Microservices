@@ -3,6 +3,10 @@ package unaldi.creditcardservice.service.concretes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import unaldi.creditcardservice.utils.RabbitMQ.enums.LogType;
+import unaldi.creditcardservice.utils.RabbitMQ.enums.OperationType;
+import unaldi.creditcardservice.utils.RabbitMQ.producer.LogProducer;
+import unaldi.creditcardservice.utils.RabbitMQ.request.LogRequest;
 import unaldi.creditcardservice.utils.client.BankServiceClient;
 import unaldi.creditcardservice.utils.client.UserServiceClient;
 import unaldi.creditcardservice.entity.CreditCard;
@@ -20,6 +24,7 @@ import unaldi.creditcardservice.utils.constant.Messages;
 import unaldi.creditcardservice.utils.exception.customExceptions.CreditCardNotFoundException;
 import unaldi.creditcardservice.utils.result.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,13 +39,15 @@ public class CreditCardImpl implements CreditCardService {
     private final CreditCardRepository creditCardRepository;
     private final UserServiceClient userServiceClient;
     private final BankServiceClient bankServiceClient;
+    private final LogProducer logProducer;
 
     @Autowired
-    public CreditCardImpl(CreditCardRepository creditCardRepository, UserServiceClient userServiceClient, BankServiceClient bankServiceClient)
+    public CreditCardImpl(CreditCardRepository creditCardRepository, UserServiceClient userServiceClient, BankServiceClient bankServiceClient, LogProducer logProducer)
     {
         this.creditCardRepository = creditCardRepository;
         this.userServiceClient = userServiceClient;
         this.bankServiceClient = bankServiceClient;
+        this.logProducer = logProducer;
     }
 
     @Override
@@ -50,6 +57,8 @@ public class CreditCardImpl implements CreditCardService {
 
         CreditCard creditCard = CreditCardMapper.INSTANCE.convertToSaveCreditCard(creditCardSaveRequest);
         this.creditCardRepository.save(creditCard);
+
+        logProducer.sendToLog(prepareLogRequest(OperationType.POST,Messages.CREDIT_CARD_CREATED));
 
         return new SuccessDataResult<>(
                 CreditCardMapper.INSTANCE.convertToCreditCardDTO(creditCard),
@@ -68,6 +77,8 @@ public class CreditCardImpl implements CreditCardService {
         CreditCard creditCard = CreditCardMapper.INSTANCE.convertToUpdateCreditCard(creditCardUpdateRequest);
         this.creditCardRepository.save(creditCard);
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.PUT,Messages.CREDIT_CARD_UPDATED));
+
         return new SuccessDataResult<>(
                 CreditCardMapper.INSTANCE.convertToCreditCardDTO(creditCard),
                 Messages.CREDIT_CARD_UPDATED
@@ -82,6 +93,8 @@ public class CreditCardImpl implements CreditCardService {
 
         this.creditCardRepository.deleteById(creditCard.getId());
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.DELETE,Messages.CREDIT_CARD_DELETED));
+
         return new SuccessResult(Messages.CREDIT_CARD_DELETED);
     }
 
@@ -92,12 +105,16 @@ public class CreditCardImpl implements CreditCardService {
                 .map(CreditCardMapper.INSTANCE::convertToCreditCardDTO)
                 .orElseThrow(() -> new CreditCardNotFoundException(ExceptionMessages.CREDIT_CARD_NOT_FOUND));
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.CREDIT_CARD_BANK_FOUND));
+
         return new SuccessDataResult<>(creditCardDTO, Messages.CREDIT_CARD_FOUND);
     }
 
     @Override
     public DataResult<List<CreditCardDTO>> findAll() {
         List<CreditCard> creditCardList = this.creditCardRepository.findAll();
+
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.CREDIT_CARDS_LISTED));
 
         return new SuccessDataResult<>(
                 CreditCardMapper.INSTANCE.convertCreditCardDTOs(creditCardList),
@@ -111,6 +128,8 @@ public class CreditCardImpl implements CreditCardService {
 
         UserResponse userResponse = Objects.requireNonNull(response.getBody()).getData();
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.CREDIT_CARD_USER_FOUND));
+
         return new SuccessDataResult<>(
                 userResponse,
                 Messages.CREDIT_CARD_USER_FOUND
@@ -123,9 +142,27 @@ public class CreditCardImpl implements CreditCardService {
 
         BankResponse bankResponse = Objects.requireNonNull(response.getBody()).getData();
 
+        logProducer.sendToLog(prepareLogRequest(OperationType.GET,Messages.CREDIT_CARD_BANK_FOUND));
+
         return new SuccessDataResult<>(
                 bankResponse,
                 Messages.CREDIT_CARD_BANK_FOUND
         );
+    }
+
+    private LogRequest prepareLogRequest(
+            OperationType operationType,
+            String message
+    )
+    {
+        return LogRequest
+                .builder()
+                .serviceName("credit-card-service")
+                .operationType(operationType)
+                .logType(LogType.INFO)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .exception(null)
+                .build();
     }
 }

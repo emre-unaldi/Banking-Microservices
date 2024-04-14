@@ -327,3 +327,13 @@ Ubank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/enums/OperationTyp
 Vbank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/producer/LogProducer.java,4\c\4c74f07d69c3b5e77f4e9e547959e0737698be5c
 „
 Tbank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/request/LogRequest.java,8\1\81c17de77213f4d66edd5e578fe2b56fe5a14893
+¡
+qcredit-card-service/src/main/java/unaldi/creditcardservice/utils/configuration/RabbitMQProducerConfiguration.java,9\e\9e7890cc8635283c651c2f6908f7b8e2765ebfd1
+Œ
+\credit-card-service/src/main/java/unaldi/creditcardservice/utils/RabbitMQ/enums/LogType.java,e\f\ef2663e1a4e25e7bf1b56fa394cd43cac78b0275
+’
+bcredit-card-service/src/main/java/unaldi/creditcardservice/utils/RabbitMQ/enums/OperationType.java,f\d\fd3e3d36ae161aac6cb069190b569401e5bb97b5
+“
+ccredit-card-service/src/main/java/unaldi/creditcardservice/utils/RabbitMQ/producer/LogProducer.java,5\2\5276542531629e7672650e0088343017eeb41d61
+‘
+acredit-card-service/src/main/java/unaldi/creditcardservice/utils/RabbitMQ/request/LogRequest.java,2\7\2768fcd037b19b8e90fc59e5ee9262554a3c5649
