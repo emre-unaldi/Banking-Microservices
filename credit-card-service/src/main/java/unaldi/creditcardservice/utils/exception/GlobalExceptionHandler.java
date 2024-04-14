@@ -21,6 +21,7 @@ import unaldi.creditcardservice.utils.result.DataResult;
 import unaldi.creditcardservice.utils.result.ErrorDataResult;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * Copyright (c) 2024
@@ -75,11 +76,10 @@ public class GlobalExceptionHandler {
     }
 
     private ExceptionResponse prepareExceptionResponse(Exception exception, HttpStatus httpStatus, WebRequest request) {
-        NativeWebRequest nativeRequest = (NativeWebRequest) request;
-        HttpServletRequest servletRequest = nativeRequest.getNativeRequest(HttpServletRequest.class);
+        HttpServletRequest servletRequest = ((NativeWebRequest) request).getNativeRequest(HttpServletRequest.class);
 
-        String httpMethod = servletRequest != null ? servletRequest.getMethod() : "Unknown";
-        String requestPath = servletRequest != null ? servletRequest.getRequestURI() : "Unknown";
+        String httpMethod = Optional.ofNullable(servletRequest).map(HttpServletRequest::getMethod).orElse("Unknown");
+        String requestPath = Optional.ofNullable(servletRequest).map(HttpServletRequest::getRequestURI).orElse("Unknown");
         String exceptionMessage = httpStatus + " - " + exception.getClass().getSimpleName();
 
         logProducer.sendToLog(prepareLogRequest(OperationType.valueOf(httpMethod), exception.getMessage(), exceptionMessage));
