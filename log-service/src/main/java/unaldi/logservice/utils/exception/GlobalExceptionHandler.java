@@ -14,6 +14,8 @@ import unaldi.logservice.utils.exception.dto.ExceptionResponse;
 import unaldi.logservice.utils.result.DataResult;
 import unaldi.logservice.utils.result.ErrorDataResult;
 
+import java.util.Optional;
+
 /**
  * Copyright (c) 2024
  * All rights reserved.
@@ -26,7 +28,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(LogNotFoundException.class)
     public ResponseEntity<DataResult<ExceptionResponse>> handleCreditCardNotFoundException(LogNotFoundException exception, WebRequest request) {
-        log.error("CreditCardNotFoundException occurred : " + exception);
+        log.error("CreditCardNotFoundException occurred : {0}", exception);
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -38,7 +40,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<DataResult<ExceptionResponse>> handleAllException(Exception exception, WebRequest request) {
-        log.error("Exception occurred : " + exception);
+        log.error("Exception occurred : {0}", exception);
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -49,11 +51,10 @@ public class GlobalExceptionHandler {
     }
 
     private ExceptionResponse prepareExceptionResponse(Exception exception, HttpStatus httpStatus, WebRequest request) {
-        NativeWebRequest nativeRequest = (NativeWebRequest) request;
-        HttpServletRequest servletRequest = nativeRequest.getNativeRequest(HttpServletRequest.class);
+        HttpServletRequest servletRequest = ((NativeWebRequest) request).getNativeRequest(HttpServletRequest.class);
 
-        String httpMethod = servletRequest != null ? servletRequest.getMethod() : "Unknown";
-        String requestPath = servletRequest != null ? servletRequest.getRequestURI() : "Unknown";
+        String httpMethod = Optional.ofNullable(servletRequest).map(HttpServletRequest::getMethod).orElse("Unknown");
+        String requestPath = Optional.ofNullable(servletRequest).map(HttpServletRequest::getRequestURI).orElse("Unknown");
 
         return ExceptionResponse.builder()
                 .message(exception.getMessage())

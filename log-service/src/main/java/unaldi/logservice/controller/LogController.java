@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unaldi.logservice.model.dto.LogDTO;
 import unaldi.logservice.model.request.LogSaveRequest;
+import unaldi.logservice.model.request.LogUpdateRequest;
 import unaldi.logservice.service.abstracts.LogService;
 import unaldi.logservice.utils.result.DataResult;
 import unaldi.logservice.utils.result.Result;
@@ -33,6 +34,13 @@ public class LogController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(this.logService.save(logSaveRequest));
+    }
+
+    @PutMapping
+    public ResponseEntity<DataResult<LogDTO>> update(@RequestBody LogUpdateRequest logUpdateRequest) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.logService.update(logUpdateRequest));
     }
 
     @DeleteMapping("/{logId}")

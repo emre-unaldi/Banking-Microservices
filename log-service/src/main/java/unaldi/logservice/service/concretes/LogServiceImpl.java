@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import unaldi.logservice.model.Log;
 import unaldi.logservice.model.dto.LogDTO;
 import unaldi.logservice.model.request.LogSaveRequest;
+import unaldi.logservice.model.request.LogUpdateRequest;
 import unaldi.logservice.repository.LogRepository;
 import unaldi.logservice.service.abstracts.LogService;
 import unaldi.logservice.service.abstracts.mapper.LogMapper;
@@ -42,6 +43,20 @@ public class LogServiceImpl implements LogService {
         return new SuccessDataResult<>(
                 LogMapper.INSTANCE.convertToLogDTO(log),
                 Messages.LOG_CREATED
+        );
+    }
+
+    @Override
+    public DataResult<LogDTO> update(LogUpdateRequest logUpdateRequest) {
+        if(!this.logRepository.existsById(logUpdateRequest.id()))
+            throw new LogNotFoundException(ExceptionMessages.LOG_NOT_FOUND);
+
+        Log log = LogMapper.INSTANCE.convertToUpdateLog(logUpdateRequest);
+        this.logRepository.save(log);
+
+        return new SuccessDataResult<>(
+                LogMapper.INSTANCE.convertToLogDTO(log),
+                Messages.LOG_UPDATED
         );
     }
 

@@ -2,6 +2,7 @@ package unaldi.logservice.service.abstracts;
 
 import unaldi.logservice.model.dto.LogDTO;
 import unaldi.logservice.model.request.LogSaveRequest;
+import unaldi.logservice.model.request.LogUpdateRequest;
 import unaldi.logservice.utils.result.DataResult;
 import unaldi.logservice.utils.result.Result;
 
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public interface LogService {
     DataResult<LogDTO> save(LogSaveRequest logSaveRequest);
+    DataResult<LogDTO> update(LogUpdateRequest logUpdateRequest);
     Result deleteById(String logId);
     DataResult<LogDTO> findById(String logId);
     DataResult<List<LogDTO>> findAll();

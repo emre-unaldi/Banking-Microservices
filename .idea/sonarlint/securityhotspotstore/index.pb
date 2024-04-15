@@ -357,3 +357,5 @@ Zinvoice-service/src/main/java/unaldi/invoiceservice/utils/RabbitMQ/request/LogR
 Uinvoice-service/src/main/java/unaldi/invoiceservice/utils/RabbitMQ/enums/LogType.java,f\6\f697c1b8cd796913aeb814dac1b305745a3f04b4
 š
 jinvoice-service/src/main/java/unaldi/invoiceservice/utils/configuration/RabbitMQProducerConfiguration.java,e\7\e7c8761b7366293364ac79c55e2297d007f67530
+
+Olog-service/src/main/java/unaldi/logservice/model/request/LogUpdateRequest.java,1\6\16bf952c633af183093b40727e3ab314216755a1
