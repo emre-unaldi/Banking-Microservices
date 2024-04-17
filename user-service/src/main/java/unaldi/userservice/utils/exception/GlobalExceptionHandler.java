@@ -1,10 +1,11 @@
 package unaldi.userservice.utils.exception;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import unaldi.userservice.utils.RabbitMQ.request.LogRequest;
-import unaldi.userservice.utils.RabbitMQ.enums.LogType;
-import unaldi.userservice.utils.RabbitMQ.enums.OperationType;
-import unaldi.userservice.utils.RabbitMQ.producer.LogProducer;
+import unaldi.userservice.utils.constant.Generals;
+import unaldi.userservice.utils.rabbitMQ.request.LogRequest;
+import unaldi.userservice.utils.rabbitMQ.enums.LogType;
+import unaldi.userservice.utils.rabbitMQ.enums.OperationType;
+import unaldi.userservice.utils.rabbitMQ.producer.LogProducer;
 import unaldi.userservice.utils.constant.ExceptionMessages;
 import unaldi.userservice.utils.exception.customExceptions.UserNotFoundException;
 import unaldi.userservice.utils.exception.dto.ExceptionResponse;
@@ -89,7 +90,7 @@ public class GlobalExceptionHandler {
     {
         return LogRequest
                 .builder()
-                .serviceName("user-service")
+                .serviceName(Generals.APPLICATION_NAME)
                 .operationType(operationType)
                 .logType(LogType.ERROR)
                 .message(message)

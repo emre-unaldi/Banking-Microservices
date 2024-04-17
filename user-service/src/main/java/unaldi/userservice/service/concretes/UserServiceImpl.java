@@ -1,5 +1,9 @@
 package unaldi.userservice.service.concretes;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import unaldi.userservice.entity.User;
 import unaldi.userservice.entity.dto.UserDTO;
 import unaldi.userservice.entity.request.UserSaveRequest;
@@ -7,10 +11,11 @@ import unaldi.userservice.entity.request.UserUpdateRequest;
 import unaldi.userservice.repository.UserRepository;
 import unaldi.userservice.service.abstracts.UserService;
 import unaldi.userservice.service.abstracts.mapper.UserMapper;
-import unaldi.userservice.utils.RabbitMQ.request.LogRequest;
-import unaldi.userservice.utils.RabbitMQ.enums.LogType;
-import unaldi.userservice.utils.RabbitMQ.enums.OperationType;
-import unaldi.userservice.utils.RabbitMQ.producer.LogProducer;
+import unaldi.userservice.utils.constant.Generals;
+import unaldi.userservice.utils.rabbitMQ.request.LogRequest;
+import unaldi.userservice.utils.rabbitMQ.enums.LogType;
+import unaldi.userservice.utils.rabbitMQ.enums.OperationType;
+import unaldi.userservice.utils.rabbitMQ.producer.LogProducer;
 import unaldi.userservice.utils.constant.ExceptionMessages;
 import unaldi.userservice.utils.constant.Messages;
 import unaldi.userservice.utils.exception.customExceptions.UserNotFoundException;
@@ -41,6 +46,7 @@ public class UserServiceImpl implements UserService {
         this.logProducer = logProducer;
     }
 
+    @CacheEvict(value = Generals.USERS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<UserDTO> save(UserSaveRequest userSaveRequest) {
         User user = UserMapper.INSTANCE.convertToSaveUser(userSaveRequest);
@@ -54,6 +60,8 @@ public class UserServiceImpl implements UserService {
         );
     }
 
+    @CachePut(value = Generals.USER_CACHE, key = "#userUpdateRequest.id()", unless = "#result.success != true")
+    @CacheEvict(value = Generals.USERS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<UserDTO> update(UserUpdateRequest userUpdateRequest) {
         if (!this.userRepository.existsById(userUpdateRequest.id())) {
@@ -71,6 +79,12 @@ public class UserServiceImpl implements UserService {
         );
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = Generals.USERS_CACHE, allEntries = true, condition = "#result.success != false"),
+                    @CacheEvict(value = Generals.USER_CACHE, key = "#userId", condition = "#result.success != false")
+            }
+    )
     @Override
     public Result deleteById(Long userId) {
         User user = this.userRepository
@@ -84,6 +98,7 @@ public class UserServiceImpl implements UserService {
         return new SuccessResult(Messages.USER_DELETED);
     }
 
+    @Cacheable(value = Generals.USER_CACHE, key = "#userId", unless = "#result.success != true")
     @Override
     public DataResult<UserDTO> findById(Long userId) {
         UserDTO userDTO = this.userRepository
@@ -96,6 +111,7 @@ public class UserServiceImpl implements UserService {
         return new SuccessDataResult<>(userDTO, Messages.USER_FOUND);
     }
 
+    @Cacheable(value = Generals.USERS_CACHE, key = "'all'", unless = "#result.success != true")
     @Override
     public DataResult<List<UserDTO>> findAll() {
         List<User> userList = this.userRepository.findAll();
@@ -115,7 +131,7 @@ public class UserServiceImpl implements UserService {
     {
         return LogRequest
                 .builder()
-                .serviceName("user-service")
+                .serviceName(Generals.APPLICATION_NAME)
                 .operationType(operationType)
                 .logType(LogType.INFO)
                 .message(message)
