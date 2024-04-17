@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
-import unaldi.bankservice.utils.RabbitMQ.enums.LogType;
-import unaldi.bankservice.utils.RabbitMQ.enums.OperationType;
-import unaldi.bankservice.utils.RabbitMQ.producer.LogProducer;
-import unaldi.bankservice.utils.RabbitMQ.request.LogRequest;
+import unaldi.bankservice.utils.constant.Generals;
+import unaldi.bankservice.utils.rabbitMQ.enums.LogType;
+import unaldi.bankservice.utils.rabbitMQ.enums.OperationType;
+import unaldi.bankservice.utils.rabbitMQ.producer.LogProducer;
+import unaldi.bankservice.utils.rabbitMQ.request.LogRequest;
 import unaldi.bankservice.utils.constant.ExceptionMessages;
 import unaldi.bankservice.utils.exception.customExceptions.BankNotFoundException;
 import unaldi.bankservice.utils.exception.dto.ExceptionResponse;
@@ -89,7 +90,7 @@ public class GlobalExceptionHandler {
     {
         return LogRequest
                 .builder()
-                .serviceName("bank-service")
+                .serviceName(Generals.APPLICATION_NAME)
                 .operationType(operationType)
                 .logType(LogType.ERROR)
                 .message(message)

@@ -1,11 +1,11 @@
-package unaldi.bankservice.utils.RabbitMQ.producer;
+package unaldi.bankservice.utils.rabbitMQ.producer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import unaldi.bankservice.utils.RabbitMQ.request.LogRequest;
-import unaldi.bankservice.utils.configuration.RabbitMQProducerConfiguration;
+import unaldi.bankservice.utils.rabbitMQ.request.LogRequest;
+import unaldi.bankservice.utils.configuration.rabbitMQ.RabbitMQProducerConfiguration;
 import unaldi.bankservice.utils.constant.Messages;
 
 /**

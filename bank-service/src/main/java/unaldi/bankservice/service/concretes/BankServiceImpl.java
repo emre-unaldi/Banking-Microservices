@@ -1,6 +1,10 @@
 package unaldi.bankservice.service.concretes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Caching;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import unaldi.bankservice.entity.Bank;
 import unaldi.bankservice.entity.dto.BankDTO;
@@ -9,10 +13,11 @@ import unaldi.bankservice.entity.request.BankUpdateRequest;
 import unaldi.bankservice.repository.BankRepository;
 import unaldi.bankservice.service.abstracts.BankService;
 import unaldi.bankservice.service.abstracts.mapper.BankMapper;
-import unaldi.bankservice.utils.RabbitMQ.enums.LogType;
-import unaldi.bankservice.utils.RabbitMQ.enums.OperationType;
-import unaldi.bankservice.utils.RabbitMQ.producer.LogProducer;
-import unaldi.bankservice.utils.RabbitMQ.request.LogRequest;
+import unaldi.bankservice.utils.constant.Generals;
+import unaldi.bankservice.utils.rabbitMQ.enums.LogType;
+import unaldi.bankservice.utils.rabbitMQ.enums.OperationType;
+import unaldi.bankservice.utils.rabbitMQ.producer.LogProducer;
+import unaldi.bankservice.utils.rabbitMQ.request.LogRequest;
 import unaldi.bankservice.utils.constant.ExceptionMessages;
 import unaldi.bankservice.utils.constant.Messages;
 import unaldi.bankservice.utils.exception.customExceptions.BankNotFoundException;
@@ -41,6 +46,7 @@ public class BankServiceImpl implements BankService {
         this.logProducer = logProducer;
     }
 
+    @CacheEvict(value = Generals.BANKS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<BankDTO> save(BankSaveRequest bankSaveRequest) {
         Bank bank = BankMapper.INSTANCE.convertToSaveBank(bankSaveRequest);
@@ -54,6 +60,8 @@ public class BankServiceImpl implements BankService {
         );
     }
 
+    @CachePut(value = Generals.BANK_CACHE, key = "#bankUpdateRequest.id()", unless = "#result.success != true")
+    @CacheEvict(value = Generals.BANKS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<BankDTO> update(BankUpdateRequest bankUpdateRequest) {
         if(!this.bankRepository.existsById(bankUpdateRequest.id()))
@@ -70,6 +78,12 @@ public class BankServiceImpl implements BankService {
         );
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = Generals.BANKS_CACHE, allEntries = true, condition = "#result.success != false"),
+                    @CacheEvict(value = Generals.BANK_CACHE, key = "#bankId", condition = "#result.success != false")
+            }
+    )
     @Override
     public Result deleteById(Long bankId) {
         Bank bank = this.bankRepository
@@ -83,6 +97,7 @@ public class BankServiceImpl implements BankService {
         return new SuccessResult(Messages.BANK_DELETED);
     }
 
+    @Cacheable(value = Generals.BANK_CACHE, key = "#bankId", unless = "#result.success != true")
     @Override
     public DataResult<BankDTO> findById(Long bankId) {
         BankDTO bankDTO = this.bankRepository
@@ -95,6 +110,7 @@ public class BankServiceImpl implements BankService {
         return new SuccessDataResult<>(bankDTO, Messages.BANK_FOUND);
     }
 
+    @Cacheable(value = Generals.BANKS_CACHE, key = "'all'", unless = "#result.success != true")
     @Override
     public DataResult<List<BankDTO>> findAll() {
         List<Bank> bankList = this.bankRepository.findAll();
@@ -114,7 +130,7 @@ public class BankServiceImpl implements BankService {
     {
         return LogRequest
                 .builder()
-                .serviceName("bank-service")
+                .serviceName(Generals.APPLICATION_NAME)
                 .operationType(operationType)
                 .logType(LogType.INFO)
                 .message(message)
