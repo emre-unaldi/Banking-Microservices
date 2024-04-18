@@ -1,8 +1,8 @@
-package unaldi.creditcardservice.utils.RabbitMQ.request;
+package unaldi.creditcardservice.utils.rabbitMQ.request;
 
 import lombok.*;
-import unaldi.creditcardservice.utils.RabbitMQ.enums.LogType;
-import unaldi.creditcardservice.utils.RabbitMQ.enums.OperationType;
+import unaldi.creditcardservice.utils.rabbitMQ.enums.LogType;
+import unaldi.creditcardservice.utils.rabbitMQ.enums.OperationType;
 
 import java.time.LocalDateTime;
 

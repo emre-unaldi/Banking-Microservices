@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
-import unaldi.creditcardservice.utils.RabbitMQ.enums.LogType;
-import unaldi.creditcardservice.utils.RabbitMQ.enums.OperationType;
-import unaldi.creditcardservice.utils.RabbitMQ.producer.LogProducer;
-import unaldi.creditcardservice.utils.RabbitMQ.request.LogRequest;
+import unaldi.creditcardservice.utils.constant.Generals;
+import unaldi.creditcardservice.utils.rabbitMQ.enums.LogType;
+import unaldi.creditcardservice.utils.rabbitMQ.enums.OperationType;
+import unaldi.creditcardservice.utils.rabbitMQ.producer.LogProducer;
+import unaldi.creditcardservice.utils.rabbitMQ.request.LogRequest;
 import unaldi.creditcardservice.utils.constant.ExceptionMessages;
 import unaldi.creditcardservice.utils.exception.customExceptions.CreditCardNotFoundException;
 import unaldi.creditcardservice.utils.exception.dto.ExceptionResponse;
@@ -102,7 +103,7 @@ public class GlobalExceptionHandler {
     {
         return LogRequest
                 .builder()
-                .serviceName("credit-card-service")
+                .serviceName(Generals.APPLICATION_NAME)
                 .operationType(operationType)
                 .logType(LogType.ERROR)
                 .message(message)

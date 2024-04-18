@@ -1,11 +1,11 @@
-package unaldi.creditcardservice.utils.RabbitMQ.producer;
+package unaldi.creditcardservice.utils.rabbitMQ.producer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import unaldi.creditcardservice.utils.RabbitMQ.request.LogRequest;
-import unaldi.creditcardservice.utils.configuration.RabbitMQProducerConfiguration;
+import unaldi.creditcardservice.utils.rabbitMQ.request.LogRequest;
+import unaldi.creditcardservice.utils.configuration.rabbitMQ.RabbitMQProducerConfiguration;
 import unaldi.creditcardservice.utils.constant.Messages;
 
 /**

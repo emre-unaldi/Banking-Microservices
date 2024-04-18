@@ -1,4 +1,4 @@
-package unaldi.creditcardservice.utils.RabbitMQ.enums;
+package unaldi.creditcardservice.utils.rabbitMQ.enums;
 
 import lombok.Getter;
 

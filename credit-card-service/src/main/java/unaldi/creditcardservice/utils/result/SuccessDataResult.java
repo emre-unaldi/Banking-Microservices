@@ -7,6 +7,8 @@ package unaldi.creditcardservice.utils.result;
  * @author Emre Ünaldı
  */
 public class SuccessDataResult<T> extends DataResult<T> {
+    public SuccessDataResult() {}
+
     public SuccessDataResult(T data) {
         super(true, data);
     }

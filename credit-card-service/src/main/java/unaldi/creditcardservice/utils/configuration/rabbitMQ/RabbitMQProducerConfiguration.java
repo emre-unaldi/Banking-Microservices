@@ -1,4 +1,4 @@
-package unaldi.creditcardservice.utils.configuration;
+package unaldi.creditcardservice.utils.configuration.rabbitMQ;
 
 import lombok.Data;
 import org.springframework.amqp.core.*;
