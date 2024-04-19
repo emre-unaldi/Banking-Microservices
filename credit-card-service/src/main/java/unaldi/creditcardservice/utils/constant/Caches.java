@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
  * @author Emre Ünaldı
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Generals {
+public class Caches {
     public static final String CREDIT_CARD_CACHE = "credit_card";
     public static final String CREDIT_CARDS_CACHE = "credit_cards";
     public static final String CREDIT_CARD_USER_CACHE = "credit_card_user";
     public static final String CREDIT_CARD_BANK_CACHE = "credit_card_bank";
-    public static final String APPLICATION_NAME = "credit-card-service";
+    public static final String KEY_PREFIX = "credit-card-service:";
 }

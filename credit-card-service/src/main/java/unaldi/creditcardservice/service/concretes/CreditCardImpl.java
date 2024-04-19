@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import unaldi.creditcardservice.utils.constant.Generals;
+import unaldi.creditcardservice.utils.constant.Caches;
 import unaldi.creditcardservice.utils.rabbitMQ.enums.LogType;
 import unaldi.creditcardservice.utils.rabbitMQ.enums.OperationType;
 import unaldi.creditcardservice.utils.rabbitMQ.producer.LogProducer;
@@ -55,7 +55,7 @@ public class CreditCardImpl implements CreditCardService {
         this.logProducer = logProducer;
     }
 
-    @CacheEvict(value = Generals.CREDIT_CARDS_CACHE, allEntries = true, condition = "#result.success != false")
+    @CacheEvict(value = Caches.CREDIT_CARDS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<CreditCardDTO> save(CreditCardSaveRequest creditCardSaveRequest) {
         userServiceClient.findById(creditCardSaveRequest.userId());
@@ -72,8 +72,8 @@ public class CreditCardImpl implements CreditCardService {
         );
     }
 
-    @CachePut(value = Generals.CREDIT_CARD_CACHE, key = "#creditCardUpdateRequest.id()", unless = "#result.success != true")
-    @CacheEvict(value = Generals.CREDIT_CARDS_CACHE, allEntries = true, condition = "#result.success != false")
+    @CachePut(value = Caches.CREDIT_CARD_CACHE, key = "#creditCardUpdateRequest.id()", unless = "#result.success != true")
+    @CacheEvict(value = Caches.CREDIT_CARDS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<CreditCardDTO> update(CreditCardUpdateRequest creditCardUpdateRequest) {
         if(!this.creditCardRepository.existsById(creditCardUpdateRequest.id()))
@@ -95,8 +95,8 @@ public class CreditCardImpl implements CreditCardService {
 
     @Caching(
             evict = {
-                    @CacheEvict(value = Generals.CREDIT_CARDS_CACHE, allEntries = true, condition = "#result.success != false"),
-                    @CacheEvict(value = Generals.CREDIT_CARD_CACHE, key = "#creditCardId", condition = "#result.success != false")
+                    @CacheEvict(value = Caches.CREDIT_CARDS_CACHE, allEntries = true, condition = "#result.success != false"),
+                    @CacheEvict(value = Caches.CREDIT_CARD_CACHE, key = "#creditCardId", condition = "#result.success != false")
             }
     )
     @Override
@@ -112,7 +112,7 @@ public class CreditCardImpl implements CreditCardService {
         return new SuccessResult(Messages.CREDIT_CARD_DELETED);
     }
 
-    @Cacheable(value = Generals.CREDIT_CARD_CACHE, key = "#creditCardId", unless = "#result.success != true")
+    @Cacheable(value = Caches.CREDIT_CARD_CACHE, key = "#creditCardId", unless = "#result.success != true")
     @Override
     public DataResult<CreditCardDTO> findById(Long creditCardId) {
         CreditCardDTO creditCardDTO = this.creditCardRepository
@@ -125,7 +125,7 @@ public class CreditCardImpl implements CreditCardService {
         return new SuccessDataResult<>(creditCardDTO, Messages.CREDIT_CARD_FOUND);
     }
 
-    @Cacheable(value = Generals.CREDIT_CARDS_CACHE, key = "'all'", unless = "#result.success != true")
+    @Cacheable(value = Caches.CREDIT_CARDS_CACHE, key = "'all'", unless = "#result.success != true")
     @Override
     public DataResult<List<CreditCardDTO>> findAll() {
         List<CreditCard> creditCardList = this.creditCardRepository.findAll();
@@ -138,7 +138,7 @@ public class CreditCardImpl implements CreditCardService {
         );
     }
 
-    @Cacheable(value = Generals.CREDIT_CARD_USER_CACHE, key = "#userId", unless = "#result.success != true")
+    @Cacheable(value = Caches.CREDIT_CARD_USER_CACHE, key = "#userId", unless = "#result.success != true")
     @Override
     public DataResult<UserResponse> findCreditCardUserByUserId(Long userId) {
         ResponseEntity<RestResponse<UserResponse>> response = userServiceClient.findById(userId);
@@ -153,7 +153,7 @@ public class CreditCardImpl implements CreditCardService {
         );
     }
 
-    @Cacheable(value = Generals.CREDIT_CARD_BANK_CACHE, key = "#bankId", unless = "#result.success != true")
+    @Cacheable(value = Caches.CREDIT_CARD_BANK_CACHE, key = "#bankId", unless = "#result.success != true")
     @Override
     public DataResult<BankResponse> findCreditCardBankByBankId(Long bankId) {
         ResponseEntity<RestResponse<BankResponse>> response = bankServiceClient.findById(bankId);
@@ -175,7 +175,7 @@ public class CreditCardImpl implements CreditCardService {
     {
         return LogRequest
                 .builder()
-                .serviceName(Generals.APPLICATION_NAME)
+                .serviceName("credit-card-service")
                 .operationType(operationType)
                 .logType(LogType.INFO)
                 .message(message)

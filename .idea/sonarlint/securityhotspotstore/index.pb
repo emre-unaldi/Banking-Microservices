@@ -385,3 +385,5 @@ x
 Huser-service/src/main/java/unaldi/userservice/utils/constant/Caches.java,a\e\ae96d6d4a97167732e53cf25743edddcb93fe01c
 x
 Hbank-service/src/main/java/unaldi/bankservice/utils/constant/Caches.java,a\7\a73f64bc130da5195659dfdc84c0e1ffe60ca275
+…
+Ucredit-card-service/src/main/java/unaldi/creditcardservice/utils/constant/Caches.java,7\7\77a9ee560c7669b4c631587844da0350de33107a
