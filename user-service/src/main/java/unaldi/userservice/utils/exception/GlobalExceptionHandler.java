@@ -1,7 +1,6 @@
 package unaldi.userservice.utils.exception;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import unaldi.userservice.utils.constant.Generals;
 import unaldi.userservice.utils.rabbitMQ.request.LogRequest;
 import unaldi.userservice.utils.rabbitMQ.enums.LogType;
 import unaldi.userservice.utils.rabbitMQ.enums.OperationType;
@@ -90,7 +89,7 @@ public class GlobalExceptionHandler {
     {
         return LogRequest
                 .builder()
-                .serviceName(Generals.APPLICATION_NAME)
+                .serviceName("user-service")
                 .operationType(operationType)
                 .logType(LogType.ERROR)
                 .message(message)

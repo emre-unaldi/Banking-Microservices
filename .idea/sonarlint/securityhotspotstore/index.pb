@@ -381,3 +381,5 @@ Pinvoice-service/src/main/java/unaldi/invoiceservice/utils/result/DataResult.jav
 Winvoice-service/src/main/java/unaldi/invoiceservice/utils/result/SuccessDataResult.java,9\f\9f0a53823fa6483f82c0018f260b84383ee7a301
 Œ
 \invoice-service/src/main/java/unaldi/invoiceservice/utils/rabbitMQ/producer/LogProducer.java,b\0\b05fa97346e30c8eed1b1bccbbbf91c6c3456ac3
+x
+Huser-service/src/main/java/unaldi/userservice/utils/constant/Caches.java,a\e\ae96d6d4a97167732e53cf25743edddcb93fe01c

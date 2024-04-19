@@ -11,7 +11,7 @@ import unaldi.userservice.entity.request.UserUpdateRequest;
 import unaldi.userservice.repository.UserRepository;
 import unaldi.userservice.service.abstracts.UserService;
 import unaldi.userservice.service.abstracts.mapper.UserMapper;
-import unaldi.userservice.utils.constant.Generals;
+import unaldi.userservice.utils.constant.Caches;
 import unaldi.userservice.utils.rabbitMQ.request.LogRequest;
 import unaldi.userservice.utils.rabbitMQ.enums.LogType;
 import unaldi.userservice.utils.rabbitMQ.enums.OperationType;
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         this.logProducer = logProducer;
     }
 
-    @CacheEvict(value = Generals.USERS_CACHE, allEntries = true, condition = "#result.success != false")
+    @CacheEvict(value = Caches.USERS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<UserDTO> save(UserSaveRequest userSaveRequest) {
         User user = UserMapper.INSTANCE.convertToSaveUser(userSaveRequest);
@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    @CachePut(value = Generals.USER_CACHE, key = "#userUpdateRequest.id()", unless = "#result.success != true")
-    @CacheEvict(value = Generals.USERS_CACHE, allEntries = true, condition = "#result.success != false")
+    @CachePut(value = Caches.USER_CACHE, key = "#userUpdateRequest.id()", unless = "#result.success != true")
+    @CacheEvict(value = Caches.USERS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<UserDTO> update(UserUpdateRequest userUpdateRequest) {
         if (!this.userRepository.existsById(userUpdateRequest.id())) {
@@ -81,8 +81,8 @@ public class UserServiceImpl implements UserService {
 
     @Caching(
             evict = {
-                    @CacheEvict(value = Generals.USERS_CACHE, allEntries = true, condition = "#result.success != false"),
-                    @CacheEvict(value = Generals.USER_CACHE, key = "#userId", condition = "#result.success != false")
+                    @CacheEvict(value = Caches.USERS_CACHE, allEntries = true, condition = "#result.success != false"),
+                    @CacheEvict(value = Caches.USER_CACHE, key = "#userId", condition = "#result.success != false")
             }
     )
     @Override
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
         return new SuccessResult(Messages.USER_DELETED);
     }
 
-    @Cacheable(value = Generals.USER_CACHE, key = "#userId", unless = "#result.success != true")
+    @Cacheable(value = Caches.USER_CACHE, key = "#userId", unless = "#result.success != true")
     @Override
     public DataResult<UserDTO> findById(Long userId) {
         UserDTO userDTO = this.userRepository
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
         return new SuccessDataResult<>(userDTO, Messages.USER_FOUND);
     }
 
-    @Cacheable(value = Generals.USERS_CACHE, key = "'all'", unless = "#result.success != true")
+    @Cacheable(value = Caches.USERS_CACHE, key = "'all'", unless = "#result.success != true")
     @Override
     public DataResult<List<UserDTO>> findAll() {
         List<User> userList = this.userRepository.findAll();
@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService {
     {
         return LogRequest
                 .builder()
-                .serviceName(Generals.APPLICATION_NAME)
+                .serviceName("user-service")
                 .operationType(operationType)
                 .logType(LogType.INFO)
                 .message(message)

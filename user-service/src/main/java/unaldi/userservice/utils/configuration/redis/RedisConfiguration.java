@@ -14,7 +14,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import unaldi.userservice.utils.constant.Generals;
+import unaldi.userservice.utils.constant.Caches;
 
 import java.time.Duration;
 
@@ -46,7 +46,7 @@ public class RedisConfiguration {
         return RedisCacheConfiguration.defaultCacheConfig()
                 .disableCachingNullValues()
                 .entryTtl(Duration.ofHours(1))
-                .computePrefixWith(CacheKeyPrefix.prefixed(Generals.APPLICATION_NAME + ":"))
+                .computePrefixWith(CacheKeyPrefix.prefixed(Caches.KEY_PREFIX))
                 .serializeKeysWith(SerializationPair.fromSerializer(RedisSerializer.string()))
                 .serializeValuesWith(SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer(redisCacheObjectMapper())));
     }
