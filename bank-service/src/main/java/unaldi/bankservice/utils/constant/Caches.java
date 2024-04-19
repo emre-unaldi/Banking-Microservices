@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
  * @author Emre Ünaldı
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Generals {
+public class Caches {
     public static final String BANK_CACHE = "bank";
     public static final String BANKS_CACHE = "banks";
-    public static final String APPLICATION_NAME = "bank-service";
+    public static final String KEY_PREFIX = "bank-service:";
 }
