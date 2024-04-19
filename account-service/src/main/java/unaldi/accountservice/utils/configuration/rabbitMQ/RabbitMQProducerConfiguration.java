@@ -1,4 +1,4 @@
-package unaldi.accountservice.utils.configuration;
+package unaldi.accountservice.utils.configuration.rabbitMQ;
 
 import lombok.Data;
 import org.springframework.amqp.core.*;

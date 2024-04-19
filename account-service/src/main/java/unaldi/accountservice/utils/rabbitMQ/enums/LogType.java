@@ -1,4 +1,4 @@
-package unaldi.accountservice.utils.RabbitMQ.enums;
+package unaldi.accountservice.utils.rabbitMQ.enums;
 
 import lombok.Getter;
 
@@ -9,15 +9,14 @@ import lombok.Getter;
  * @author Emre Ünaldı
  */
 @Getter
-public enum OperationType {
-    POST("POST"),
-    PUT("PUT"),
-    DELETE("DELETE"),
-    GET("GET");
+public enum LogType {
+    ERROR("ERROR"),
+    WARN("WARN"),
+    INFO("INFO");
 
     private final String message;
 
-    OperationType(String message) {
+    LogType(String message) {
         this.message = message;
     }
 }

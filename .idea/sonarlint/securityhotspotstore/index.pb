@@ -291,8 +291,6 @@ blog-service/src/main/java/unaldi/logservice/utils/configuration/RabbitMQConsume
 Tuser-service/src/main/java/unaldi/userservice/utils/RabbitMQ/request/LogRequest.java,9\b\9bdb5812f7a956c54663e00562af90ea1ba3e22c
 „
 Tlog-service/src/main/java/unaldi/logservice/utils/RabbitMQ/response/LogResponse.java,c\8\c871ddf7c37c58d0a7550e06c514cc2d4c73fb65
-”
-dbank-service/src/main/java/unaldi/bankservice/utils/configuration/RabbitMQProducerConfiguration.java,3\1\31ee54984d542736156ab4f2e3147d464de40965
 
 Obank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/enums/LogType.java,e\a\ea4319533b9fb50e4f05b4f3ec088ec0b47d84e6
 …
@@ -301,8 +299,6 @@ Ubank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/enums/OperationTyp
 Vbank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/producer/LogProducer.java,4\c\4c74f07d69c3b5e77f4e9e547959e0737698be5c
 „
 Tbank-service/src/main/java/unaldi/bankservice/utils/RabbitMQ/request/LogRequest.java,8\1\81c17de77213f4d66edd5e578fe2b56fe5a14893
-¡
-qcredit-card-service/src/main/java/unaldi/creditcardservice/utils/configuration/RabbitMQProducerConfiguration.java,9\e\9e7890cc8635283c651c2f6908f7b8e2765ebfd1
 Œ
 \credit-card-service/src/main/java/unaldi/creditcardservice/utils/RabbitMQ/enums/LogType.java,e\f\ef2663e1a4e25e7bf1b56fa394cd43cac78b0275
 ’
@@ -363,3 +359,11 @@ Wcredit-card-service/src/main/java/unaldi/creditcardservice/utils/constant/Gener
 ^credit-card-service/src/main/java/unaldi/creditcardservice/utils/result/SuccessDataResult.java,3\d\3d613db219910c155a3e03033b77aab0278fa8f3
 ª
 zcredit-card-service/src/main/java/unaldi/creditcardservice/utils/configuration/rabbitMQ/RabbitMQProducerConfiguration.java,0\7\07694b4ac574528c4dbff2c2c5e33b0af62c14e9
+•
+eaccount-service/src/main/java/unaldi/accountservice/utils/configuration/redis/RedisConfiguration.java,3\f\3f9f3b96115691d56f1b4a4caa3d90105b337452
+~
+Naccount-service/src/main/java/unaldi/accountservice/utils/constant/Caches.java,d\3\d3643aed3f9fe943b558f0ae00dca59b38c3878c
+|
+Laccount-service/src/main/java/unaldi/accountservice/utils/result/Result.java,4\2\424b8b5f26c262b5dda55105715dd111d302f928
+‡
+Waccount-service/src/main/java/unaldi/accountservice/utils/result/SuccessDataResult.java,9\f\9f8bcfd1ff97662af21c670a0c5f50ad3e40d165

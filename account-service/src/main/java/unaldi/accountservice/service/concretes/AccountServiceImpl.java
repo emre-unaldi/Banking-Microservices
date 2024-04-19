@@ -1,6 +1,10 @@
 package unaldi.accountservice.service.concretes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import unaldi.accountservice.entity.Account;
@@ -10,10 +14,11 @@ import unaldi.accountservice.entity.request.AccountUpdateRequest;
 import unaldi.accountservice.repository.AccountRepository;
 import unaldi.accountservice.service.abstracts.AccountService;
 import unaldi.accountservice.service.abstracts.mapper.AccountMapper;
-import unaldi.accountservice.utils.RabbitMQ.enums.LogType;
-import unaldi.accountservice.utils.RabbitMQ.enums.OperationType;
-import unaldi.accountservice.utils.RabbitMQ.producer.LogProducer;
-import unaldi.accountservice.utils.RabbitMQ.request.LogRequest;
+import unaldi.accountservice.utils.constant.Caches;
+import unaldi.accountservice.utils.rabbitMQ.enums.LogType;
+import unaldi.accountservice.utils.rabbitMQ.enums.OperationType;
+import unaldi.accountservice.utils.rabbitMQ.producer.LogProducer;
+import unaldi.accountservice.utils.rabbitMQ.request.LogRequest;
 import unaldi.accountservice.utils.client.BankServiceClient;
 import unaldi.accountservice.utils.client.UserServiceClient;
 import unaldi.accountservice.utils.client.dto.BankResponse;
@@ -52,6 +57,7 @@ public class AccountServiceImpl implements AccountService {
         this.logProducer = logProducer;
     }
 
+    @CacheEvict(value = Caches.ACCOUNTS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<AccountDTO> save(AccountSaveRequest accountSaveRequest) {
         userServiceClient.findById(accountSaveRequest.userId());
@@ -68,6 +74,8 @@ public class AccountServiceImpl implements AccountService {
         );
     }
 
+    @CachePut(value = Caches.ACCOUNT_CACHE, key = "#accountUpdateRequest.id()", unless = "#result.success != true")
+    @CacheEvict(value = Caches.ACCOUNTS_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<AccountDTO> update(AccountUpdateRequest accountUpdateRequest) {
         if(!this.accountRepository.existsById(accountUpdateRequest.id()))
@@ -87,6 +95,12 @@ public class AccountServiceImpl implements AccountService {
         );
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = Caches.ACCOUNTS_CACHE, allEntries = true, condition = "#result.success != false"),
+                    @CacheEvict(value = Caches.ACCOUNT_CACHE, key = "#accountId", condition = "#result.success != false")
+            }
+    )
     @Override
     public Result deleteById(Long accountId) {
         Account account = this.accountRepository
@@ -100,6 +114,7 @@ public class AccountServiceImpl implements AccountService {
         return new SuccessResult(Messages.ACCOUNT_DELETED);
     }
 
+    @Cacheable(value = Caches.ACCOUNT_CACHE, key = "#accountId", unless = "#result.success != true")
     @Override
     public DataResult<AccountDTO> findById(Long accountId) {
         AccountDTO accountDTO = this.accountRepository
@@ -115,6 +130,7 @@ public class AccountServiceImpl implements AccountService {
         );
     }
 
+    @Cacheable(value = Caches.ACCOUNTS_CACHE, key = "'all'", unless = "#result.success != true")
     @Override
     public DataResult<List<AccountDTO>> findAll() {
         List<Account> accountList = this.accountRepository.findAll();
@@ -127,6 +143,7 @@ public class AccountServiceImpl implements AccountService {
         );
     }
 
+    @Cacheable(value = Caches.ACCOUNT_USER_CACHE, key = "#userId", unless = "#result.success != true")
     @Override
     public DataResult<UserResponse> findAccountUserByUserId(Long userId) {
         ResponseEntity<RestResponse<UserResponse>> response = userServiceClient.findById(userId);
@@ -141,6 +158,7 @@ public class AccountServiceImpl implements AccountService {
         );
     }
 
+    @Cacheable(value = Caches.ACCOUNT_BANK_CACHE, key = "#bankId", unless = "#result.success != true")
     @Override
     public DataResult<BankResponse> findAccountBankByBankId(Long bankId) {
         ResponseEntity<RestResponse<BankResponse>> response = bankServiceClient.findById(bankId);

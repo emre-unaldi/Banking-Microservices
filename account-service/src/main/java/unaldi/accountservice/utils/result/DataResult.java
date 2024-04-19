@@ -10,7 +10,9 @@ import lombok.Getter;
  */
 @Getter
 public class DataResult<T> extends Result {
-    private final T data;
+    private T data;
+
+    public DataResult() {}
 
     public DataResult(Boolean success, T data) {
         super(success);
