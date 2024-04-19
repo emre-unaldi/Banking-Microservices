@@ -1,11 +1,11 @@
-package unaldi.invoiceservice.utils.RabbitMQ.producer;
+package unaldi.invoiceservice.utils.rabbitMQ.producer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import unaldi.invoiceservice.utils.RabbitMQ.request.LogRequest;
-import unaldi.invoiceservice.utils.configuration.RabbitMQProducerConfiguration;
+import unaldi.invoiceservice.utils.rabbitMQ.request.LogRequest;
+import unaldi.invoiceservice.utils.configuration.rabbitMQ.RabbitMQProducerConfiguration;
 import unaldi.invoiceservice.utils.constant.Messages;
 
 /**

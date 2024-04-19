@@ -1,8 +1,8 @@
-package unaldi.invoiceservice.utils.RabbitMQ.request;
+package unaldi.invoiceservice.utils.rabbitMQ.request;
 
 import lombok.*;
-import unaldi.invoiceservice.utils.RabbitMQ.enums.LogType;
-import unaldi.invoiceservice.utils.RabbitMQ.enums.OperationType;
+import unaldi.invoiceservice.utils.rabbitMQ.enums.LogType;
+import unaldi.invoiceservice.utils.rabbitMQ.enums.OperationType;
 
 import java.time.LocalDateTime;
 

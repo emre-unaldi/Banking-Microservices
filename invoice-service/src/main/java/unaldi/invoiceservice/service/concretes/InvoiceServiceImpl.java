@@ -1,6 +1,10 @@
 package unaldi.invoiceservice.service.concretes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import unaldi.invoiceservice.entity.Invoice;
@@ -10,10 +14,11 @@ import unaldi.invoiceservice.entity.request.InvoiceUpdateRequest;
 import unaldi.invoiceservice.repository.InvoiceRepository;
 import unaldi.invoiceservice.service.abstracts.InvoiceService;
 import unaldi.invoiceservice.service.abstracts.mapper.InvoiceMapper;
-import unaldi.invoiceservice.utils.RabbitMQ.enums.LogType;
-import unaldi.invoiceservice.utils.RabbitMQ.enums.OperationType;
-import unaldi.invoiceservice.utils.RabbitMQ.producer.LogProducer;
-import unaldi.invoiceservice.utils.RabbitMQ.request.LogRequest;
+import unaldi.invoiceservice.utils.constant.Caches;
+import unaldi.invoiceservice.utils.rabbitMQ.enums.LogType;
+import unaldi.invoiceservice.utils.rabbitMQ.enums.OperationType;
+import unaldi.invoiceservice.utils.rabbitMQ.producer.LogProducer;
+import unaldi.invoiceservice.utils.rabbitMQ.request.LogRequest;
 import unaldi.invoiceservice.utils.client.UserServiceClient;
 import unaldi.invoiceservice.utils.client.dto.RestResponse;
 import unaldi.invoiceservice.utils.client.dto.UserResponse;
@@ -48,6 +53,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         this.logProducer = logProducer;
     }
 
+    @CacheEvict(value = Caches.INVOICES_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<InvoiceDTO> save(InvoiceSaveRequest invoiceSaveRequest) {
         userServiceClient.findById(invoiceSaveRequest.userId());
@@ -63,6 +69,8 @@ public class InvoiceServiceImpl implements InvoiceService {
         );
     }
 
+    @CachePut(value = Caches.INVOICE_CACHE, key = "#invoiceUpdateRequest.id()", unless = "#result.success != true")
+    @CacheEvict(value = Caches.INVOICES_CACHE, allEntries = true, condition = "#result.success != false")
     @Override
     public DataResult<InvoiceDTO> update(InvoiceUpdateRequest invoiceUpdateRequest) {
         userServiceClient.findById(invoiceUpdateRequest.userId());
@@ -81,6 +89,12 @@ public class InvoiceServiceImpl implements InvoiceService {
         );
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = Caches.INVOICES_CACHE, allEntries = true, condition = "#result.success != false"),
+                    @CacheEvict(value = Caches.INVOICE_CACHE, key = "#invoiceId", condition = "#result.success != false")
+            }
+    )
     @Override
     public Result deleteById(Long invoiceId) {
         Invoice invoice = this.invoiceRepository
@@ -94,6 +108,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         return new SuccessResult(Messages.INVOICE_DELETED);
     }
 
+    @Cacheable(value = Caches.INVOICE_CACHE, key = "#invoiceId", unless = "#result.success != true")
     @Override
     public DataResult<InvoiceDTO> findById(Long invoiceId) {
         InvoiceDTO invoiceDTO = this.invoiceRepository
@@ -109,6 +124,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         );
     }
 
+    @Cacheable(value = Caches.INVOICES_CACHE, key = "'all'", unless = "#result.success != true")
     @Override
     public DataResult<List<InvoiceDTO>> findAll() {
         List<Invoice> invoiceList = this.invoiceRepository.findAll();
@@ -121,6 +137,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         );
     }
 
+    @Cacheable(value = Caches.INVOICE_USER_CACHE, key = "#userId", unless = "#result.success != true")
     @Override
     public DataResult<UserResponse> findInvoiceUserByUserId(Long userId) {
         ResponseEntity<RestResponse<UserResponse>> response = userServiceClient.findById(userId);

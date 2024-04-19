@@ -16,6 +16,10 @@ public class Result {
     private String message;
     private final LocalDateTime responseDateTime;
 
+    public Result() {
+        this.responseDateTime = LocalDateTime.now();
+    }
+
     public Result(Boolean success) {
         this.success = success;
         this.responseDateTime = LocalDateTime.now();
