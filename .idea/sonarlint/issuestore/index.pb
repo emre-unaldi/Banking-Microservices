@@ -391,3 +391,5 @@ J
 account-service/Dockerfile,3\4\341eac6ebfd8b5975cae0e6b01c65d70ae24ed0a
 J
 invoice-service/Dockerfile,2\9\298f27977785937a3ea83a924c3c5a93f78d7f80
+F
+log-service/Dockerfile,4\6\469b927631c41fed9c6389f06874e714e2f2ad83
