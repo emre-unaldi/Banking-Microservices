@@ -387,3 +387,5 @@ G
 bank-service/Dockerfile,f\a\faecc17638f750b5a29d7d5381f8f555f93dbe0c
 N
 credit-card-service/Dockerfile,7\6\76b4c9eedd085ebd3b7a00756e457603d090437a
+J
+account-service/Dockerfile,3\4\341eac6ebfd8b5975cae0e6b01c65d70ae24ed0a
