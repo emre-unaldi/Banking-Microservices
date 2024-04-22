@@ -379,3 +379,5 @@ Hbank-service/src/main/java/unaldi/bankservice/utils/constant/Caches.java,a\7\a
 Ucredit-card-service/src/main/java/unaldi/creditcardservice/utils/constant/Caches.java,7\7\77a9ee560c7669b4c631587844da0350de33107a
 G
 user-service/Dockerfile,0\f\0f01b412d90efb467f3714ee012c2a826ca7ea8e
+S
+#discovery-client-service/Dockerfile,8\4\84372e449a08ba13a87c2fe6c9755ea9696efb30
