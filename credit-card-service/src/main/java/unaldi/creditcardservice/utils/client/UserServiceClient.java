@@ -14,7 +14,7 @@ import unaldi.creditcardservice.utils.client.dto.UserResponse;
  *
  * @author Emre Ünaldı
  */
-@FeignClient(name = "user-service", url = "http://localhost:8081")
+@FeignClient(name = "user-service", url = "http://${USER_SERVICE_HOST:localhost}:8081")
 public interface UserServiceClient {
     @GetMapping("/api/v1/users/{userId}")
     ResponseEntity<RestResponse<UserResponse>> findById(@PathVariable Long userId);

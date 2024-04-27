@@ -1,0 +1,395 @@
+version: "3.8"
+
+services:
+  discovery-client-service:
+    build:
+      context: ./discovery-client-service
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - banking-microservices-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://discovery-client-service:8761/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  api-gateway-service:
+    build:
+      context: ./api-gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8087:8087"
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-client-service:8761/eureka
+    networks:
+      - banking-microservices-network
+    depends_on:
+      discovery-client-service:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://api-gateway-service:8087/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-client-service:8761/eureka
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=eu1189
+      - RABBITMQ_HOST=rabbitmq-log
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=unaldi
+      - RABBITMQ_PASSWORD=eu1189
+      - REDIS_DB=1
+      - REDIS_HOST=redis-db
+      - REDIS_PORT=6379
+    networks:
+      - banking-microservices-network
+    depends_on:
+      discovery-client-service:
+        condition: service_healthy
+      postgres-db:
+        condition: service_healthy
+      redis-db:
+        condition: service_healthy
+      rabbitmq-log:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://user-service:8081/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  bank-service:
+    build:
+      context: ./bank-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-client-service:8761/eureka
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=eu1189
+      - RABBITMQ_HOST=rabbitmq-log
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=unaldi
+      - RABBITMQ_PASSWORD=eu1189
+      - REDIS_DB=1
+      - REDIS_HOST=redis-db
+      - REDIS_PORT=6379
+    networks:
+      - banking-microservices-network
+    depends_on:
+      discovery-client-service:
+        condition: service_healthy
+      postgres-db:
+        condition: service_healthy
+      redis-db:
+        condition: service_healthy
+      rabbitmq-log:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://bank-service:8082/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  credit-card-service:
+    build:
+      context: ./credit-card-service
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-client-service:8761/eureka
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=eu1189
+      - RABBITMQ_HOST=rabbitmq-log
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=unaldi
+      - RABBITMQ_PASSWORD=eu1189
+      - REDIS_DB=1
+      - REDIS_HOST=redis-db
+      - REDIS_PORT=6379
+      - USER_SERVICE_HOST=user-service
+      - BANK_SERVICE_HOST=bank-service
+    networks:
+      - banking-microservices-network
+    depends_on:
+      discovery-client-service:
+        condition: service_healthy
+      postgres-db:
+        condition: service_healthy
+      redis-db:
+        condition: service_healthy
+      rabbitmq-log:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://credit-card-service:8083/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  account-service:
+    build:
+      context: ./account-service
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-client-service:8761/eureka
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=eu1189
+      - RABBITMQ_HOST=rabbitmq-log
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=unaldi
+      - RABBITMQ_PASSWORD=eu1189
+      - REDIS_DB=1
+      - REDIS_HOST=redis-db
+      - REDIS_PORT=6379
+      - USER_SERVICE_HOST=user-service
+      - BANK_SERVICE_HOST=bank-service
+    networks:
+      - banking-microservices-network
+    depends_on:
+      discovery-client-service:
+        condition: service_healthy
+      postgres-db:
+        condition: service_healthy
+      redis-db:
+        condition: service_healthy
+      rabbitmq-log:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://account-service:8084/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  invoice-service:
+    build:
+      context: ./invoice-service
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-client-service:8761/eureka
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=eu1189
+      - RABBITMQ_HOST=rabbitmq-log
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=unaldi
+      - RABBITMQ_PASSWORD=eu1189
+      - REDIS_DB=1
+      - REDIS_HOST=redis-db
+      - REDIS_PORT=6379
+      - USER_SERVICE_HOST=user-service
+    networks:
+      - banking-microservices-network
+    depends_on:
+      discovery-client-service:
+        condition: service_healthy
+      postgres-db:
+        condition: service_healthy
+      redis-db:
+        condition: service_healthy
+      rabbitmq-log:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://invoice-service:8085/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  log-service:
+    build:
+      context: ./log-service
+      dockerfile: Dockerfile
+    ports:
+      - "8086:8086"
+    restart: unless-stopped
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-client-service:8761/eureka
+      - MONGODB_HOST=mongo
+      - MONGODB_PORT=27017
+      - MONGODB_DB=banking-microservices
+      - MONGODB_USER=unaldi
+      - MONGODB_PASSWORD=eu1189
+      - RABBITMQ_HOST=rabbitmq-log
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=unaldi
+      - RABBITMQ_PASSWORD=eu1189
+    networks:
+      - banking-microservices-network
+    depends_on:
+      discovery-client-service:
+        condition: service_healthy
+      rabbitmq-log:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://log-service:8086/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  postgres-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: banking-microservices
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: eu1189
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - banking-microservices-network
+    healthcheck:
+      test: [ "CMD", "pg_isready","-d", "banking-microservices", "-U", "postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  pg-admin:
+    image: dpage/pgadmin4:latest
+    ports:
+      - "5050:5050"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=emree.unaldi@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=eu1189
+      - PGADMIN_LISTEN_PORT=5050
+    networks:
+      - banking-microservices-network
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5050/misc/ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis-db:
+    image: redis:latest
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - banking-microservices-network
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis-insight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - "5540:5540"
+    volumes:
+      - redis-insight-data:/data
+    environment:
+      - REDIS_URL=redis://redis-db:6379
+    networks:
+      - banking-microservices-network
+    depends_on:
+      redis-db:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5540/api/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  rabbitmq-log:
+    image: rabbitmq:3.13-management
+    hostname: rabbitmq-log
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_log:/var/log/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=unaldi
+      - RABBITMQ_DEFAULT_PASS=eu1189
+    networks:
+      - banking-microservices-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=unaldi
+      - MONGO_INITDB_ROOT_PASSWORD=eu1189
+      - MONGO_INITDB_DATABASE=banking-microservices
+    networks:
+      - banking-microservices-network
+    healthcheck:
+      test: ["CMD", "mongosh", "mongodb://unaldi:eu1189@mongo:27017/banking-microservices?authSource=admin", "--eval", "db.runCommand({ping: 1}).ok"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - "8088:8088"
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=unaldi
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=eu1189
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=unaldi
+      - ME_CONFIG_BASICAUTH_PASSWORD=eu1189
+      - PORT=8088
+    networks:
+      - banking-microservices-network
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+  redis_data:
+  redis-insight-data:
+  rabbitmq_data:
+  rabbitmq_log:
+  mongo_data:
+
+networks:
+  banking-microservices-network:
+    driver: bridge

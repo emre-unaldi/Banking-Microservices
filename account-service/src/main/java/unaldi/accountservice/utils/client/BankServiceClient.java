@@ -13,7 +13,7 @@ import unaldi.accountservice.utils.client.dto.RestResponse;
  *
  * @author Emre Ünaldı
  */
-@FeignClient(name = "bank-service", url = "http://localhost:8082")
+@FeignClient(name = "bank-service", url = "http://${BANK_SERVICE_HOST:localhost}:8082")
 public interface BankServiceClient {
     @GetMapping("/api/v1/banks/{bankId}")
     ResponseEntity<RestResponse<BankResponse>> findById(@PathVariable Long bankId);
