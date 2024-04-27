@@ -23,3 +23,11 @@ Waccount-service/src/main/java/unaldi/accountservice/utils/client/BankServiceCli
 Waccount-service/src/main/java/unaldi/accountservice/utils/client/UserServiceClient.java,b\9\b9b6f54cad7d90282bd732b6b7a76b35be75086b
 ‡
 Winvoice-service/src/main/java/unaldi/invoiceservice/utils/client/UserServiceClient.java,4\f\4f2f24ad129c5dd89eb610b2e01b2ee7a2ebcdb5
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+P
+ discovery-client-service/pom.xml,2\b\2b7a2a42678628ec1dd2dc59b104693122b36bc6
+K
+credit-card-service/pom.xml,7\2\7270eba3a4115f71e082d5d00f557111123fc016
+h
+8documentation/bank-microservices.postman_collection.json,7\d\7d8ce3478e84fccae90d4c7aa326b7fc16a70169
