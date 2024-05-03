@@ -7,11 +7,12 @@ import unaldi.bankservice.entity.dto.BankDTO;
 import unaldi.bankservice.entity.request.BankSaveRequest;
 import unaldi.bankservice.entity.request.BankUpdateRequest;
 import unaldi.bankservice.service.abstracts.mapper.BankMapper;
+import unaldi.bankservice.utils.FailTestMessages;
+import unaldi.bankservice.utils.ObjectFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -21,117 +22,65 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Emre Ünaldı
  */
 @SpringBootTest
-public class MapperTest {
+class MapperTest {
     @Test
-    void should_convertSaveRequestToBank() {
-        BankSaveRequest bankSaveRequest = new BankSaveRequest(
-                "Example Bank",
-                "EXBK",
-                "Main Branch",
-                "MB",
-                "1234567812345678",
-                "KAYSERI / Incesu",
-                "info@examplebank.com",
-                "0507 871 11 89"
-        );
-
+    void should_convertBankSaveRequestToBank() {
+        BankSaveRequest bankSaveRequest = ObjectFactory.getInstance().getBankSaveRequest();
         Bank bank = BankMapper.INSTANCE.convertToSaveBank(bankSaveRequest);
 
-        assertEquals(bankSaveRequest.bankName(), bank.getBankName());
-        assertEquals(bankSaveRequest.bankCode(), bank.getBankCode());
-        assertEquals(bankSaveRequest.branchName(), bank.getBranchName());
-        assertEquals(bankSaveRequest.branchCode(), bank.getBranchCode());
-        assertEquals(bankSaveRequest.accountNumber(), bank.getAccountNumber());
-        assertEquals(bankSaveRequest.address(), bank.getAddress());
-        assertEquals(bankSaveRequest.email(), bank.getEmail());
-        assertEquals(bankSaveRequest.phoneNumber(), bank.getPhoneNumber());
+        assertAll(
+                () -> assertEquals(bankSaveRequest.bankName(), bank.getBankName(), FailTestMessages.BANK_NAME_MISMATCH),
+                () -> assertEquals(bankSaveRequest.bankCode(), bank.getBankCode(), FailTestMessages.BANK_CODE_MISMATCH),
+                () -> assertEquals(bankSaveRequest.branchName(), bank.getBranchName(), FailTestMessages.BRANCH_NAME_MISMATCH),
+                () -> assertEquals(bankSaveRequest.branchCode(), bank.getBranchCode(), FailTestMessages.BRANCH_CODE_MISMATCH),
+                () -> assertEquals(bankSaveRequest.accountNumber(), bank.getAccountNumber(), FailTestMessages.ACCOUNT_NUMBER_MISMATCH),
+                () -> assertEquals(bankSaveRequest.address(), bank.getAddress(), FailTestMessages.ADDRESS_MISMATCH),
+                () -> assertEquals(bankSaveRequest.email(), bank.getEmail(), FailTestMessages.EMAIL_MISMATCH),
+                () -> assertEquals(bankSaveRequest.phoneNumber(), bank.getPhoneNumber(), FailTestMessages.PHONE_NUMBER_MISMATCH)
+        );
     }
 
     @Test
     void should_convertUpdateRequestToBank() {
-        BankUpdateRequest bankUpdateRequest = new BankUpdateRequest(
-                1L,
-                "Example Bank",
-                "EXBK",
-                "Main Branch",
-                "MB",
-                "1234567812345678",
-                "KAYSERI / Incesu",
-                "info@examplebank.com",
-                "0507 871 11 89"
-        );
-
+        BankUpdateRequest bankUpdateRequest = ObjectFactory.getInstance().getBankUpdateRequest();
         Bank bank = BankMapper.INSTANCE.convertToUpdateBank(bankUpdateRequest);
 
-        assertEquals(bankUpdateRequest.bankName(), bank.getBankName());
-        assertEquals(bankUpdateRequest.bankCode(), bank.getBankCode());
-        assertEquals(bankUpdateRequest.branchName(), bank.getBranchName());
-        assertEquals(bankUpdateRequest.branchCode(), bank.getBranchCode());
-        assertEquals(bankUpdateRequest.accountNumber(), bank.getAccountNumber());
-        assertEquals(bankUpdateRequest.address(), bank.getAddress());
-        assertEquals(bankUpdateRequest.email(), bank.getEmail());
-        assertEquals(bankUpdateRequest.phoneNumber(), bank.getPhoneNumber());
+        assertAll(
+                () -> assertEquals(bankUpdateRequest.bankName(), bank.getBankName(), FailTestMessages.BANK_NAME_MISMATCH),
+                () -> assertEquals(bankUpdateRequest.bankCode(), bank.getBankCode(), FailTestMessages.BANK_CODE_MISMATCH),
+                () -> assertEquals(bankUpdateRequest.branchName(), bank.getBranchName(), FailTestMessages.BRANCH_NAME_MISMATCH),
+                () -> assertEquals(bankUpdateRequest.branchCode(), bank.getBranchCode(), FailTestMessages.BRANCH_CODE_MISMATCH),
+                () -> assertEquals(bankUpdateRequest.accountNumber(), bank.getAccountNumber(), FailTestMessages.ACCOUNT_NUMBER_MISMATCH),
+                () -> assertEquals(bankUpdateRequest.address(), bank.getAddress(), FailTestMessages.ADDRESS_MISMATCH),
+                () -> assertEquals(bankUpdateRequest.email(), bank.getEmail(), FailTestMessages.EMAIL_MISMATCH),
+                () -> assertEquals(bankUpdateRequest.phoneNumber(), bank.getPhoneNumber(), FailTestMessages.PHONE_NUMBER_MISMATCH)
+        );
     }
 
 
     @Test
     void should_convertBankToBankDTO() {
-        Bank bank = new Bank(
-                1L,
-                "Example Bank",
-                "EXBK",
-                "Main Branch",
-                "MB",
-                "1234567812345678",
-                "KAYSERI / Incesu",
-                "info@examplebank.com",
-                "0507 871 11 89"
-        );
-
+        Bank bank = ObjectFactory.getInstance().getBank();
         BankDTO bankDTO = BankMapper.INSTANCE.convertToBankDTO(bank);
 
-        assertEquals(bankDTO.bankName(), bank.getBankName());
-        assertEquals(bankDTO.bankCode(), bank.getBankCode());
-        assertEquals(bankDTO.branchName(), bank.getBranchName());
-        assertEquals(bankDTO.branchCode(), bank.getBranchCode());
-        assertEquals(bankDTO.accountNumber(), bank.getAccountNumber());
-        assertEquals(bankDTO.address(), bank.getAddress());
-        assertEquals(bankDTO.email(), bank.getEmail());
-        assertEquals(bankDTO.phoneNumber(), bank.getPhoneNumber());
+        assertAll(
+                () -> assertEquals(bank.getBankName(), bankDTO.bankName(), FailTestMessages.BANK_NAME_MISMATCH),
+                () -> assertEquals(bank.getBankCode(), bankDTO.bankCode(), FailTestMessages.BANK_CODE_MISMATCH),
+                () -> assertEquals(bank.getBranchName(), bankDTO.branchName(), FailTestMessages.BRANCH_NAME_MISMATCH),
+                () -> assertEquals(bank.getBranchCode(), bankDTO.branchCode(), FailTestMessages.BRANCH_CODE_MISMATCH),
+                () -> assertEquals(bank.getAccountNumber(), bankDTO.accountNumber(), FailTestMessages.ACCOUNT_NUMBER_MISMATCH),
+                () -> assertEquals(bank.getAddress(), bankDTO.address(), FailTestMessages.ADDRESS_MISMATCH),
+                () -> assertEquals(bank.getEmail(), bankDTO.email(), FailTestMessages.EMAIL_MISMATCH),
+                () -> assertEquals(bank.getPhoneNumber(), bankDTO.phoneNumber(), FailTestMessages.PHONE_NUMBER_MISMATCH)
+        );
     }
 
     @Test
     void should_convertListOfBanksToListOfBankDTOs() {
-        List<Bank> bankList = new ArrayList<>(Arrays.asList(
-                new Bank(
-                        1L,
-                        "Example Bank",
-                        "EXBK",
-                        "Main Branch",
-                        "MB",
-                        "1234567812345678",
-                        "KAYSERI / Incesu",
-                        "info@examplebank.com",
-                        "0507 871 11 89"
-                ),
-                new Bank(
-                        2L,
-                        "Example Bank",
-                        "EXBK",
-                        "Main Branch",
-                        "MB",
-                        "1234567812345678",
-                        "KAYSERI / Incesu",
-                        "info@examplebank.com",
-                        "0507 871 11 89"
-                )
-        ));
-
+        List<Bank> bankList = ObjectFactory.getInstance().getBankList();
         List<BankDTO> bankDTOList = BankMapper.INSTANCE.convertBankDTOs(bankList);
 
         assertEquals(bankList.get(0).getId(), bankDTOList.get(0).id());
         assertEquals(bankList.get(1).getId(), bankDTOList.get(1).id());
     }
-
-
 }
