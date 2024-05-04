@@ -7,12 +7,12 @@ import unaldi.creditcardservice.entity.dto.CreditCardDTO;
 import unaldi.creditcardservice.entity.request.CreditCardSaveRequest;
 import unaldi.creditcardservice.entity.request.CreditCardUpdateRequest;
 import unaldi.creditcardservice.service.abstracts.mapper.CreditCardMapper;
+import unaldi.creditcardservice.utils.FailTestMessages;
+import unaldi.creditcardservice.utils.ObjectFactory;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -22,103 +22,58 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Emre Ünaldı
  */
 @SpringBootTest
-public class MapperTest {
+class MapperTest {
     @Test
     void should_convertSaveRequestToCreditCard() {
-        CreditCardSaveRequest creditCardSaveRequest = new CreditCardSaveRequest(
-                "54984387545",
-                1L,
-                LocalDate.of(2001,1,1),
-                "1234",
-                3650.50,
-                1650.50,
-                1L
-        );
-
+        CreditCardSaveRequest creditCardSaveRequest = ObjectFactory.getInstance().getCreditCardSaveRequest();
         CreditCard creditCard = CreditCardMapper.INSTANCE.convertToSaveCreditCard(creditCardSaveRequest);
 
-        assertEquals(creditCardSaveRequest.cardNumber(), creditCard.getCardNumber());
-        assertEquals(creditCardSaveRequest.userId(), creditCard.getUserId());
-        assertEquals(creditCardSaveRequest.expirationDate(), creditCard.getExpirationDate());
-        assertEquals(creditCardSaveRequest.cvv(), creditCard.getCvv());
-        assertEquals(creditCardSaveRequest.creditLimit(), creditCard.getCreditLimit());
-        assertEquals(creditCardSaveRequest.debtAmount(), creditCard.getDebtAmount());
-        assertEquals(creditCardSaveRequest.bankId(), creditCard.getBankId());
+        assertAll(
+                () -> assertEquals(creditCardSaveRequest.cardNumber(), creditCard.getCardNumber(), FailTestMessages.CARD_NUMBER_MISMATCH),
+                () -> assertEquals(creditCardSaveRequest.userId(), creditCard.getUserId(), FailTestMessages.USER_ID_MISMATCH),
+                () -> assertEquals(creditCardSaveRequest.expirationDate(), creditCard.getExpirationDate(), FailTestMessages.EXPIRATION_DATE_MISMATCH),
+                () -> assertEquals(creditCardSaveRequest.cvv(), creditCard.getCvv(), FailTestMessages.CVV_MISMATCH),
+                () -> assertEquals(creditCardSaveRequest.creditLimit(), creditCard.getCreditLimit(), FailTestMessages.CREDIT_LIMIT_MISMATCH),
+                () -> assertEquals(creditCardSaveRequest.debtAmount(), creditCard.getDebtAmount(), FailTestMessages.DEBT_AMOUNT_MISMATCH),
+                () -> assertEquals(creditCardSaveRequest.bankId(), creditCard.getBankId(), FailTestMessages.BANK_ID_MISMATCH)
+        );
     }
 
     @Test
     void should_convertUpdateRequestToCreditCard() {
-        CreditCardUpdateRequest creditCardUpdateRequest = new CreditCardUpdateRequest(
-                1L,
-                "54984387545",
-                1L,
-                LocalDate.of(2001,1,1),
-                "1234",
-                3650.50,
-                1650.50,
-                1L
-        );
-
+        CreditCardUpdateRequest creditCardUpdateRequest = ObjectFactory.getInstance().getCreditCardUpdateRequest();
         CreditCard creditCard = CreditCardMapper.INSTANCE.convertToUpdateCreditCard(creditCardUpdateRequest);
 
-        assertEquals(creditCardUpdateRequest.cardNumber(), creditCard.getCardNumber());
-        assertEquals(creditCardUpdateRequest.userId(), creditCard.getUserId());
-        assertEquals(creditCardUpdateRequest.expirationDate(), creditCard.getExpirationDate());
-        assertEquals(creditCardUpdateRequest.cvv(), creditCard.getCvv());
-        assertEquals(creditCardUpdateRequest.creditLimit(), creditCard.getCreditLimit());
-        assertEquals(creditCardUpdateRequest.debtAmount(), creditCard.getDebtAmount());
-        assertEquals(creditCardUpdateRequest.bankId(), creditCard.getBankId());
+        assertAll(
+                () -> assertEquals(creditCardUpdateRequest.cardNumber(), creditCard.getCardNumber(), FailTestMessages.CARD_NUMBER_MISMATCH),
+                () -> assertEquals(creditCardUpdateRequest.userId(), creditCard.getUserId(), FailTestMessages.USER_ID_MISMATCH),
+                () -> assertEquals(creditCardUpdateRequest.expirationDate(), creditCard.getExpirationDate(), FailTestMessages.EXPIRATION_DATE_MISMATCH),
+                () -> assertEquals(creditCardUpdateRequest.cvv(), creditCard.getCvv(), FailTestMessages.CVV_MISMATCH),
+                () -> assertEquals(creditCardUpdateRequest.creditLimit(), creditCard.getCreditLimit(), FailTestMessages.CREDIT_LIMIT_MISMATCH),
+                () -> assertEquals(creditCardUpdateRequest.debtAmount(), creditCard.getDebtAmount(), FailTestMessages.DEBT_AMOUNT_MISMATCH),
+                () -> assertEquals(creditCardUpdateRequest.bankId(), creditCard.getBankId(), FailTestMessages.BANK_ID_MISMATCH)
+        );
     }
 
     @Test
     void should_convertCreditCardToCreditCardDTO() {
-        CreditCard creditCard = new CreditCard(
-                1L,
-                "54984387545",
-                1L,
-                LocalDate.of(2001,1,1),
-                "1234",
-                3650.50,
-                1650.50,
-                1L
-        );
-
+        CreditCard creditCard = ObjectFactory.getInstance().getCreditCard();
         CreditCardDTO creditCardDTO = CreditCardMapper.INSTANCE.convertToCreditCardDTO(creditCard);
 
-        assertEquals(creditCardDTO.cardNumber(), creditCard.getCardNumber());
-        assertEquals(creditCardDTO.userId(), creditCard.getUserId());
-        assertEquals(creditCardDTO.expirationDate(), creditCard.getExpirationDate());
-        assertEquals(creditCardDTO.cvv(), creditCard.getCvv());
-        assertEquals(creditCardDTO.creditLimit(), creditCard.getCreditLimit());
-        assertEquals(creditCardDTO.debtAmount(), creditCard.getDebtAmount());
-        assertEquals(creditCardDTO.bankId(), creditCard.getBankId());
+        assertAll(
+                () -> assertEquals(creditCardDTO.cardNumber(), creditCard.getCardNumber(), FailTestMessages.CARD_NUMBER_MISMATCH),
+                () -> assertEquals(creditCardDTO.userId(), creditCard.getUserId(), FailTestMessages.USER_ID_MISMATCH),
+                () -> assertEquals(creditCardDTO.expirationDate(), creditCard.getExpirationDate(), FailTestMessages.EXPIRATION_DATE_MISMATCH),
+                () -> assertEquals(creditCardDTO.cvv(), creditCard.getCvv(), FailTestMessages.CVV_MISMATCH),
+                () -> assertEquals(creditCardDTO.creditLimit(), creditCard.getCreditLimit(), FailTestMessages.CREDIT_LIMIT_MISMATCH),
+                () -> assertEquals(creditCardDTO.debtAmount(), creditCard.getDebtAmount(), FailTestMessages.DEBT_AMOUNT_MISMATCH),
+                () -> assertEquals(creditCardDTO.bankId(), creditCard.getBankId(), FailTestMessages.BANK_ID_MISMATCH)
+        );
     }
 
     @Test
     void should_convertListOfCreditCardsToListOfCreditCardDTOs() {
-        List<CreditCard> creditCardList = new ArrayList<>(Arrays.asList(
-                new CreditCard(
-                        1L,
-                        "54984387545",
-                        1L,
-                        LocalDate.of(2001,1,1),
-                        "1234",
-                        3650.50,
-                        1650.50,
-                        1L
-                ),
-                new CreditCard(
-                        2L,
-                        "54984387545",
-                        1L,
-                        LocalDate.of(2001,1,1),
-                        "1234",
-                        3650.50,
-                        1650.50,
-                        1L
-                )
-        ));
-
+        List<CreditCard> creditCardList = ObjectFactory.getInstance().getCreditCardList();
         List<CreditCardDTO> creditCardDTOList = CreditCardMapper.INSTANCE.convertCreditCardDTOs(creditCardList);
 
         assertEquals(creditCardList.get(0).getId(), creditCardDTOList.get(0).id());

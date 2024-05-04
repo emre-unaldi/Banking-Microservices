@@ -40,14 +40,14 @@ import java.util.Objects;
  * @author Emre Ünaldı
  */
 @Service
-public class CreditCardImpl implements CreditCardService {
+public class CreditCardServiceImpl implements CreditCardService {
     private final CreditCardRepository creditCardRepository;
     private final UserServiceClient userServiceClient;
     private final BankServiceClient bankServiceClient;
     private final LogProducer logProducer;
 
     @Autowired
-    public CreditCardImpl(CreditCardRepository creditCardRepository, UserServiceClient userServiceClient, BankServiceClient bankServiceClient, LogProducer logProducer)
+    public CreditCardServiceImpl(CreditCardRepository creditCardRepository, UserServiceClient userServiceClient, BankServiceClient bankServiceClient, LogProducer logProducer)
     {
         this.creditCardRepository = creditCardRepository;
         this.userServiceClient = userServiceClient;
