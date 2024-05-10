@@ -89,3 +89,15 @@ Ycredit-card-service/src/main/java/unaldi/creditcardservice/utils/client/enums/G
 ]credit-card-service/src/main/java/unaldi/creditcardservice/utils/client/dto/BankResponse.java,0\1\01c7ab14f33c4b865ebb292cf0c4679cdb4ad58b
 è
 _credit-card-service/src/main/java/unaldi/creditcardservice/controller/CreditCardController.java,2\3\23382d5661f7d46a7f86f9a414d91c71bd82c11d
+
+Oaccount-service/src/test/java/unaldi/accountservice/utils/FailTestMessages.java,d\4\d4b693f8f0923fe1aec2a2e9b75e85b2d6607381
+z
+Jaccount-service/src/test/java/unaldi/accountservice/mapper/MapperTest.java,9\7\97442f0cecf8b2afc256523bd1057f63cca2696a
+w
+Gaccount-service/src/main/java/unaldi/accountservice/entity/Account.java,2\9\290a1560546529f87255209f7415836902e56767
+|
+Laccount-service/src/test/java/unaldi/accountservice/utils/ObjectFactory.java,e\0\e0f880ef984a77fff05b68bc4c96bda4b21f01ed
+Ü
+Vaccount-service/src/main/java/unaldi/accountservice/utils/client/dto/RestResponse.java,7\7\77ff46768da7f32e0becf7bef5f6da74dadb927f
+É
+Saccount-service/src/test/java/unaldi/accountservice/service/AccountServiceTest.java,a\0\a01290698aea3ad3b78ebfebc32d48ec1a70b007
