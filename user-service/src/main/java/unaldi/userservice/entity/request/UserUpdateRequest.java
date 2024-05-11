@@ -1,5 +1,6 @@
 package unaldi.userservice.entity.request;
 
+import lombok.Builder;
 import unaldi.userservice.entity.enums.Gender;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
  *
  * @author Emre Ünaldı
  */
+@Builder
 public record UserUpdateRequest(
         Long id,
         String username,

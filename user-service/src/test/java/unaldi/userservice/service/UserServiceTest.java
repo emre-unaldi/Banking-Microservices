@@ -1,5 +1,6 @@
 package unaldi.userservice.service;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,25 +35,32 @@ import static org.mockito.Mockito.*;
  */
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
+    private static User user;
+    private static List<User> userList;
+    private static UserSaveRequest userSaveRequest;
+    private static UserUpdateRequest userUpdateRequest;
+    private final Long nonExistentUserId = -1L;
 
     @Mock
     private UserRepository userRepository;
-
     @Mock
     private LogProducer logProducer;
-
     @InjectMocks
     private UserServiceImpl userService;
 
+    @BeforeAll
+    static void setUp() {
+        user = ObjectFactory.getInstance().getUser();
+        userList = ObjectFactory.getInstance().getUserList();
+        userSaveRequest = ObjectFactory.getInstance().getUserSaveRequest();
+        userUpdateRequest = ObjectFactory.getInstance().getUserUpdateRequest();
+    }
+
     @Test
     void givenUserSaveRequest_whenSave_thenUserShouldBeSaved() {
-        UserSaveRequest userSaveRequest = ObjectFactory.getInstance().getUserSaveRequest();
-        User user = ObjectFactory.getInstance().getUser();
-
         when(userRepository.save(any(User.class))).thenReturn(user);
 
         DataResult<UserDTO> result = userService.save(userSaveRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.USER_SAVE);
 
         verify(userRepository, times(1)).save(any(User.class));
@@ -61,14 +69,10 @@ class UserServiceTest {
 
     @Test
     void givenUserUpdateRequest_whenUpdate_thenUserShouldBeUpdated() {
-        UserUpdateRequest userUpdateRequest = ObjectFactory.getInstance().getUserUpdateRequest();
-        User user = ObjectFactory.getInstance().getUser();
-
         when(userRepository.existsById(userUpdateRequest.id())).thenReturn(true);
         when(userRepository.save(any(User.class))).thenReturn(user);
 
         DataResult<UserDTO> result = userService.update(userUpdateRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.USER_UPDATE);
 
         verify(userRepository, times(1)).existsById(anyLong());
@@ -78,12 +82,9 @@ class UserServiceTest {
 
     @Test
     void givenUserId_whenDeleteById_thenUserShouldBeDeleted() {
-        User user = ObjectFactory.getInstance().getUser();
-
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
         Result result = userService.deleteById(user.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.USER_DELETE);
 
         verify(userRepository, times(1)).deleteById(user.getId());
@@ -92,12 +93,9 @@ class UserServiceTest {
 
     @Test
     void givenUserId_whenFindById_thenUserShouldBeFound() {
-        User user = ObjectFactory.getInstance().getUser();
-
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
         DataResult<UserDTO> result = userService.findById(user.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.USER_FIND);
 
         verify(userRepository, times(1)).findById(user.getId());
@@ -106,12 +104,9 @@ class UserServiceTest {
 
     @Test
     void givenUserList_whenFindAll_thenAllUsersShouldBeReturned() {
-        List<User> userList = ObjectFactory.getInstance().getUserList();
-
         when(userRepository.findAll()).thenReturn(userList);
 
         DataResult<List<UserDTO>> result = userService.findAll();
-
         assertTrue(result.getSuccess(), FailTestMessages.USERS_FIND);
 
         verify(userRepository, times(1)).findAll();
@@ -120,8 +115,6 @@ class UserServiceTest {
 
     @Test
     void givenNonExistentUserUpdateRequest_whenUpdate_thenUserNotFoundExceptionShouldBeThrown() {
-        UserUpdateRequest userUpdateRequest = ObjectFactory.getInstance().getUserUpdateRequest();
-
         when(userRepository.existsById(userUpdateRequest.id())).thenReturn(false);
 
         assertThrows(UserNotFoundException.class, () -> {
@@ -135,8 +128,6 @@ class UserServiceTest {
 
     @Test
     void givenNonExistentUserId_whenDeleteById_thenUserNotFoundExceptionShouldBeThrown() {
-        Long nonExistentUserId = -1L;
-
         when(userRepository.findById(nonExistentUserId)).thenReturn(Optional.empty());
 
         assertThrows(UserNotFoundException.class, () -> {
@@ -150,8 +141,6 @@ class UserServiceTest {
 
     @Test
     void givenNonExistentUserId_whenFindById_thenUserNotFoundExceptionShouldBeThrown() {
-        Long nonExistentUserId = -1L;
-
         when(userRepository.findById(nonExistentUserId)).thenReturn(Optional.empty());
 
         assertThrows(UserNotFoundException.class, () -> {

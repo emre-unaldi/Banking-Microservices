@@ -1,12 +1,12 @@
 package unaldi.userservice.mapper;
 
+import org.junit.jupiter.api.BeforeAll;
 import unaldi.userservice.entity.User;
 import unaldi.userservice.entity.dto.UserDTO;
 import unaldi.userservice.entity.request.UserSaveRequest;
 import unaldi.userservice.entity.request.UserUpdateRequest;
 import unaldi.userservice.service.abstracts.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import unaldi.userservice.utils.FailTestMessages;
 import unaldi.userservice.utils.ObjectFactory;
 
@@ -20,11 +20,22 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Emre Ünaldı
  */
-@SpringBootTest
 class UserMapperTest {
+    private static User user;
+    private static List<User> userList;
+    private static UserSaveRequest userSaveRequest;
+    private static UserUpdateRequest userUpdateRequest;
+
+    @BeforeAll
+    static void setUp() {
+        user = ObjectFactory.getInstance().getUser();
+        userList = ObjectFactory.getInstance().getUserList();
+        userSaveRequest = ObjectFactory.getInstance().getUserSaveRequest();
+        userUpdateRequest = ObjectFactory.getInstance().getUserUpdateRequest();
+    }
+
     @Test
     void should_convertUserSaveRequestToUser() {
-        UserSaveRequest userSaveRequest = ObjectFactory.getInstance().getUserSaveRequest();
         User user = UserMapper.INSTANCE.convertToSaveUser(userSaveRequest);
 
         assertAll(
@@ -41,7 +52,6 @@ class UserMapperTest {
 
     @Test
     void should_convertUserUpdateRequestToUser() {
-        UserUpdateRequest userUpdateRequest = ObjectFactory.getInstance().getUserUpdateRequest();
         User user = UserMapper.INSTANCE.convertToUpdateUser(userUpdateRequest);
 
         assertAll(
@@ -58,7 +68,6 @@ class UserMapperTest {
 
     @Test
     void should_convertUserToUserDTO() {
-        User user = ObjectFactory.getInstance().getUser();
         UserDTO userDTO = UserMapper.INSTANCE.convertToUserDTO(user);
 
         assertAll(
@@ -75,7 +84,6 @@ class UserMapperTest {
 
     @Test
     void should_convertListOfUsersToListOfUserDTOs() {
-        List<User> userList = ObjectFactory.getInstance().getUserList();
         List<UserDTO> userDTOList = UserMapper.INSTANCE.convertUserDTOs(userList);
 
         assertEquals(userList.get(0).getId(), userDTOList.get(0).id());

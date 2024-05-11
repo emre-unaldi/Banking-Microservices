@@ -34,17 +34,17 @@ public class ObjectFactory {
 
     public User getUser() {
         if (user == null) {
-            user = new User(
-                    1L,
-                    "eunaldi",
-                    "121221",
-                    "emree.unaldi@gmail.com",
-                    "Emre",
-                    "Ünaldı",
-                    "05078711189",
-                    LocalDate.of(2001, 1, 1),
-                    Gender.MALE
-            );
+            user = User.builder()
+                    .id(1L)
+                    .username("eunaldi")
+                    .password("121221")
+                    .email("emree.unaldi@gmail.com")
+                    .firstName("Emre")
+                    .lastName("Ünaldı")
+                    .phoneNumber("05078711189")
+                    .birthDate(LocalDate.of(2001, 1, 1))
+                    .gender(Gender.MALE)
+                    .build();
         }
 
         return user;
@@ -52,17 +52,17 @@ public class ObjectFactory {
 
     public UserUpdateRequest getUserUpdateRequest() {
         if (userUpdateRequest == null) {
-            userUpdateRequest = new UserUpdateRequest(
-                    1L,
-                    "emreunaldi",
-                    "23232323",
-                    "emre.unaldi2@gmail.com",
-                    "Emre 2",
-                    "Ünaldı 2",
-                    "05078711122",
-                    LocalDate.of(2000, 2, 2),
-                    Gender.MALE
-            );
+            userUpdateRequest = UserUpdateRequest.builder()
+                    .id(1L)
+                    .username("emreunaldi")
+                    .password("23232323")
+                    .email("emree.unaldi2@gmail.com")
+                    .firstName("Emre 2")
+                    .lastName("Ünaldı 2")
+                    .phoneNumber("05078711122")
+                    .birthDate(LocalDate.of(2000, 2, 2))
+                    .gender(Gender.MALE)
+                    .build();
         }
 
         return userUpdateRequest;
@@ -70,16 +70,16 @@ public class ObjectFactory {
 
     public UserSaveRequest getUserSaveRequest() {
         if (userSaveRequest == null) {
-            userSaveRequest = new UserSaveRequest(
-                    "eunaldi",
-                    "121221",
-                    "emree.unaldi@gmail.com",
-                    "Emre",
-                    "Ünaldı",
-                    "05078711189",
-                    LocalDate.of(2001, 1, 1),
-                    Gender.MALE
-            );
+            userSaveRequest = UserSaveRequest.builder()
+                    .username("eunaldi")
+                    .password("121221")
+                    .email("emree.unaldi@gmail.com")
+                    .firstName("Emre")
+                    .lastName("Ünaldı")
+                    .phoneNumber("05078711189")
+                    .birthDate(LocalDate.of(2001, 1, 1))
+                    .gender(Gender.MALE)
+                    .build();
         }
 
         return userSaveRequest;
@@ -87,29 +87,33 @@ public class ObjectFactory {
 
     public List<User> getUserList() {
         if (userList == null) {
+            User userOne = User.builder()
+                    .id(1L)
+                    .username("eunaldi")
+                    .password("121221")
+                    .email("emree.unaldi@gmail.com")
+                    .firstName("Emre")
+                    .lastName("Ünaldı")
+                    .phoneNumber("05078711189")
+                    .birthDate(LocalDate.of(2001, 1, 1))
+                    .gender(Gender.MALE)
+                    .build();
+
+            User userTwo = User.builder()
+                    .id(2L)
+                    .username("eunaldi")
+                    .password("121221")
+                    .email("emree.unaldi@gmail.com")
+                    .firstName("Emre")
+                    .lastName("Ünaldı")
+                    .phoneNumber("05078711189")
+                    .birthDate(LocalDate.of(2001, 1, 1))
+                    .gender(Gender.MALE)
+                    .build();
+
             userList = List.of(
-                    new User(
-                            1L,
-                            "eunaldi",
-                            "121221",
-                            "emree.unaldi@gmail.com",
-                            "Emre",
-                            "Ünaldı",
-                            "05078711189",
-                            LocalDate.of(2001, 1, 1),
-                            Gender.MALE
-                    ),
-                    new User(
-                            2L,
-                            "eunaldi",
-                            "121221",
-                            "emree.unaldi@gmail.com",
-                            "Emre",
-                            "Ünaldı",
-                            "05078711189",
-                            LocalDate.of(2001, 1, 1),
-                            Gender.MALE
-                    )
+                    userOne,
+                    userTwo
             );
         }
 

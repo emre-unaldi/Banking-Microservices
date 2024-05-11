@@ -111,3 +111,7 @@ Jinvoice-service/src/test/java/unaldi/invoiceservice/mapper/MapperTest.java,a\e
 Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/RestResponse.java,c\7\c7794ef96e5ec8b31fab5f33a348a64fa432172f
 É
 Sinvoice-service/src/test/java/unaldi/invoiceservice/service/InvoiceServiceTest.java,b\f\bf6df4c93d2077c7765292c3bd03bfe4de809808
+É
+Suser-service/src/main/java/unaldi/userservice/entity/request/UserUpdateRequest.java,b\5\b58e6f3af428ba89d6844c8726428b72c2e2a39c
+Å
+Quser-service/src/main/java/unaldi/userservice/entity/request/UserSaveRequest.java,b\7\b7230c659c8fa1146db24e18b774bbb388930dd5

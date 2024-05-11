@@ -1,5 +1,6 @@
 package unaldi.userservice.entity.request;
 
+import lombok.Builder;
 import unaldi.userservice.entity.enums.Gender;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
  *
  * @author Emre Ünaldı
  */
+@Builder
 public record UserSaveRequest(
         @NotNull
         String username,
