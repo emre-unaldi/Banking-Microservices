@@ -39,16 +39,16 @@ public class ObjectFactory {
 
     public CreditCard getCreditCard() {
         if (creditCard == null) {
-            creditCard = new CreditCard(
-                    1L,
-                    "54984387545",
-                    1L,
-                    LocalDate.of(2001,1,1),
-                    "1234",
-                    3650.50,
-                    1650.50,
-                    1L
-            );
+            creditCard = CreditCard.builder()
+                    .id(1L)
+                    .cardNumber("54984387545")
+                    .userId(1L)
+                    .expirationDate(LocalDate.of(2001,1,1))
+                    .cvv("1234")
+                    .creditLimit(3650.50)
+                    .debtAmount(1650.50)
+                    .bankId(1L)
+                    .build();
         }
 
         return creditCard;
@@ -56,16 +56,16 @@ public class ObjectFactory {
 
     public CreditCardUpdateRequest getCreditCardUpdateRequest() {
         if (creditCardUpdateRequest == null) {
-            creditCardUpdateRequest = new CreditCardUpdateRequest(
-                    1L,
-                    "3455367456834",
-                    2L,
-                    LocalDate.of(2001,1,1),
-                    "5678",
-                    2650.50,
-                    2650.50,
-                    2L
-            );
+            creditCardUpdateRequest = CreditCardUpdateRequest.builder()
+                    .id(1L)
+                    .cardNumber("54984387545")
+                    .userId(1L)
+                    .expirationDate(LocalDate.of(2001,1,1))
+                    .cvv("1234")
+                    .creditLimit(3650.50)
+                    .debtAmount(1650.50)
+                    .bankId(1L)
+                    .build();
         }
 
         return creditCardUpdateRequest;
@@ -73,15 +73,15 @@ public class ObjectFactory {
 
     public CreditCardSaveRequest getCreditCardSaveRequest() {
         if (creditCardSaveRequest == null) {
-            creditCardSaveRequest = new CreditCardSaveRequest(
-                    "54984387545",
-                    1L,
-                    LocalDate.of(2001,1,1),
-                    "1234",
-                    3650.50,
-                    1650.50,
-                    1L
-            );
+            creditCardSaveRequest = CreditCardSaveRequest.builder()
+                    .cardNumber("54984387545")
+                    .userId(1L)
+                    .expirationDate(LocalDate.of(2001,1,1))
+                    .cvv("1234")
+                    .creditLimit(3650.50)
+                    .debtAmount(1650.50)
+                    .bankId(1L)
+                    .build();
         }
 
         return creditCardSaveRequest;
@@ -89,27 +89,31 @@ public class ObjectFactory {
 
     public List<CreditCard> getCreditCardList() {
         if (creditCardList == null) {
+            CreditCard creditCardOne = CreditCard.builder()
+                    .id(1L)
+                    .cardNumber("54984387545")
+                    .userId(1L)
+                    .expirationDate(LocalDate.of(2001,1,1))
+                    .cvv("1234")
+                    .creditLimit(3650.50)
+                    .debtAmount(1650.50)
+                    .bankId(1L)
+                    .build();
+
+            CreditCard creditCardTwo = CreditCard.builder()
+                    .id(2L)
+                    .cardNumber("54984387545")
+                    .userId(1L)
+                    .expirationDate(LocalDate.of(2001,1,1))
+                    .cvv("1234")
+                    .creditLimit(3650.50)
+                    .debtAmount(1650.50)
+                    .bankId(1L)
+                    .build();
+
             creditCardList = List.of(
-                    new CreditCard(
-                            1L,
-                            "54984387545",
-                            1L,
-                            LocalDate.of(2001,1,1),
-                            "1234",
-                            3650.50,
-                            1650.50,
-                            1L
-                    ),
-                    new CreditCard(
-                            2L,
-                            "54984387545",
-                            1L,
-                            LocalDate.of(2001,1,1),
-                            "1234",
-                            3650.50,
-                            1650.50,
-                            1L
-                    )
+                    creditCardOne,
+                    creditCardTwo
             );
         }
 
@@ -118,17 +122,17 @@ public class ObjectFactory {
 
     public UserResponse getUserResponse() {
         if (userResponse == null) {
-            userResponse = new UserResponse(
-                    1L,
-                    "eunaldi",
-                    "121221",
-                    "emree.unaldi@gmail.com",
-                    "Emre",
-                    "Ünaldı",
-                    "05078711189",
-                    LocalDate.of(2001, 1, 1),
-                    Gender.MALE
-            );
+            userResponse = UserResponse.builder()
+                    .id(1L)
+                    .username("eunaldi")
+                    .password("121221")
+                    .email("emree.unaldi@gmail.com")
+                    .firstName("Emre")
+                    .lastName("Ünaldı")
+                    .phoneNumber("05078711189")
+                    .birthDate(LocalDate.of(2001, 1, 1))
+                    .gender(Gender.MALE)
+                    .build();
         }
 
         return userResponse;
@@ -136,17 +140,17 @@ public class ObjectFactory {
 
     public BankResponse getBankResponse() {
         if (bankResponse == null) {
-            bankResponse = new BankResponse(
-                    1L,
-                    "Example Bank",
-                    "EXBK",
-                    "Main Branch",
-                    "MB",
-                    "1234567812345678",
-                    "KAYSERI / Incesu",
-                    "info@examplebank.com",
-                    "0507 871 11 89"
-            );
+            bankResponse = BankResponse.builder()
+                    .id(1L)
+                    .bankName("Example Bank")
+                    .bankCode("EXBK")
+                    .branchName("Main Branch")
+                    .branchCode("MB")
+                    .accountNumber("1234567812345678")
+                    .address("KAYSERI / Incesu")
+                    .email("info@examplebank.com")
+                    .phoneNumber("0507 871 11 89")
+                    .build();
         }
 
         return bankResponse;

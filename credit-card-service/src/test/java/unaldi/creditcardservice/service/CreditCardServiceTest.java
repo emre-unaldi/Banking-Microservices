@@ -1,5 +1,6 @@
 package unaldi.creditcardservice.service;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,30 +40,44 @@ import static org.mockito.Mockito.*;
  */
 @ExtendWith(MockitoExtension.class)
 class CreditCardServiceTest {
-    @Mock
-    CreditCardRepository creditCardRepository;
+    private static CreditCard creditCard;
+    private static List<CreditCard> creditCardList;
+    private static CreditCardSaveRequest creditCardSaveRequest;
+    private static CreditCardUpdateRequest creditCardUpdateRequest;
+    private static UserResponse userResponse;
+    private static BankResponse bankResponse;
+    private static RestResponse<UserResponse> userRestResponse;
+    private static RestResponse<BankResponse> bankRestResponse;
+    private final Long nonExistentCreditCardId = -1L;
 
+    @Mock
+    private CreditCardRepository creditCardRepository;
     @Mock
     private LogProducer logProducer;
-
     @Mock
     private UserServiceClient userServiceClient;
-
     @Mock
     private BankServiceClient bankServiceClient;
-
     @InjectMocks
     private CreditCardServiceImpl creditCardService;
 
+    @BeforeAll
+    static void setUp() {
+        creditCard = ObjectFactory.getInstance().getCreditCard();
+        creditCardList = ObjectFactory.getInstance().getCreditCardList();
+        creditCardSaveRequest = ObjectFactory.getInstance().getCreditCardSaveRequest();
+        creditCardUpdateRequest = ObjectFactory.getInstance().getCreditCardUpdateRequest();
+        userResponse = ObjectFactory.getInstance().getUserResponse();
+        bankResponse = ObjectFactory.getInstance().getBankResponse();
+        userRestResponse = ObjectFactory.getInstance().getRestResponse(userResponse);
+        bankRestResponse = ObjectFactory.getInstance().getRestResponse(bankResponse);
+    }
+
     @Test
     void givenCreditCardSaveRequest_whenSave_thenCreditCardShouldBeSaved() {
-        CreditCardSaveRequest creditCardSaveRequest = ObjectFactory.getInstance().getCreditCardSaveRequest();
-        CreditCard creditCard = ObjectFactory.getInstance().getCreditCard();
-
         when(creditCardRepository.save(any(CreditCard.class))).thenReturn(creditCard);
 
         DataResult<CreditCardDTO> result = creditCardService.save(creditCardSaveRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.CREDIT_CARD_SAVE);
         assertNotNull(result.getData());
 
@@ -72,14 +87,10 @@ class CreditCardServiceTest {
 
     @Test
     void givenCreditCardUpdateRequest_whenUpdate_thenCreditCardShouldBeUpdated() {
-        CreditCardUpdateRequest creditCardUpdateRequest = ObjectFactory.getInstance().getCreditCardUpdateRequest();
-        CreditCard creditCard = ObjectFactory.getInstance().getCreditCard();
-
         when(creditCardRepository.existsById(creditCardUpdateRequest.id())).thenReturn(true);
         when(creditCardRepository.save(any(CreditCard.class))).thenReturn(creditCard);
 
         DataResult<CreditCardDTO> result = creditCardService.update(creditCardUpdateRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.CREDIT_CARD_UPDATE);
 
         verify(creditCardRepository, times(1)).existsById(anyLong());
@@ -89,12 +100,9 @@ class CreditCardServiceTest {
 
     @Test
     void givenCreditCardId_whenDeleteById_thenCreditCardShouldBeDeleted() {
-        CreditCard creditCard = ObjectFactory.getInstance().getCreditCard();
-
         when(creditCardRepository.findById(creditCard.getId())).thenReturn(Optional.of(creditCard));
 
         Result result = creditCardService.deleteById(creditCard.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.CREDIT_CARD_DELETE);
 
         verify(creditCardRepository, times(1)).deleteById(creditCard.getId());
@@ -103,12 +111,9 @@ class CreditCardServiceTest {
 
     @Test
     void givenCreditCardId_whenFindById_thenCreditCardShouldBeFound() {
-        CreditCard creditCard = ObjectFactory.getInstance().getCreditCard();
-
         when(creditCardRepository.findById(creditCard.getId())).thenReturn(Optional.of(creditCard));
 
         DataResult<CreditCardDTO> result = creditCardService.findById(creditCard.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.CREDIT_CARD_FIND);
 
         verify(creditCardRepository, times(1)).findById(creditCard.getId());
@@ -117,14 +122,9 @@ class CreditCardServiceTest {
 
     @Test
     void givenUserResponse_whenFindCreditCardUserByUserId_thenCreditCardUserShouldBeFound() {
-        UserResponse userResponse = ObjectFactory.getInstance().getUserResponse();
-        RestResponse<UserResponse> userRestResponse = ObjectFactory.getInstance().getRestResponse(userResponse);
-        ResponseEntity<RestResponse<UserResponse>> response = ResponseEntity.ok(userRestResponse);
-
-        when(userServiceClient.findById(userResponse.id())).thenReturn(response);
+        when(userServiceClient.findById(userResponse.id())).thenReturn(ResponseEntity.ok(userRestResponse));
 
         DataResult<UserResponse> result = creditCardService.findCreditCardUserByUserId(userResponse.id());
-
         assertTrue(result.getSuccess(), FailTestMessages.CREDIT_CARD_USER_FIND);
 
         verify(userServiceClient, times(1)).findById(userResponse.id());
@@ -133,14 +133,9 @@ class CreditCardServiceTest {
 
     @Test
     void givenBankResponse_whenFindCreditCardBankByBankId_thenCreditCardBankShouldBeFound() {
-        BankResponse bankResponse = ObjectFactory.getInstance().getBankResponse();
-        RestResponse<BankResponse> bankRestResponse = ObjectFactory.getInstance().getRestResponse(bankResponse);
-        ResponseEntity<RestResponse<BankResponse>> response = ResponseEntity.ok(bankRestResponse);
-
-        when(bankServiceClient.findById(bankResponse.id())).thenReturn(response);
+        when(bankServiceClient.findById(bankResponse.id())).thenReturn(ResponseEntity.ok(bankRestResponse));
 
         DataResult<BankResponse> result = creditCardService.findCreditCardBankByBankId(bankResponse.id());
-
         assertTrue(result.getSuccess(), FailTestMessages.CREDIT_CARD_BANK_FIND);
 
         verify(bankServiceClient, times(1)).findById(bankResponse.id());
@@ -149,12 +144,9 @@ class CreditCardServiceTest {
 
     @Test
     void givenCreditCardList_whenFindAll_thenAllCreditCardsShouldBeReturned() {
-        List<CreditCard> creditCardList = ObjectFactory.getInstance().getCreditCardList();
-
         when(creditCardRepository.findAll()).thenReturn(creditCardList);
 
         DataResult<List<CreditCardDTO>> result = creditCardService.findAll();
-
         assertTrue(result.getSuccess(), FailTestMessages.CREDIT_CARDS_FIND);
 
         verify(creditCardRepository, times(1)).findAll();
@@ -163,8 +155,6 @@ class CreditCardServiceTest {
 
     @Test
     void givenNonExistentCreditCardUpdateRequest_whenUpdate_thenCreditCardNotFoundExceptionShouldBeThrown() {
-        CreditCardUpdateRequest creditCardUpdateRequest = ObjectFactory.getInstance().getCreditCardUpdateRequest();
-
         when(creditCardRepository.existsById(creditCardUpdateRequest.id())).thenReturn(false);
 
         assertThrows(CreditCardNotFoundException.class, () -> {
@@ -178,8 +168,6 @@ class CreditCardServiceTest {
 
     @Test
     void givenNonExistentCreditCardId_whenDeleteById_thenCreditCardNotFoundExceptionShouldBeThrown() {
-        Long nonExistentCreditCardId = -1L;
-
         when(creditCardRepository.findById(nonExistentCreditCardId)).thenReturn(Optional.empty());
 
         assertThrows(CreditCardNotFoundException.class, () -> {
@@ -193,8 +181,6 @@ class CreditCardServiceTest {
 
     @Test
     void givenNonExistentCreditCardId_whenFindById_thenCreditCardNotFoundExceptionShouldBeThrown() {
-        Long nonExistentCreditCardId = -1L;
-
         when(creditCardRepository.findById(nonExistentCreditCardId)).thenReturn(Optional.empty());
 
         assertThrows(CreditCardNotFoundException.class, () -> {

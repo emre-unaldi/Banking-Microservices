@@ -1,5 +1,7 @@
 package unaldi.creditcardservice.entity.request;
 
+import lombok.Builder;
+
 import java.time.LocalDate;
 
 /**
@@ -8,6 +10,7 @@ import java.time.LocalDate;
  *
  * @author Emre Ünaldı
  */
+@Builder
 public record CreditCardSaveRequest(
         String cardNumber,
         Long userId,

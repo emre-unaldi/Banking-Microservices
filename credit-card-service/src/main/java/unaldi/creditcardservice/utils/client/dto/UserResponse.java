@@ -1,5 +1,6 @@
 package unaldi.creditcardservice.utils.client.dto;
 
+import lombok.Builder;
 import unaldi.creditcardservice.utils.client.enums.Gender;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
  *
  * @author Emre Ünaldı
  */
+@Builder
 public record UserResponse(
         Long id,
         String username,
