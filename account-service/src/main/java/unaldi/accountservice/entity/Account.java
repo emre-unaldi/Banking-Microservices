@@ -2,10 +2,7 @@ package unaldi.accountservice.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import unaldi.accountservice.entity.enums.AccountStatus;
 import unaldi.accountservice.entity.enums.AccountType;
 
@@ -21,6 +18,7 @@ import unaldi.accountservice.entity.enums.AccountType;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

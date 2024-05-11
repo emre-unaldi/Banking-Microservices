@@ -1,5 +1,6 @@
 package unaldi.accountservice.entity.request;
 
+import lombok.Builder;
 import unaldi.accountservice.entity.enums.AccountStatus;
 import unaldi.accountservice.entity.enums.AccountType;
 
@@ -9,6 +10,7 @@ import unaldi.accountservice.entity.enums.AccountType;
  *
  * @author Emre Ünaldı
  */
+@Builder
 public record AccountUpdateRequest(
         Long id,
         String accountNumber,

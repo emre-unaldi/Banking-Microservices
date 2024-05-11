@@ -1,5 +1,6 @@
 package unaldi.accountservice.service;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,30 +41,44 @@ import static org.mockito.Mockito.*;
  */
 @ExtendWith(MockitoExtension.class)
 class AccountServiceTest {
-    @Mock
-    AccountRepository accountRepository;
+    private static Account account;
+    private static List<Account> accountList;
+    private static AccountSaveRequest accountSaveRequest;
+    private static AccountUpdateRequest accountUpdateRequest;
+    private static UserResponse userResponse;
+    private static BankResponse bankResponse;
+    private static RestResponse<UserResponse> userRestResponse;
+    private static RestResponse<BankResponse> bankRestResponse;
+    private final Long nonExistentAccountId = -1L;
 
+    @Mock
+    private AccountRepository accountRepository;
     @Mock
     private LogProducer logProducer;
-
     @Mock
     private UserServiceClient userServiceClient;
-
     @Mock
     private BankServiceClient bankServiceClient;
-
     @InjectMocks
     private AccountServiceImpl accountService;
 
+    @BeforeAll
+    static void setUp() {
+        account = ObjectFactory.getInstance().getAccount();
+        accountList = ObjectFactory.getInstance().getAccountList();
+        accountSaveRequest = ObjectFactory.getInstance().getAccountSaveRequest();
+        accountUpdateRequest = ObjectFactory.getInstance().getAccountUpdateRequest();
+        userResponse = ObjectFactory.getInstance().getUserResponse();
+        bankResponse = ObjectFactory.getInstance().getBankResponse();
+        userRestResponse = ObjectFactory.getInstance().getRestResponse(userResponse);
+        bankRestResponse = ObjectFactory.getInstance().getRestResponse(bankResponse);
+    }
+
     @Test
     void givenAccountSaveRequest_whenSave_thenAccountShouldBeSaved() {
-        AccountSaveRequest accountSaveRequest = ObjectFactory.getInstance().getAccountSaveRequest();
-        Account account = ObjectFactory.getInstance().getAccount();
-
         when(accountRepository.save(any(Account.class))).thenReturn(account);
 
         DataResult<AccountDTO> result = accountService.save(accountSaveRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.ACCOUNT_SAVE);
 
         verify(accountRepository, times(1)).save(any(Account.class));
@@ -72,14 +87,10 @@ class AccountServiceTest {
 
     @Test
     void givenAccountUpdateRequest_whenUpdate_thenAccountShouldBeUpdated() {
-        AccountUpdateRequest accountUpdateRequest = ObjectFactory.getInstance().getAccountUpdateRequest();
-        Account account = ObjectFactory.getInstance().getAccount();
-
         when(accountRepository.existsById(accountUpdateRequest.id())).thenReturn(true);
         when(accountRepository.save(any(Account.class))).thenReturn(account);
 
         DataResult<AccountDTO> result = accountService.update(accountUpdateRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.ACCOUNT_UPDATE);
 
         verify(accountRepository, times(1)).existsById(anyLong());
@@ -89,12 +100,9 @@ class AccountServiceTest {
 
     @Test
     void givenAccountId_whenDeleteById_thenAccountShouldBeDeleted() {
-        Account account = ObjectFactory.getInstance().getAccount();
-
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
 
         Result result = accountService.deleteById(account.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.ACCOUNT_DELETE);
 
         verify(accountRepository, times(1)).deleteById(account.getId());
@@ -103,12 +111,9 @@ class AccountServiceTest {
 
     @Test
     void givenAccountId_whenFindById_thenAccountShouldBeFound() {
-        Account account = ObjectFactory.getInstance().getAccount();
-
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
 
         DataResult<AccountDTO> result = accountService.findById(account.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.ACCOUNT_FIND);
 
         verify(accountRepository, times(1)).findById(account.getId());
@@ -117,14 +122,9 @@ class AccountServiceTest {
 
     @Test
     void givenUserResponse_whenFindAccountUserByUserId_thenAccountUserShouldBeFound() {
-        UserResponse userResponse = ObjectFactory.getInstance().getUserResponse();
-        RestResponse<UserResponse> userRestResponse = ObjectFactory.getInstance().getRestResponse(userResponse);
-        ResponseEntity<RestResponse<UserResponse>> response = ResponseEntity.ok(userRestResponse);
-
-        when(userServiceClient.findById(userResponse.id())).thenReturn(response);
+        when(userServiceClient.findById(userResponse.id())).thenReturn(ResponseEntity.ok(userRestResponse));
 
         DataResult<UserResponse> result = accountService.findAccountUserByUserId(userResponse.id());
-
         assertTrue(result.getSuccess(), FailTestMessages.ACCOUNT_USER_FIND);
 
         verify(userServiceClient, times(1)).findById(userResponse.id());
@@ -133,14 +133,9 @@ class AccountServiceTest {
 
     @Test
     void givenBankResponse_whenFindAccountBankByBankId_thenAccountBankShouldBeFound() {
-        BankResponse bankResponse = ObjectFactory.getInstance().getBankResponse();
-        RestResponse<BankResponse> bankRestResponse = ObjectFactory.getInstance().getRestResponse(bankResponse);
-        ResponseEntity<RestResponse<BankResponse>> response = ResponseEntity.ok(bankRestResponse);
-
-        when(bankServiceClient.findById(bankResponse.id())).thenReturn(response);
+        when(bankServiceClient.findById(bankResponse.id())).thenReturn(ResponseEntity.ok(bankRestResponse));
 
         DataResult<BankResponse> result = accountService.findAccountBankByBankId(bankResponse.id());
-
         assertTrue(result.getSuccess(), FailTestMessages.ACCOUNT_BANK_FIND);
 
         verify(bankServiceClient, times(1)).findById(bankResponse.id());
@@ -149,12 +144,9 @@ class AccountServiceTest {
 
     @Test
     void givenAccountList_whenFindAll_thenAllAccountsShouldBeReturned() {
-        List<Account> accountList = ObjectFactory.getInstance().getAccountList();
-
         when(accountRepository.findAll()).thenReturn(accountList);
 
         DataResult<List<AccountDTO>> result = accountService.findAll();
-
         assertTrue(result.getSuccess(), FailTestMessages.ACCOUNTS_FIND);
 
         verify(accountRepository, times(1)).findAll();
@@ -163,8 +155,6 @@ class AccountServiceTest {
 
     @Test
     void givenNonExistentAccountUpdateRequest_whenUpdate_thenAccountNotFoundExceptionShouldBeThrown() {
-        AccountUpdateRequest accountUpdateRequest = ObjectFactory.getInstance().getAccountUpdateRequest();
-
         when(accountRepository.existsById(accountUpdateRequest.id())).thenReturn(false);
 
         assertThrows(AccountNotFoundException.class, () -> {
@@ -178,8 +168,6 @@ class AccountServiceTest {
 
     @Test
     void givenNonExistentAccountId_whenDeleteById_thenAccountNotFoundExceptionShouldBeThrown() {
-        Long nonExistentAccountId = -1L;
-
         when(accountRepository.findById(nonExistentAccountId)).thenReturn(Optional.empty());
 
         assertThrows(AccountNotFoundException.class, () -> {
@@ -193,8 +181,6 @@ class AccountServiceTest {
 
     @Test
     void givenNonExistentAccountId_whenFindById_thenAccountNotFoundExceptionShouldBeThrown() {
-        Long nonExistentAccountId = -1L;
-
         when(accountRepository.findById(nonExistentAccountId)).thenReturn(Optional.empty());
 
         assertThrows(AccountNotFoundException.class, () -> {

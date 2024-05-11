@@ -41,15 +41,15 @@ public class ObjectFactory {
 
     public Account getAccount() {
         if (account == null) {
-            account = new Account(
-                    1L,
-                    "239488942374895439",
-                    1L,
-                    2356.80,
-                    AccountType.DEPOSIT,
-                    AccountStatus.ACTIVE,
-                    2L
-            );
+            account = Account.builder()
+                    .id(1L)
+                    .accountNumber("239488942374895439")
+                    .userId(1L)
+                    .balance(2356.80)
+                    .accountType(AccountType.DEPOSIT)
+                    .accountStatus(AccountStatus.ACTIVE)
+                    .bankId(1L)
+                    .build();
         }
 
         return account;
@@ -57,15 +57,15 @@ public class ObjectFactory {
 
     public AccountUpdateRequest getAccountUpdateRequest() {
         if (accountUpdateRequest == null) {
-            accountUpdateRequest = new AccountUpdateRequest(
-                    1L,
-                    "239488942374895439",
-                    1L,
-                    2356.80,
-                    AccountType.DEPOSIT,
-                    AccountStatus.ACTIVE,
-                    2L
-            );
+            accountUpdateRequest = AccountUpdateRequest.builder()
+                    .id(1L)
+                    .accountNumber("239488942374895439")
+                    .userId(1L)
+                    .balance(2356.80)
+                    .accountType(AccountType.DEPOSIT)
+                    .accountStatus(AccountStatus.ACTIVE)
+                    .bankId(1L)
+                    .build();
         }
 
         return accountUpdateRequest;
@@ -73,14 +73,14 @@ public class ObjectFactory {
 
     public AccountSaveRequest getAccountSaveRequest() {
         if (accountSaveRequest == null) {
-            accountSaveRequest = new AccountSaveRequest(
-                    "239488942374895439",
-                    1L,
-                    2356.80,
-                    AccountType.DEPOSIT,
-                    AccountStatus.ACTIVE,
-                    2L
-            );
+            accountSaveRequest = AccountSaveRequest.builder()
+                    .accountNumber("239488942374895439")
+                    .userId(1L)
+                    .balance(2356.80)
+                    .accountType(AccountType.DEPOSIT)
+                    .accountStatus(AccountStatus.ACTIVE)
+                    .bankId(1L)
+                    .build();
         }
 
         return accountSaveRequest;
@@ -88,25 +88,29 @@ public class ObjectFactory {
 
     public List<Account> getAccountList() {
         if (accountList == null) {
+            Account accountOne = Account.builder()
+                    .id(1L)
+                    .accountNumber("239488942374895439")
+                    .userId(1L)
+                    .balance(2356.80)
+                    .accountType(AccountType.DEPOSIT)
+                    .accountStatus(AccountStatus.ACTIVE)
+                    .bankId(1L)
+                    .build();
+
+            Account accountTwo = Account.builder()
+                    .id(2L)
+                    .accountNumber("239488942374895439")
+                    .userId(1L)
+                    .balance(2356.80)
+                    .accountType(AccountType.DEPOSIT)
+                    .accountStatus(AccountStatus.ACTIVE)
+                    .bankId(1L)
+                    .build();
+
             accountList = List.of(
-                    new Account(
-                            2L,
-                            "239488942374895439",
-                            2L,
-                            2356.80,
-                            AccountType.DEPOSIT,
-                            AccountStatus.ACTIVE,
-                            3L
-                    ),
-                    new Account(
-                            1L,
-                            "239488942374895439",
-                            1L,
-                            2356.80,
-                            AccountType.DEPOSIT,
-                            AccountStatus.ACTIVE,
-                            2L
-                    )
+                    accountOne,
+                    accountTwo
             );
         }
 
@@ -115,17 +119,17 @@ public class ObjectFactory {
 
     public UserResponse getUserResponse() {
         if (userResponse == null) {
-            userResponse = new UserResponse(
-                    1L,
-                    "eunaldi",
-                    "121221",
-                    "emree.unaldi@gmail.com",
-                    "Emre",
-                    "Ünaldı",
-                    "05078711189",
-                    LocalDate.of(2001, 1, 1),
-                    Gender.MALE
-            );
+            userResponse = UserResponse.builder()
+                    .id(1L)
+                    .username("eunaldi")
+                    .password("121221")
+                    .email("emree.unaldi@gmail.com")
+                    .firstName("Emre")
+                    .lastName("Ünaldı")
+                    .phoneNumber("05078711189")
+                    .birthDate(LocalDate.of(2001, 1, 1))
+                    .gender(Gender.MALE)
+                    .build();
         }
 
         return userResponse;
@@ -133,17 +137,17 @@ public class ObjectFactory {
 
     public BankResponse getBankResponse() {
         if (bankResponse == null) {
-            bankResponse = new BankResponse(
-                    1L,
-                    "Example Bank",
-                    "EXBK",
-                    "Main Branch",
-                    "MB",
-                    "1234567812345678",
-                    "KAYSERI / Incesu",
-                    "info@examplebank.com",
-                    "0507 871 11 89"
-            );
+            bankResponse = BankResponse.builder()
+                    .id(1L)
+                    .bankName("Example Bank")
+                    .bankCode("EXBK")
+                    .branchName("Main Branch")
+                    .branchCode("MB")
+                    .accountNumber("1234567812345678")
+                    .address("KAYSERI / Incesu")
+                    .email("info@examplebank.com")
+                    .phoneNumber("0507 871 11 89")
+                    .build();
         }
 
         return bankResponse;
