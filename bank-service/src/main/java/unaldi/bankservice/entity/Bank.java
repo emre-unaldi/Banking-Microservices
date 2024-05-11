@@ -2,10 +2,7 @@ package unaldi.bankservice.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Copyright (c) 2024
@@ -19,6 +16,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

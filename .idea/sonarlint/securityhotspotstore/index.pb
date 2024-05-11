@@ -115,3 +115,9 @@ Sinvoice-service/src/test/java/unaldi/invoiceservice/service/InvoiceServiceTest.
 Suser-service/src/main/java/unaldi/userservice/entity/request/UserUpdateRequest.java,b\5\b58e6f3af428ba89d6844c8726428b72c2e2a39c
 Å
 Quser-service/src/main/java/unaldi/userservice/entity/request/UserSaveRequest.java,b\7\b7230c659c8fa1146db24e18b774bbb388930dd5
+É
+Sbank-service/src/main/java/unaldi/bankservice/entity/request/BankUpdateRequest.java,e\5\e55cd058da86140eb8fd053fb5cf52b4b8b017a0
+Å
+Qbank-service/src/main/java/unaldi/bankservice/entity/request/BankSaveRequest.java,0\1\0109c6d3dccea0b14c5d11ca98e560b62f22d986
+x
+Hbank-service/src/test/java/unaldi/bankservice/mapper/BankMapperTest.java,2\9\29349a196a8abb89310eea95ba3b48a38fc51f4d

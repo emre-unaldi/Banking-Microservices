@@ -1,0 +1,870 @@
+{
+	"info": {
+		"_postman_id": "490ec90e-8cf4-470d-85f4-0a2ed17e9947",
+		"name": "bank-microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18186708"
+	},
+	"item": [
+		{
+			"name": "user-service",
+			"item": [
+				{
+					"name": "/api/v1/users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"johndoe\",\r\n    \"password\": \"john1221\",\r\n    \"email\": \"john.doe@email.com\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"phoneNumber\": \"05551234567\",\r\n    \"birthDate\": \"1990-05-15\",\r\n    \"gender\": \"MALE\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"username\": \"johndoe\",\r\n    \"password\": \"john1221\",\r\n    \"email\": \"john.doe@email.com\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"phoneNumber\": \"05551234567\",\r\n    \"birthDate\": \"1990-05-15\",\r\n    \"gender\": \"MALE\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users/{userId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users/{userId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bank-service",
+			"item": [
+				{
+					"name": "/api/v1/banks",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bankName\": \"City Bank\",\r\n    \"bankCode\": \"CTYB\",\r\n    \"branchName\": \"City Bank Main Branch\",\r\n    \"branchCode\": \"CTYMB\",\r\n    \"accountNumber\": \"98765432\",\r\n    \"address\": \"123 Maple Ave, Cityville, USA\",\r\n    \"email\": \"info@citybank.com\",\r\n    \"phoneNumber\": \"0507 987 65 43\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/banks",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"banks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/banks",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"bankName\": \"City Bank\",\r\n    \"bankCode\": \"CTYB\",\r\n    \"branchName\": \"City Bank Main Branch\",\r\n    \"branchCode\": \"CTYMB\",\r\n    \"accountNumber\": \"98765432\",\r\n    \"address\": \"123 Maple Ave, Cityville, USA\",\r\n    \"email\": \"info@citybank.com\",\r\n    \"phoneNumber\": \"0507 987 65 43\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/banks",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"banks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/banks/{bankId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/banks/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"banks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/banks/{bankId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/banks/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"banks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/banks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/banks",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"banks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "credit-card-service",
+			"item": [
+				{
+					"name": "/api/v1/creditCards",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardNumber\": \"1234567890123456\",\r\n    \"userId\": 5,\r\n    \"expirationDate\": \"2025-12-15\",\r\n    \"cvv\": \"789\",\r\n    \"creditLimit\": 3000.00,\r\n    \"debtAmount\": 200.00,\r\n    \"bankId\": 6\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/creditCards",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"creditCards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/creditCards",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"cardNumber\": \"1234567890123456\",\r\n    \"userId\": 5,\r\n    \"expirationDate\": \"2025-12-15\",\r\n    \"cvv\": \"789\",\r\n    \"creditLimit\": 3000.00,\r\n    \"debtAmount\": 200.00,\r\n    \"bankId\": 6\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/creditCards",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"creditCards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/creditCards/{creditCardId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/creditCards/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"creditCards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/creditCards/{creditCardId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/creditCards/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"creditCards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/creditCards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/creditCards",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"creditCards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/creditCards/users/{userId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/creditCards/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"creditCards",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/creditCards/banks/{bankId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/creditCards/banks/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"creditCards",
+								"banks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "account-service",
+			"item": [
+				{
+					"name": "/api/v1/accounts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"accountNumber\": \"7777777777\",\r\n  \"userId\": 3,\r\n  \"balance\": 5000.00,\r\n  \"accountType\": \"CREDIT\",\r\n  \"accountStatus\": \"ACTIVE\",\r\n  \"bankId\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/accounts",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/accounts",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"accountNumber\": \"7777777777\",\r\n  \"userId\": 3,\r\n  \"balance\": 5000.00,\r\n  \"accountType\": \"CREDIT\",\r\n  \"accountStatus\": \"ACTIVE\",\r\n  \"bankId\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/accounts",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/accounts/{accountId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/accounts/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/accounts/{accountId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/accounts/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/accounts",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/accounts/users/{userId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/accounts/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/accounts/banks/{bankId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/accounts/banks/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"banks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "invoice-service",
+			"item": [
+				{
+					"name": "/api/v1/invoices",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"invoiceNumber\": \"INV-2024-016\",\r\n  \"userId\": 2,\r\n  \"amount\": 180.25,\r\n  \"invoiceDate\": \"2023-07-01\",\r\n  \"dueDate\": \"2024-02-01\",\r\n  \"paymentStatus\": \"PENDING\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/invoices",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"invoiceNumber\": \"INV-2024-038\",\r\n  \"userId\": 2,\r\n  \"amount\": 100.50,\r\n  \"invoiceDate\": \"2024-04-08\",\r\n  \"dueDate\": \"2024-05-08\",\r\n  \"paymentStatus\": \"PAID\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/invoices/{invoiceId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/invoices/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/invoices/{invoiceId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/invoices/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/invoices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/invoices/users/{userId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/invoices/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "log-service",
+			"item": [
+				{
+					"name": "/api/v1/logs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"serviceName\": \"user-service\",\r\n  \"operationType\": \"GET\",\r\n  \"logType\": \"INFO\",\r\n  \"message\": \"Users in the database are listed\",\r\n  \"requestPath\": \"/api/v1/accounts\",\r\n  \"timestamp\": \"2024-04-09T12:00:00\",\r\n  \"exception\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/logs",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/logs",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"661c2ba9278f996c640cd220\",\r\n  \"serviceName\": \"user-service\",\r\n  \"operationType\": \"GET\",\r\n  \"logType\": \"INFO\",\r\n  \"message\": \"Users in the database are listed\",\r\n  \"requestPath\": \"/api/v1/accounts\",\r\n  \"timestamp\": \"2024-04-09T12:00:00\",\r\n  \"exception\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/api/v1/logs",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/logs/{logId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/logs/661c2ba9278f996c640cd220",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"logs",
+								"661c2ba9278f996c640cd220"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/logs/{logId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/logs/661c2ba9278f996c640cd220",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"logs",
+								"661c2ba9278f996c640cd220"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/api/v1/logs",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

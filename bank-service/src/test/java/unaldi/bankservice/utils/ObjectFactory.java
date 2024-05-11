@@ -32,17 +32,17 @@ public class ObjectFactory {
 
     public Bank getBank() {
         if (bank == null) {
-            bank = new Bank(
-                    1L,
-                    "Example Bank",
-                    "EXBK",
-                    "Main Branch",
-                    "MB",
-                    "1234567812345678",
-                    "KAYSERI / Incesu",
-                    "info@examplebank.com",
-                    "0507 871 11 89"
-            );
+            bank = Bank.builder()
+                    .id(1L)
+                    .bankName("Example Bank")
+                    .bankCode("EXBK")
+                    .branchName("Main Branch")
+                    .branchCode("MB")
+                    .accountNumber("1234567812345678")
+                    .address("KAYSERI / Incesu")
+                    .email("info@examplebank.com")
+                    .phoneNumber("0507 871 11 89")
+                    .build();
         }
 
         return bank;
@@ -50,17 +50,17 @@ public class ObjectFactory {
 
     public BankUpdateRequest getBankUpdateRequest() {
         if (bankUpdateRequest == null) {
-            bankUpdateRequest = new BankUpdateRequest(
-                    1L,
-                    "Example Bank",
-                    "EXBK",
-                    "Main Branch",
-                    "MB",
-                    "1234567812345678",
-                    "KAYSERI / Incesu",
-                    "info@examplebank.com",
-                    "0507 871 11 89"
-            );
+            bankUpdateRequest = BankUpdateRequest.builder()
+                    .id(1L)
+                    .bankName("Example Bank")
+                    .bankCode("EXBK")
+                    .branchName("Main Branch")
+                    .branchCode("MB")
+                    .accountNumber("1234567812345678")
+                    .address("KAYSERI / Incesu")
+                    .email("info@examplebank.com")
+                    .phoneNumber("0507 871 11 89")
+                    .build();
         }
 
         return bankUpdateRequest;
@@ -68,16 +68,16 @@ public class ObjectFactory {
 
     public BankSaveRequest getBankSaveRequest() {
         if (bankSaveRequest == null) {
-            bankSaveRequest = new BankSaveRequest(
-                    "Example Bank",
-                    "EXBK",
-                    "Main Branch",
-                    "MB",
-                    "1234567812345678",
-                    "KAYSERI / Incesu",
-                    "info@examplebank.com",
-                    "0507 871 11 89"
-            );
+            bankSaveRequest = BankSaveRequest.builder()
+                    .bankName("Example Bank")
+                    .bankCode("EXBK")
+                    .branchName("Main Branch")
+                    .branchCode("MB")
+                    .accountNumber("1234567812345678")
+                    .address("KAYSERI / Incesu")
+                    .email("info@examplebank.com")
+                    .phoneNumber("0507 871 11 89")
+                    .build();
         }
 
         return bankSaveRequest;
@@ -85,29 +85,33 @@ public class ObjectFactory {
 
     public List<Bank> getBankList() {
         if (bankList == null) {
+            Bank bankOne = Bank.builder()
+                    .id(1L)
+                    .bankName("Example Bank")
+                    .bankCode("EXBK")
+                    .branchName("Main Branch")
+                    .branchCode("MB")
+                    .accountNumber("1234567812345678")
+                    .address("KAYSERI / Incesu")
+                    .email("info@examplebank.com")
+                    .phoneNumber("0507 871 11 89")
+                    .build();
+
+            Bank bankTwo = Bank.builder()
+                    .id(2L)
+                    .bankName("Example Bank")
+                    .bankCode("EXBK")
+                    .branchName("Main Branch")
+                    .branchCode("MB")
+                    .accountNumber("1234567812345678")
+                    .address("KAYSERI / Incesu")
+                    .email("info@examplebank.com")
+                    .phoneNumber("0507 871 11 89")
+                    .build();
+
             bankList = List.of(
-                    new Bank(
-                            1L,
-                            "Example Bank",
-                            "EXBK",
-                            "Main Branch",
-                            "MB",
-                            "1234567812345678",
-                            "KAYSERI / Incesu",
-                            "info@examplebank.com",
-                            "0507 871 11 89"
-                    ),
-                    new Bank(
-                            2L,
-                            "Example Bank",
-                            "EXBK",
-                            "Main Branch",
-                            "MB",
-                            "1234567812345678",
-                            "KAYSERI / Incesu",
-                            "info@examplebank.com",
-                            "0507 871 11 89"
-                    )
+                    bankOne,
+                    bankTwo
             );
         }
 

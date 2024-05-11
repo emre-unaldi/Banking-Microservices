@@ -1,5 +1,6 @@
 package unaldi.bankservice.service;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,24 +35,32 @@ import static org.mockito.Mockito.*;
  */
 @ExtendWith(MockitoExtension.class)
 class BankServiceTest {
+    private static Bank bank;
+    private static List<Bank> bankList;
+    private static BankSaveRequest bankSaveRequest;
+    private static BankUpdateRequest bankUpdateRequest;
+    private final Long nonExistentBankId = -1L;
+
     @Mock
     private BankRepository bankRepository;
-
     @Mock
     private LogProducer logProducer;
-
     @InjectMocks
-    BankServiceImpl bankService;
+    private BankServiceImpl bankService;
+
+    @BeforeAll
+    static void setUp() {
+        bank = ObjectFactory.getInstance().getBank();
+        bankList = ObjectFactory.getInstance().getBankList();
+        bankSaveRequest = ObjectFactory.getInstance().getBankSaveRequest();
+        bankUpdateRequest = ObjectFactory.getInstance().getBankUpdateRequest();
+    }
 
     @Test
     void givenBankSaveRequest_whenSave_thenBankShouldBeSaved() {
-        BankSaveRequest bankSaveRequest = ObjectFactory.getInstance().getBankSaveRequest();
-        Bank bank = ObjectFactory.getInstance().getBank();
-
         when(bankRepository.save(any(Bank.class))).thenReturn(bank);
 
         DataResult<BankDTO> result = bankService.save(bankSaveRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.BANK_SAVE);
 
         verify(bankRepository, times(1)).save(any(Bank.class));
@@ -61,14 +70,10 @@ class BankServiceTest {
 
     @Test
     void givenBankUpdateRequest_whenUpdate_thenBankShouldBeUpdated() {
-        BankUpdateRequest bankUpdateRequest = ObjectFactory.getInstance().getBankUpdateRequest();
-        Bank bank = ObjectFactory.getInstance().getBank();
-
         when(bankRepository.existsById(bankUpdateRequest.id())).thenReturn(true);
         when(bankRepository.save(any(Bank.class))).thenReturn(bank);
 
         DataResult<BankDTO> result = bankService.update(bankUpdateRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.BANK_UPDATE);
 
         verify(bankRepository, times(1)).existsById(anyLong());
@@ -78,12 +83,9 @@ class BankServiceTest {
 
     @Test
     void givenBankId_whenDeleteById_thenBankShouldBeDeleted() {
-        Bank bank = ObjectFactory.getInstance().getBank();
-
         when(bankRepository.findById(bank.getId())).thenReturn(Optional.of(bank));
 
         Result result = bankService.deleteById(bank.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.BANK_DELETE);
 
         verify(bankRepository, times(1)).deleteById(bank.getId());
@@ -92,12 +94,9 @@ class BankServiceTest {
 
     @Test
     void givenBankId_whenFindById_thenBankShouldBeFound() {
-        Bank bank = ObjectFactory.getInstance().getBank();
-
         when(bankRepository.findById(bank.getId())).thenReturn(Optional.of(bank));
 
         DataResult<BankDTO> result = bankService.findById(bank.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.BANK_FIND);
 
         verify(bankRepository, times(1)).findById(bank.getId());
@@ -106,12 +105,9 @@ class BankServiceTest {
 
     @Test
     void givenBankList_whenFindAll_thenAllBanksShouldBeReturned() {
-        List<Bank> bankList = ObjectFactory.getInstance().getBankList();
-
         when(bankRepository.findAll()).thenReturn(bankList);
 
         DataResult<List<BankDTO>> result = bankService.findAll();
-
         assertTrue(result.getSuccess(), FailTestMessages.BANKS_FIND);
 
         verify(bankRepository, times(1)).findAll();
@@ -120,8 +116,6 @@ class BankServiceTest {
 
     @Test
     void givenNonExistentBankUpdateRequest_whenUpdate_thenBankNotFoundExceptionShouldBeThrown() {
-        BankUpdateRequest bankUpdateRequest = ObjectFactory.getInstance().getBankUpdateRequest();
-
         when(bankRepository.existsById(bankUpdateRequest.id())).thenReturn(false);
 
         assertThrows(BankNotFoundException.class, () -> {
@@ -135,8 +129,6 @@ class BankServiceTest {
 
     @Test
     void givenNonExistentBankId_whenDeleteById_thenBankNotFoundExceptionShouldBeThrown() {
-        Long nonExistentBankId = -1L;
-
         when(bankRepository.findById(nonExistentBankId)).thenReturn(Optional.empty());
 
         assertThrows(BankNotFoundException.class, () -> {
@@ -150,8 +142,6 @@ class BankServiceTest {
 
     @Test
     void givenNonExistentBankId_whenFindById_thenBankNotFoundExceptionShouldBeThrown() {
-        Long nonExistentBankId = -1L;
-
         when(bankRepository.findById(nonExistentBankId)).thenReturn(Optional.empty());
 
         assertThrows(BankNotFoundException.class, () -> {

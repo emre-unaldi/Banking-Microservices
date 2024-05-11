@@ -1,7 +1,7 @@
 package unaldi.bankservice.mapper;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import unaldi.bankservice.entity.Bank;
 import unaldi.bankservice.entity.dto.BankDTO;
 import unaldi.bankservice.entity.request.BankSaveRequest;
@@ -21,11 +21,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Emre Ünaldı
  */
-@SpringBootTest
-class MapperTest {
+class BankMapperTest {
+    private static Bank bank;
+    private static List<Bank> bankList;
+    private static BankSaveRequest bankSaveRequest;
+    private static BankUpdateRequest bankUpdateRequest;
+
+    @BeforeAll
+    static void setUp() {
+        bank = ObjectFactory.getInstance().getBank();
+        bankList = ObjectFactory.getInstance().getBankList();
+        bankSaveRequest = ObjectFactory.getInstance().getBankSaveRequest();
+        bankUpdateRequest = ObjectFactory.getInstance().getBankUpdateRequest();
+    }
+
     @Test
     void should_convertBankSaveRequestToBank() {
-        BankSaveRequest bankSaveRequest = ObjectFactory.getInstance().getBankSaveRequest();
         Bank bank = BankMapper.INSTANCE.convertToSaveBank(bankSaveRequest);
 
         assertAll(
@@ -42,7 +53,6 @@ class MapperTest {
 
     @Test
     void should_convertUpdateRequestToBank() {
-        BankUpdateRequest bankUpdateRequest = ObjectFactory.getInstance().getBankUpdateRequest();
         Bank bank = BankMapper.INSTANCE.convertToUpdateBank(bankUpdateRequest);
 
         assertAll(
@@ -57,10 +67,8 @@ class MapperTest {
         );
     }
 
-
     @Test
     void should_convertBankToBankDTO() {
-        Bank bank = ObjectFactory.getInstance().getBank();
         BankDTO bankDTO = BankMapper.INSTANCE.convertToBankDTO(bank);
 
         assertAll(
@@ -77,7 +85,6 @@ class MapperTest {
 
     @Test
     void should_convertListOfBanksToListOfBankDTOs() {
-        List<Bank> bankList = ObjectFactory.getInstance().getBankList();
         List<BankDTO> bankDTOList = BankMapper.INSTANCE.convertBankDTOs(bankList);
 
         assertEquals(bankList.get(0).getId(), bankDTOList.get(0).id());
