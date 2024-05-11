@@ -1,5 +1,6 @@
 package unaldi.invoiceservice.entity.request;
 
+import lombok.Builder;
 import unaldi.invoiceservice.entity.enums.PaymentStatus;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
  *
  * @author Emre Ünaldı
  */
+@Builder
 public record InvoiceSaveRequest(
         String invoiceNumber,
         Long userId,

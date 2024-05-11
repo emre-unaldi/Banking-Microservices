@@ -11,7 +11,6 @@ import unaldi.invoiceservice.utils.client.dto.UserResponse;
 import unaldi.invoiceservice.utils.client.enums.Gender;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,15 +38,15 @@ public class ObjectFactory {
 
     public Invoice getInvoice() {
         if (invoice == null) {
-            invoice = new Invoice(
-                    1L,
-                    "89457423895",
-                    1L,
-                    3250.50,
-                    LocalDate.of(2024,4,7),
-                    LocalDate.of(2024,5,20),
-                    PaymentStatus.PENDING
-            );
+            invoice = Invoice.builder()
+                    .id(1L)
+                    .invoiceNumber("89457423895")
+                    .userId(1L)
+                    .amount(3250.50)
+                    .invoiceDate(LocalDate.of(2024, 4, 7))
+                    .dueDate(LocalDate.of(2024, 5, 20))
+                    .paymentStatus(PaymentStatus.PENDING)
+                    .build();
         }
 
         return invoice;
@@ -55,15 +54,15 @@ public class ObjectFactory {
 
     public InvoiceUpdateRequest getInvoiceUpdateRequest() {
         if (invoiceUpdateRequest == null) {
-            invoiceUpdateRequest = new InvoiceUpdateRequest(
-                    1L,
-                    "89457423895",
-                    1L,
-                    3250.50,
-                    LocalDate.of(2024,4,7),
-                    LocalDate.of(2024,5,20),
-                    PaymentStatus.PENDING
-            );
+            invoiceUpdateRequest = InvoiceUpdateRequest.builder()
+                    .id(1L)
+                    .invoiceNumber("89457423895")
+                    .userId(1L)
+                    .amount(3250.50)
+                    .invoiceDate(LocalDate.of(2024, 4, 7))
+                    .dueDate(LocalDate.of(2024, 5, 20))
+                    .paymentStatus(PaymentStatus.PENDING)
+                    .build();
         }
 
         return invoiceUpdateRequest;
@@ -71,14 +70,14 @@ public class ObjectFactory {
 
     public InvoiceSaveRequest getInvoiceSaveRequest() {
         if (invoiceSaveRequest == null) {
-            invoiceSaveRequest = new InvoiceSaveRequest(
-                    "89457423895",
-                    1L,
-                    3250.50,
-                    LocalDate.of(2024,4,7),
-                    LocalDate.of(2024,5,20),
-                    PaymentStatus.PENDING
-            );
+            invoiceSaveRequest = InvoiceSaveRequest.builder()
+                    .invoiceNumber("89457423895")
+                    .userId(1L)
+                    .amount(3250.50)
+                    .invoiceDate(LocalDate.of(2024, 4, 7))
+                    .dueDate(LocalDate.of(2024, 5, 20))
+                    .paymentStatus(PaymentStatus.PENDING)
+                    .build();
         }
 
         return invoiceSaveRequest;
@@ -86,25 +85,29 @@ public class ObjectFactory {
 
     public List<Invoice> getInvoiceList() {
         if (invoiceList == null) {
+            Invoice invoiceOne = Invoice.builder()
+                    .id(1L)
+                    .invoiceNumber("89457423895")
+                    .userId(1L)
+                    .amount(3250.50)
+                    .invoiceDate(LocalDate.of(2024, 4, 7))
+                    .dueDate(LocalDate.of(2024, 5, 20))
+                    .paymentStatus(PaymentStatus.PENDING)
+                    .build();
+
+            Invoice invoiceTwo = Invoice.builder()
+                    .id(1L)
+                    .invoiceNumber("89457423895")
+                    .userId(1L)
+                    .amount(3250.50)
+                    .invoiceDate(LocalDate.of(2024, 4, 7))
+                    .dueDate(LocalDate.of(2024, 5, 20))
+                    .paymentStatus(PaymentStatus.PENDING)
+                    .build();
+
             invoiceList = List.of(
-                    new Invoice(
-                            2L,
-                            "89457423895",
-                            1L,
-                            3250.50,
-                            LocalDate.of(2024,4,7),
-                            LocalDate.of(2024,5,20),
-                            PaymentStatus.PENDING
-                    ),
-                    new Invoice(
-                            2L,
-                            "89457423895",
-                            1L,
-                            3250.50,
-                            LocalDate.of(2024,4,7),
-                            LocalDate.of(2024,5,20),
-                            PaymentStatus.PENDING
-                    )
+                    invoiceOne,
+                    invoiceTwo
             );
         }
 
@@ -113,17 +116,17 @@ public class ObjectFactory {
 
     public UserResponse getUserResponse() {
         if (userResponse == null) {
-            userResponse = new UserResponse(
-                    1L,
-                    "eunaldi",
-                    "121221",
-                    "emree.unaldi@gmail.com",
-                    "Emre",
-                    "Ünaldı",
-                    "05078711189",
-                    LocalDate.of(2001, 1, 1),
-                    Gender.MALE
-            );
+            userResponse = UserResponse.builder()
+                    .id(1L)
+                    .username("eunaldi")
+                    .password("121221")
+                    .email("emree.unaldi@gmail.com")
+                    .firstName("Emre")
+                    .lastName("Ünaldı")
+                    .phoneNumber("05078711189")
+                    .birthDate(LocalDate.of(2001, 1, 1))
+                    .gender(Gender.MALE)
+                    .build();
         }
 
         return userResponse;

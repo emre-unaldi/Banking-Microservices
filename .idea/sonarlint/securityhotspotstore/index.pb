@@ -139,3 +139,13 @@ Vaccount-service/src/main/java/unaldi/accountservice/utils/client/dto/UserRespon
 Vaccount-service/src/main/java/unaldi/accountservice/utils/client/dto/BankResponse.java,b\2\b2db7b6c065ce7b11de77e8255dc66faf43387fe
 Å
 Qaccount-service/src/test/java/unaldi/accountservice/mapper/AccountMapperTest.java,c\9\c94e5ee2576deb812fbab7043e3af2a5bc754514
+Å
+Qinvoice-service/src/test/java/unaldi/invoiceservice/mapper/InvoiceMapperTest.java,1\c\1ccaa9416746120b8c300e99ee2fb4404d7c257f
+w
+Ginvoice-service/src/main/java/unaldi/invoiceservice/entity/Invoice.java,2\1\219dd3ae3c56d09113f496d974d2fb0d4f427c47
+å
+\invoice-service/src/main/java/unaldi/invoiceservice/entity/request/InvoiceUpdateRequest.java,d\b\db38b97d6cfaa9151333253457a1608f4d313cfb
+ä
+Zinvoice-service/src/main/java/unaldi/invoiceservice/entity/request/InvoiceSaveRequest.java,9\5\954d7907dc40cc00a8171d9711a6d0f7838f0096
+Ü
+Vinvoice-service/src/main/java/unaldi/invoiceservice/utils/client/dto/UserResponse.java,c\8\c8b16aa9d1810c7716121e8ec61db957e3992d34

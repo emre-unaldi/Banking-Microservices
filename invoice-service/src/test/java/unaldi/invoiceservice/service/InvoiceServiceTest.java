@@ -1,5 +1,6 @@
 package unaldi.invoiceservice.service;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,27 +38,38 @@ import static org.mockito.Mockito.*;
  */
 @ExtendWith(MockitoExtension.class)
 class InvoiceServiceTest {
-    @Mock
-    InvoiceRepository invoiceRepository;
+    private static Invoice invoice;
+    private static List<Invoice> invoiceList;
+    private static InvoiceSaveRequest invoiceSaveRequest;
+    private static InvoiceUpdateRequest invoiceUpdateRequest;
+    private static UserResponse userResponse;
+    private static RestResponse<UserResponse> userRestResponse;
+    private final Long nonExistentInvoicedId = -1L;
 
+    @Mock
+    private InvoiceRepository invoiceRepository;
     @Mock
     private LogProducer logProducer;
-
     @Mock
     private UserServiceClient userServiceClient;
-
     @InjectMocks
     private InvoiceServiceImpl invoiceService;
 
+    @BeforeAll
+    static void setUp() {
+        invoice = ObjectFactory.getInstance().getInvoice();
+        invoiceList = ObjectFactory.getInstance().getInvoiceList();
+        invoiceSaveRequest = ObjectFactory.getInstance().getInvoiceSaveRequest();
+        invoiceUpdateRequest = ObjectFactory.getInstance().getInvoiceUpdateRequest();
+        userResponse = ObjectFactory.getInstance().getUserResponse();
+        userRestResponse = ObjectFactory.getInstance().getRestResponse(userResponse);
+    }
+
     @Test
     void givenInvoiceSaveRequest_whenSave_thenInvoiceShouldBeSaved() {
-        InvoiceSaveRequest invoiceSaveRequest = ObjectFactory.getInstance().getInvoiceSaveRequest();
-        Invoice invoice = ObjectFactory.getInstance().getInvoice();
-
         when(invoiceRepository.save(any(Invoice.class))).thenReturn(invoice);
 
         DataResult<InvoiceDTO> result = invoiceService.save(invoiceSaveRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.INVOICE_SAVE);
 
         verify(invoiceRepository, times(1)).save(any(Invoice.class));
@@ -66,14 +78,10 @@ class InvoiceServiceTest {
 
     @Test
     void givenInvoiceUpdateRequest_whenUpdate_thenInvoiceShouldBeUpdated() {
-        InvoiceUpdateRequest invoiceUpdateRequest = ObjectFactory.getInstance().getInvoiceUpdateRequest();
-        Invoice invoice = ObjectFactory.getInstance().getInvoice();
-
         when(invoiceRepository.existsById(invoiceUpdateRequest.id())).thenReturn(true);
         when(invoiceRepository.save(any(Invoice.class))).thenReturn(invoice);
 
         DataResult<InvoiceDTO> result = invoiceService.update(invoiceUpdateRequest);
-
         assertTrue(result.getSuccess(), FailTestMessages.INVOICE_UPDATE);
 
         verify(invoiceRepository, times(1)).existsById(anyLong());
@@ -83,12 +91,9 @@ class InvoiceServiceTest {
 
     @Test
     void givenInvoiceId_whenDeleteById_thenInvoiceShouldBeDeleted() {
-        Invoice invoice = ObjectFactory.getInstance().getInvoice();
-
         when(invoiceRepository.findById(invoice.getId())).thenReturn(Optional.of(invoice));
 
         Result result = invoiceService.deleteById(invoice.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.INVOICE_DELETE);
 
         verify(invoiceRepository, times(1)).deleteById(invoice.getId());
@@ -97,12 +102,9 @@ class InvoiceServiceTest {
 
     @Test
     void givenInvoiceId_whenFindById_thenInvoiceShouldBeFound() {
-        Invoice invoice = ObjectFactory.getInstance().getInvoice();
-
         when(invoiceRepository.findById(invoice.getId())).thenReturn(Optional.of(invoice));
 
         DataResult<InvoiceDTO> result = invoiceService.findById(invoice.getId());
-
         assertTrue(result.getSuccess(), FailTestMessages.INVOICE_FIND);
 
         verify(invoiceRepository, times(1)).findById(invoice.getId());
@@ -111,14 +113,9 @@ class InvoiceServiceTest {
 
     @Test
     void givenUserResponse_whenFindInvoiceUserByUserId_thenInvoiceUserShouldBeFound() {
-        UserResponse userResponse = ObjectFactory.getInstance().getUserResponse();
-        RestResponse<UserResponse> userRestResponse = ObjectFactory.getInstance().getRestResponse(userResponse);
-        ResponseEntity<RestResponse<UserResponse>> response = ResponseEntity.ok(userRestResponse);
-
-        when(userServiceClient.findById(userResponse.id())).thenReturn(response);
+        when(userServiceClient.findById(userResponse.id())).thenReturn(ResponseEntity.ok(userRestResponse));
 
         DataResult<UserResponse> result = invoiceService.findInvoiceUserByUserId(userResponse.id());
-
         assertTrue(result.getSuccess(), FailTestMessages.INVOICE_USER_FIND);
 
         verify(userServiceClient, times(1)).findById(userResponse.id());
@@ -127,12 +124,9 @@ class InvoiceServiceTest {
 
     @Test
     void givenInvoiceList_whenFindAll_thenAllInvoicesShouldBeReturned() {
-        List<Invoice> invoiceList = ObjectFactory.getInstance().getInvoiceList();
-
         when(invoiceRepository.findAll()).thenReturn(invoiceList);
 
         DataResult<List<InvoiceDTO>> result = invoiceService.findAll();
-
         assertTrue(result.getSuccess(), FailTestMessages.INVOICES_FIND);
 
         verify(invoiceRepository, times(1)).findAll();
@@ -141,8 +135,6 @@ class InvoiceServiceTest {
 
     @Test
     void givenNonExistentInvoicedUpdateRequest_whenUpdate_thenInvoiceNotFoundExceptionShouldBeThrown() {
-        InvoiceUpdateRequest invoiceUpdateRequest = ObjectFactory.getInstance().getInvoiceUpdateRequest();
-
         when(invoiceRepository.existsById(invoiceUpdateRequest.id())).thenReturn(false);
 
         assertThrows(InvoiceNotFoundException.class, () -> {
@@ -156,8 +148,6 @@ class InvoiceServiceTest {
 
     @Test
     void givenNonExistentInvoiceId_whenDeleteById_thenInvoiceNotFoundExceptionShouldBeThrown() {
-        Long nonExistentInvoicedId = -1L;
-
         when(invoiceRepository.findById(nonExistentInvoicedId)).thenReturn(Optional.empty());
 
         assertThrows(InvoiceNotFoundException.class, () -> {
@@ -171,8 +161,6 @@ class InvoiceServiceTest {
 
     @Test
     void givenNonExistentInvoiceId_whenFindById_thenInvoiceNotFoundExceptionShouldBeThrown() {
-        Long nonExistentInvoicedId = -1L;
-
         when(invoiceRepository.findById(nonExistentInvoicedId)).thenReturn(Optional.empty());
 
         assertThrows(InvoiceNotFoundException.class, () -> {
